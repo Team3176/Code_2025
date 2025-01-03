@@ -172,8 +172,8 @@ Code_2022.code-workspace
 ## WHO THE FUCK IS OVERWRITING THIS .githubignore.  When I find you, we gonna have a talk.
 
 # WPILib specific
-#BuildConstants.java
-#**/BuildConstants.java
+BuildConstants.java
+**/BuildConstants.java
 /src/main/java/team3176/robot/BuildConstants.java
 simgui-ds.json
 simgui-window.json
