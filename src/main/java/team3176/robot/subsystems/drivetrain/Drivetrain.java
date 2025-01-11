@@ -48,10 +48,8 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 import team3176.robot.Constants;
 import team3176.robot.Constants.Mode;
-import team3176.robot.FieldConstants;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.constants.SwervePodHardwareID;
-import team3176.robot.subsystems.superstructure.shooter.Shooter;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
 import team3176.robot.util.AllianceFlipUtil;
 import team3176.robot.util.LocalADStarAK;
@@ -147,7 +145,7 @@ public class Drivetrain extends SubsystemBase {
     this.io = io;
     this.pitchkP = new LoggedTunableNumber("drivetrain/pitchkP", 0.1);
     this.yawkP = new LoggedTunableNumber("drivetrain/yawkP", 0.07);
-    inputs = new GyroIOInputsAutoLogged();
+    //    inputs = new GyroIOInputsAutoLogged();
 
     // check for duplicates
     assert (!SwervePodHardwareID.check_duplicates_all(
@@ -437,16 +435,20 @@ public class Drivetrain extends SubsystemBase {
   /**
    * @return navx pitch -180 to 180 around the X axis of the Navx
    */
+  /*
   public double getChassisPitch() {
     return inputs.pitch;
   }
+  */
 
   /**
    * @return navx roll -180 to 180 around the X axis of the Navx
    */
+  /*
   public double getChassisRoll() {
     return inputs.roll;
   }
+  u/
 
   public void resetFieldOrientation() {
     Rotation2d redOrBlueZero = new Rotation2d();
