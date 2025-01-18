@@ -93,18 +93,8 @@ public class SuperStructureConstants {
   public static final double INDEXER_kg = 0.2;
   public static final double INDEXER_TOLERANCE = 3;
   public static final double INDEXER_ZERO_POS = 70;
-  public static final double INDEXER_MID_POS = ANGLER_ZERO_POS;
-  public static final double INDEXER_HIGH_POS = 70 + ANGLER_ZERO_POS;
-  public static final double INDEXER_SIM_OFFSET = 70 + ANGLER_ZERO_POS;
-  public static final double INDEXER_kP = 0.006;
-  public static final double INDEXER_kI = 0; // .0025
-  public static final double INDEXER_kD = 0; // .001
-  public static final double INDEXER_kg = 0.2;
-  public static final double INDEXER_TOLERANCE = 3;
-  public static final double INDEXER_ZERO_POS = 70;
-  public static final double INDEXER_MID_POS = ANGLER_ZERO_POS;
-  public static final double INDEXER_HIGH_POS = 70 + ANGLER_ZERO_POS;
-  public static final double INDEXER_SIM_OFFSET = 70 + ANGLER_ZERO_POS;
+  public static final double INDEXER_MID_POS = INDEXER_ZERO_POS;
+  public static final double INDEXER_HIGH_POS = 70 + INDEXER_ZERO_POS;
 
   public static final double SHOOTER_kP = 0.006;
   public static final double SHOOTER_kI = 0; // .0025
