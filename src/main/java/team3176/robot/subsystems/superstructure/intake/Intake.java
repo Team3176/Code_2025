@@ -80,7 +80,7 @@ public class Intake extends SubsystemBase {
       if (Constants.getMode() == Mode.REAL && Constants.getRobot() != RobotType.ROBOT_DEFENSE) {
         instance = new Intake(new IntakeIOTalon() {});
       } else {
-        instance = new Intake(new ArmIOSim() {});
+        instance = new Intake(new IntakeIOSim() {});
       }
     }
     return instance;

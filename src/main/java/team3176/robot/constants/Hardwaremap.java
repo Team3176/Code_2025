@@ -40,6 +40,7 @@ public class Hardwaremap {
   public static final String climbRight_CBN = "rio";
   public static final String elevatorLeft_CBN = "rio";
   public static final String elevatorRight_CBN = "rio";
+  public static final String indexerRoller_CBN = "rio";
 
   public static String PDH_CBN = "rio";
 

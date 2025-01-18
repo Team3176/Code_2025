@@ -78,7 +78,7 @@ public class Indexer extends SubsystemBase {
   public static Indexer getInstance() {
     if (instance == null) {
       if (Constants.getMode() == Mode.REAL && Constants.getRobot() != RobotType.ROBOT_DEFENSE) {
-        instance = new Indexer(new indexerIOTalon() {});
+        instance = new Indexer(new IndexerIOTalon() {});
       } else {
         instance = new Indexer(new IndexerIOSim() {});
       }

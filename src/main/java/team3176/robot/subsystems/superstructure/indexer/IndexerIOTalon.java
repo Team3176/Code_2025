@@ -16,7 +16,8 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.SparkPIDController;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -36,7 +37,7 @@ public class IndexerIOTalon implements IndexerIO {
   VoltageOut rollerVolts = new VoltageOut(0.0);
   VoltageOut pivotVolts = new VoltageOut(0.0);
   PositionVoltage voltPosition;
-  private SparkPIDController pivotPID;
+  private SparkClosedLoopController pivotPID;
 
   DigitalInput rollerLinebreak;
   DigitalInput pivotLinebreak;
@@ -175,7 +176,7 @@ public class IndexerIOTalon implements IndexerIO {
 
   @Override
   public void setPivotPIDPosition(double position) {
-    pivotPID.setReference(position, CANSparkBase.ControlType.kPosition);
+    pivotPID.setReference(position, SparkBase.ControlType.kPosition);
   }
 
   @Override

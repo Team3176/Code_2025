@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import org.littletonrobotics.junction.Logger;
 import team3176.robot.Constants;
-import team3176.robot.constants.SuperStructureConstants;
 
 /** Template hardware interface for a closed loop subsystem. */
 public class ArmIOSim implements ArmIO {
@@ -40,10 +39,7 @@ public class ArmIOSim implements ArmIO {
   public void updateInputs(ArmIOInputs inputs) {
     pivotSim.update(Constants.LOOP_PERIODIC_SECS);
     rollerSim.update(Constants.LOOP_PERIODIC_SECS);
-    inputs.pivotPosition =
-        Units.radiansToDegrees(pivotSim.getAngleRads())
-            + 90
-            + SuperStructureConstants.ARM_PIVOT_SIM_OFFSET;
+    inputs.pivotPosition = Units.radiansToDegrees(pivotSim.getAngleRads()) + 90;
     inputs.pivotVelocityRadPerSec = pivotSim.getVelocityRadPerSec();
     inputs.pivotAppliedVolts = appliedVolts;
     inputs.pivotAmpsStator = pivotSim.getCurrentDrawAmps();
