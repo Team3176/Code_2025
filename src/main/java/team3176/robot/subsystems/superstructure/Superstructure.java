@@ -16,9 +16,9 @@ public class Superstructure {
   }
   */
 
-  public Command getSourceNoteAuto() {
+  public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()
-        .goToPoint(FieldConstants.sourePickup)
+        .goToPoint(FieldConstants.CoralStation.leftCenterFace)
         // .andThen(Drivetrain.getInstance().chaseNote().raceWith(intakeNote()));
         .andThen(Drivetrain.getInstance().chaseNote());
   }

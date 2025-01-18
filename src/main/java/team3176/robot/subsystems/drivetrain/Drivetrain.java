@@ -48,6 +48,7 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 import team3176.robot.Constants;
 import team3176.robot.Constants.Mode;
+import team3176.robot.FieldConstants;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.constants.SwervePodHardwareID;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
@@ -500,12 +501,11 @@ public class Drivetrain extends SubsystemBase {
     Translation2d difference =
         (this.getPose()
             .getTranslation()
-            .minus(
-                AllianceFlipUtil.apply(
-                    FieldConstants.Speaker.centerSpeakerOpening.toTranslation2d())));
+            .minus(AllianceFlipUtil.apply(FieldConstants.Reef.centerFaces[0]).getTranslation()));
     return difference.getAngle();
   }
 
+  /*
   private Rotation2d getAimAngleFuture() {
     Translation2d difference =
         (this.getPoseFuture(Shooter.LOOKAHEAD_SEC)
@@ -515,12 +515,14 @@ public class Drivetrain extends SubsystemBase {
                     FieldConstants.Speaker.centerSpeakerOpening.toTranslation2d())));
     return difference.getAngle();
   }
+  */
 
   @AutoLogOutput
   public double aimErrorDegrees() {
     return Math.abs(getPose().getRotation().minus(getAimAngle()).getDegrees());
   }
 
+  /*
   private Rotation2d getAimAnglePass() {
     Translation2d difference =
         (this.getPose()
@@ -528,6 +530,7 @@ public class Drivetrain extends SubsystemBase {
             .minus(AllianceFlipUtil.apply(FieldConstants.passLocation.getTranslation())));
     return difference.getAngle();
   }
+  */
 
   public Command swerveDefenseCommand() {
     return this.runOnce(
@@ -641,6 +644,7 @@ public class Drivetrain extends SubsystemBase {
     return swerveDriveJoysticks(forward, strafe, spin, field, null);
   }
 
+  /*
   public Command driveAndAim(DoubleSupplier x, DoubleSupplier y) {
     return swerveDriveJoysticks(x, y, () -> 0.0, true, this::getAimAngleFuture);
   }
@@ -648,6 +652,7 @@ public class Drivetrain extends SubsystemBase {
   public Command driveAndAimPass(DoubleSupplier x, DoubleSupplier y) {
     return swerveDriveJoysticks(x, y, () -> 0.0, true, this::getAimAnglePass);
   }
+  */
 
   public Command goToPoint(int x, int y) {
     Pose2d targetPose = new Pose2d(x, y, Rotation2d.fromDegrees(180));

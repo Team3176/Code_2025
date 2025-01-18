@@ -1,7 +1,7 @@
 package team3176.robot.util.God;
 
-import com.revrobotics.spark.SparkLowLevel.PeriodicFrame;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.hal.CANData;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
@@ -56,9 +56,11 @@ public class SparkMaxDerivedVelocityController {
   public SparkMaxDerivedVelocityController(
       SparkMax sparkMax, double periodSeconds, int averagingTaps) {
     this.sparkMax = sparkMax;
-    sparkMax.getEncoder().setPositionConversionFactor(1.0);
+    SparkMaxConfig config = new SparkMaxConfig();
+
+    config.encoder.positionConversionFactor(1.0);
     int periodMs = (int) (periodSeconds * 1000);
-    sparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus2, periodMs);
+    config.signals.primaryEncoderPositionPeriodMs(periodMs);
 
     canInterface = new CAN(sparkMax.getDeviceId(), deviceManufacturer, deviceType);
     velocityFilter = LinearFilter.movingAverage(averagingTaps);

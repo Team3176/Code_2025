@@ -42,7 +42,7 @@ public class RobotContainer {
   // is this why we don't have a compressor? private final Compressor m_Compressor
   private Drivetrain drivetrain;
   private LEDSubsystem leds;
-  private Superstructure superstructure;
+  //  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
   private LoggedDashboardChooser<Command> autonChooser;
@@ -51,7 +51,7 @@ public class RobotContainer {
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < 20);
   private Trigger shooterOverride;
   private Trigger ampOverride;
-  private Trigger intakeOverride;
+  //  private Trigger intakeOverride;
   private Trigger visionOverride;
   private LEDS ledsRio;
 
@@ -59,7 +59,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-    superstructure = Superstructure.getInstance();
+    // superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 
     leds = LEDSubsystem.getInstance();
@@ -104,7 +104,7 @@ public class RobotContainer {
      */
     shooterOverride = controller.switchBox.button(1);
     ampOverride = controller.switchBox.button(2);
-    intakeOverride = controller.switchBox.button(3);
+    // intakeOverride = controller.switchBox.button(3);
     visionOverride = controller.switchBox.button(4);
     /*
      * Translation Stick

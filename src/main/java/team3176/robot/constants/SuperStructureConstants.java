@@ -46,6 +46,24 @@ public class SuperStructureConstants {
   public static final double CLIMBRIGHT_TOP_POS = 75 + CLIMBRIGHT_ZERO_POS;
   public static final double CLIMBRIGHT_SIM_OFFSET = 63 + CLIMBRIGHT_ZERO_POS;
 
+  public static final double ELEVATORLEFTj_kP = 0.006;
+  public static final double ELEVATORLEFT_kI = 0; // .0025
+  public static final double ELEVATORLEFT_kD = 0; // .001
+  public static final double ELEVATORLEFT_kg = 0.2;
+  public static final double ELEVATORLEFT_TOLERANCE = 3;
+  public static final double ELEVATORLEFT_ZERO_POS = 0.39;
+  public static final double ELEVATORLEFT_TOP_POS = 75 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_SIM_OFFSET = 63 + ELEVATORLEFT_ZERO_POS;
+
+  public static final double ELEVATORRIGHT_kP = 0.006;
+  public static final double ELEVATORRIGHT_kI = 0; // .0025
+  public static final double ELEVATORRIGHT_kD = 0; // .001
+  public static final double ELEVATORRIGHT_kg = 0.2;
+  public static final double ELEVATORRIGHT_TOLERANCE = 3;
+  public static final double ELEVATORRIGHT_ZERO_POS = 0.39;
+  public static final double ELEVATORRIGHT_TOP_POS = 75 + ELEVATORRIGHT_ZERO_POS;
+  public static final double ELEVATORRIGHT_SIM_OFFSET = 63 + ELEVATORRIGHT_ZERO_POS;
+
   public static final double INTAKE_PIVOT_kP = 0.006;
   public static final double INTAKE_PIVOT_kI = 0; // .0025
   public static final double INTAKE_PIVOT_kD = 0; // .001
@@ -69,15 +87,24 @@ public class SuperStructureConstants {
   public static final double TRANSFER_kg = 0.2;
   public static final double TRANSFER_TOLERANCE = 3;
 
-  public static final double ANGLER_kP = 0.006;
-  public static final double ANGLER_kI = 0; // .0025
-  public static final double ANGLER_kD = 0; // .001
-  public static final double ANGLER_kg = 0.2;
-  public static final double ANGLER_TOLERANCE = 3;
-  public static final double ANGLER_ZERO_POS = 70;
-  public static final double ANGLER_MID_POS = ANGLER_ZERO_POS;
-  public static final double ANGLER_HIGH_POS = 70 + ANGLER_ZERO_POS;
-  public static final double ANGLER_SIM_OFFSET = 70 + ANGLER_ZERO_POS;
+  public static final double INDEXER_kP = 0.006;
+  public static final double INDEXER_kI = 0; // .0025
+  public static final double INDEXER_kD = 0; // .001
+  public static final double INDEXER_kg = 0.2;
+  public static final double INDEXER_TOLERANCE = 3;
+  public static final double INDEXER_ZERO_POS = 70;
+  public static final double INDEXER_MID_POS = ANGLER_ZERO_POS;
+  public static final double INDEXER_HIGH_POS = 70 + ANGLER_ZERO_POS;
+  public static final double INDEXER_SIM_OFFSET = 70 + ANGLER_ZERO_POS;
+  public static final double INDEXER_kP = 0.006;
+  public static final double INDEXER_kI = 0; // .0025
+  public static final double INDEXER_kD = 0; // .001
+  public static final double INDEXER_kg = 0.2;
+  public static final double INDEXER_TOLERANCE = 3;
+  public static final double INDEXER_ZERO_POS = 70;
+  public static final double INDEXER_MID_POS = ANGLER_ZERO_POS;
+  public static final double INDEXER_HIGH_POS = 70 + ANGLER_ZERO_POS;
+  public static final double INDEXER_SIM_OFFSET = 70 + ANGLER_ZERO_POS;
 
   public static final double SHOOTER_kP = 0.006;
   public static final double SHOOTER_kI = 0; // .0025
