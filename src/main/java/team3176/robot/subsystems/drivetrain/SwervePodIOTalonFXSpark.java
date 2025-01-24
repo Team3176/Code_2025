@@ -24,7 +24,7 @@ import team3176.robot.Constants;
 import team3176.robot.Constants.RobotType;
 import team3176.robot.constants.SwervePodHardwareID;
 
-public class SwervePodIOFalconSpark implements SwervePodIO {
+public class SwervePodIOTalonFXSpark implements SwervePodIO {
   private static final double AZIMUTH_GEAR_RATIO =
       70.0 / 1.0; // Is the Versa gearbox btwn motor & encoder
   public static final double THRUST_GEAR_RATIO = (14.0 / 22.0) * (15.0 / 45.0);
@@ -37,7 +37,7 @@ public class SwervePodIOFalconSpark implements SwervePodIO {
   // private final VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new
   // VelocityTorqueCurrentFOC(0).withUpdateFreqHz(0);
   private final VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new VelocityTorqueCurrentFOC(0);
-  private TalonFX thrustFalcon;
+  private TalonFX thrustTalonFX;
   private CANcoder azimuthEncoder;
 
   private Rotation2d offset;
@@ -65,39 +65,39 @@ public class SwervePodIOFalconSpark implements SwervePodIO {
   // public static final double FEET2TICS = 12.0 * (1.0/ (DrivetrainConstants.WHEEL_DIAMETER_INCHES
   // * Math.PI)) * (1.0 /DrivetrainConstants.THRUST_GEAR_RATIO) *
   // DrivetrainConstants.THRUST_ENCODER_UNITS_PER_REVOLUTION;
-  public SwervePodIOFalconSpark(SwervePodHardwareID id, int sparkMaxID) {
+  public SwervePodIOTalonFXSpark(SwervePodHardwareID id, int sparkMaxID) {
     this.id = id.SERIAL;
     turnTalonFX = new TalonFX(id.AZIMUTH_CID, id.AZIMUTH_CBN);
     // turnSparkMax = new CANSparkMax(sparkMaxID, MotorType.kBrushless);
-    thrustFalcon = new TalonFX(id.THRUST_CID, id.THRUST_CBN);
+    thrustTalonFX = new TalonFX(id.THRUST_CID, id.THRUST_CBN);
     azimuthEncoder = new CANcoder(id.CANCODER_CID, id.CANCODER_CBN);
 
     offset = Rotation2d.fromDegrees(id.OFFSET);
     // reset the motor controllers
-    // thrustFalcon.configFactoryDefault();
+    // thrustTalonFX.configFactoryDefault();
     // turnSparkMax.restoreFactoryDefaults();
-    var thrustFalconConfig = new TalonFXConfiguration();
+    var thrustTalonFXConfig = new TalonFXConfiguration();
 
-    thrustFalconConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    thrustFalconConfig.TorqueCurrent.PeakForwardTorqueCurrent = 80;
-    thrustFalconConfig.TorqueCurrent.PeakReverseTorqueCurrent = -80;
-    thrustFalconConfig.ClosedLoopRamps.TorqueClosedLoopRampPeriod = 0.02;
-    // thrustFalconConfig.Feedback.SensorToMechanismRatio = (1.0 / THRUST_GEAR_RATIO);
-    // thrustFalconConfig.CurrentLimits.StatorCurrentLimit = 40;
-    // thrustFalconConfig.CurrentLimits.StatorCurrentLimitEnable = true;
-    // thrustFalconConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
+    thrustTalonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    thrustTalonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = 80;
+    thrustTalonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = -80;
+    thrustTalonFXConfig.ClosedLoopRamps.TorqueClosedLoopRampPeriod = 0.02;
+    // thrustTalonFXConfig.Feedback.SensorToMechanismRatio = (1.0 / THRUST_GEAR_RATIO);
+    // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimit = 40;
+    // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+    // thrustTalonFXConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
 
-    thrustFalconConfig.Slot0.kP = 0.2;
-    thrustFalconConfig.Slot0.kI = 0.0;
-    thrustFalconConfig.Slot0.kD = 0.0;
-    thrustFalconConfig.Slot0.kV = 0.12;
+    thrustTalonFXConfig.Slot0.kP = 0.2;
+    thrustTalonFXConfig.Slot0.kI = 0.0;
+    thrustTalonFXConfig.Slot0.kD = 0.0;
+    thrustTalonFXConfig.Slot0.kV = 0.12;
     thrustVelocity.Slot = 0;
 
-    thrustFalconConfig.Slot1.kP = 5.0;
-    thrustFalconConfig.Slot1.kI = 0;
-    thrustFalconConfig.Slot1.kD = 0.001;
+    thrustTalonFXConfig.Slot1.kP = 5.0;
+    thrustTalonFXConfig.Slot1.kI = 0;
+    thrustTalonFXConfig.Slot1.kD = 0.001;
 
-    thrustFalcon.getConfigurator().apply(thrustFalconConfig);
+    thrustTalonFX.getConfigurator().apply(thrustTalonFXConfig);
 
     var turnTalonFXConfig = new TalonFXConfiguration();
     turnTalonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
@@ -127,12 +127,12 @@ public class SwervePodIOFalconSpark implements SwervePodIO {
 
     azimuthEncoder.getConfigurator().apply(azimuthEncoderConfig);
 
-    drivePosition = thrustFalcon.getPosition();
-    driveVelocity = thrustFalcon.getVelocity();
-    driveAppliedVolts = thrustFalcon.getMotorVoltage();
-    driveCurrentStator = thrustFalcon.getStatorCurrent();
-    driveCurrentSupply = thrustFalcon.getSupplyCurrent();
-    driveTemps = thrustFalcon.getDeviceTemp();
+    drivePosition = thrustTalonFX.getPosition();
+    driveVelocity = thrustTalonFX.getVelocity();
+    driveAppliedVolts = thrustTalonFX.getMotorVoltage();
+    driveCurrentStator = thrustTalonFX.getStatorCurrent();
+    driveCurrentSupply = thrustTalonFX.getSupplyCurrent();
+    driveTemps = thrustTalonFX.getDeviceTemp();
 
     turnPosition = turnTalonFX.getPosition();
     turnVelocity = turnTalonFX.getVelocity();
@@ -147,12 +147,12 @@ public class SwervePodIOFalconSpark implements SwervePodIO {
         SwervePod.ODOMETRY_FREQUENCY, drivePosition, turnAbsolutePosition);
     BaseStatusSignal.setUpdateFrequencyForAll(
         50.0, driveVelocity, driveAppliedVolts, driveCurrentStator, driveCurrentSupply, driveTemps);
-    thrustFalcon.optimizeBusUtilization();
+    thrustTalonFX.optimizeBusUtilization();
 
     timestampQueue = PhoenixOdometryThread.getInstance().makeTimestampQueue();
     drivePositionQueue =
         PhoenixOdometryThread.getInstance()
-            .registerSignal(thrustFalcon, thrustFalcon.getPosition());
+            .registerSignal(thrustTalonFX, thrustTalonFX.getPosition());
     turnPositionQueue =
         PhoenixOdometryThread.getInstance()
             .registerSignal(azimuthEncoder, azimuthEncoder.getAbsolutePosition());
@@ -225,9 +225,9 @@ public class SwervePodIOFalconSpark implements SwervePodIO {
     double velRotationsPerSec =
         velMetersPerSecond * (1.0 / (SwervePod.WHEEL_DIAMETER * Math.PI)) * 1.0 / THRUST_GEAR_RATIO;
     if (Constants.getRobot() == RobotType.ROBOT_2024C) {
-      thrustFalcon.setControl(velocityTorqueCurrentFOC.withVelocity(velRotationsPerSec));
+      thrustTalonFX.setControl(velocityTorqueCurrentFOC.withVelocity(velRotationsPerSec));
     } else {
-      thrustFalcon.setControl(thrustVelocity.withVelocity(velRotationsPerSec));
+      thrustTalonFX.setControl(thrustVelocity.withVelocity(velRotationsPerSec));
     }
   }
 
@@ -241,9 +241,9 @@ public class SwervePodIOFalconSpark implements SwervePodIO {
   @Override
   public void setDriveBrakeMode(boolean enable) {
     if (enable) {
-      thrustFalcon.setNeutralMode(NeutralModeValue.Brake);
+      thrustTalonFX.setNeutralMode(NeutralModeValue.Brake);
     } else {
-      thrustFalcon.setNeutralMode(NeutralModeValue.Coast);
+      thrustTalonFX.setNeutralMode(NeutralModeValue.Coast);
     }
   }
 

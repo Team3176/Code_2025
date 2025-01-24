@@ -15,8 +15,8 @@ import team3176.robot.Constants;
 public class SwervePodIOSim implements SwervePodIO {
   private FlywheelSim driveSim =
       new FlywheelSim(
-          LinearSystemId.createFlywheelSystem(DCMotor.getFalcon500(1), 0.025, 4.714),
-          DCMotor.getFalcon500(1).withReduction(4.714),
+          LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(1), 0.025, 4.714),
+          DCMotor.getKrakenX60(1).withReduction(4.714),
           0.0);
   private FlywheelSim turnSim =
       new FlywheelSim(

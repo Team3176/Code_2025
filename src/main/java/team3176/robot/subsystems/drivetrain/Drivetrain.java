@@ -156,33 +156,21 @@ public class Drivetrain extends SubsystemBase {
       switch (Constants.getRobot()) {
         case ROBOT_2024C:
           System.out.println("[init] normal swervePods");
-          podFR =
-              new SwervePod(
-                  0, new SwervePodIOFalconSpark(Hardwaremap.FR, Hardwaremap.STEER_FR_CID));
-          podFL =
-              new SwervePod(
-                  1, new SwervePodIOFalconSpark(Hardwaremap.FL, Hardwaremap.STEER_FL_CID));
-          podBL =
-              new SwervePod(
-                  2, new SwervePodIOFalconSpark(Hardwaremap.BL, Hardwaremap.STEER_BL_CID));
-          podBR =
-              new SwervePod(
-                  3, new SwervePodIOFalconSpark(Hardwaremap.BR, Hardwaremap.STEER_BR_CID));
+          podFR = new SwervePod(0, new SwervePodIOTalon(Hardwaremap.FR, Hardwaremap.STEER_FR_CID));
+          podFL = new SwervePod(1, new SwervePodIOTalon(Hardwaremap.FL, Hardwaremap.STEER_FL_CID));
+          podBL = new SwervePod(2, new SwervePodIOTalon(Hardwaremap.BL, Hardwaremap.STEER_BL_CID));
+          podBR = new SwervePod(3, new SwervePodIOTalon(Hardwaremap.BR, Hardwaremap.STEER_BR_CID));
           break;
         case ROBOT_DEFENSE:
           System.out.println("[init] normal swervePods");
           podFR =
-              new SwervePod(
-                  0, new SwervePodIOFalconSpark(Hardwaremap.POD001, Hardwaremap.STEER_FR_CID));
+              new SwervePod(0, new SwervePodIOTalon(Hardwaremap.POD001, Hardwaremap.STEER_FR_CID));
           podFL =
-              new SwervePod(
-                  1, new SwervePodIOFalconSpark(Hardwaremap.POD002, Hardwaremap.STEER_FL_CID));
+              new SwervePod(1, new SwervePodIOTalon(Hardwaremap.POD002, Hardwaremap.STEER_FL_CID));
           podBL =
-              new SwervePod(
-                  2, new SwervePodIOFalconSpark(Hardwaremap.POD003, Hardwaremap.STEER_BL_CID));
+              new SwervePod(2, new SwervePodIOTalon(Hardwaremap.POD003, Hardwaremap.STEER_BL_CID));
           podBR =
-              new SwervePod(
-                  3, new SwervePodIOFalconSpark(Hardwaremap.POD004, Hardwaremap.STEER_BR_CID));
+              new SwervePod(3, new SwervePodIOTalon(Hardwaremap.POD004, Hardwaremap.STEER_BR_CID));
           break;
         case CTRL_BOARD:
         case ROBOT_SIMBOT:
@@ -234,7 +222,7 @@ public class Drivetrain extends SubsystemBase {
       // Handle exception as needed
       config =
           new RobotConfig(
-              1, 1, new ModuleConfig(1.0, 1.0, 1.0, DCMotor.getFalcon500(1), 1.0, 1), 1.0);
+              1, 1, new ModuleConfig(1.0, 1.0, 1.0, DCMotor.getKrakenX60(1), 1.0, 1), 1.0);
       e.printStackTrace();
     }
     AutoBuilder.configure(
