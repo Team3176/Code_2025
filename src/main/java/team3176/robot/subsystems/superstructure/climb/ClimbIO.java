@@ -15,15 +15,15 @@ public interface ClimbIO {
   @AutoLog
   public static class ClimbIOInputs {
     public double leftPosition = 0.0;
-    public double rightPosition = 0.0;
+    // public double rightPosition = 0.0;
     public double leftError = 0.0;
-    public double rightError = 0.0;
+    // public double rightError = 0.0;
     public double leftVolts = 0.0;
-    public double rightVolts = 0.0;
+    // public double rightVolts = 0.0;
     public double leftAmpsStator = 0.0;
-    public double rightAmpsStator = 0.0;
+    // public double rightAmpsStator = 0.0;
     public boolean isLeftLimitswitch = true;
-    public boolean isRightLimitswitch = true;
+    // public boolean isRightLimitswitch = true;
 
     // constructor if needed for some inputs
     ClimbIOInputs() {}
@@ -34,11 +34,11 @@ public interface ClimbIO {
 
   public default void setLeft(double percentOutput) {}
 
-  public default void setRight(double percentOutput) {}
+  // public default void setRight(double percentOutput) {}
 
   public default void setLeftPIDPosition(double rotations) {}
 
-  public default void setRightPIDPosition(double rotations) {}
+  // public default void setRightPIDPosition(double rotations) {}
 
   public default void setClimbVoltage(double voltage) {}
 
@@ -54,7 +54,7 @@ public interface ClimbIO {
 
   public default void setLeftVoltage(double voltage) {}
 
-  public default void setRightVoltage(double voltage) {}
+  // public default void setRightVoltage(double voltage) {}
 
   public default void setClimbVoltge(double voltage) {}
 
