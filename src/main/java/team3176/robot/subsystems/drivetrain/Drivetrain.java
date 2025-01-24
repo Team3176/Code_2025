@@ -146,7 +146,7 @@ public class Drivetrain extends SubsystemBase {
     this.io = io;
     this.pitchkP = new LoggedTunableNumber("drivetrain/pitchkP", 0.1);
     this.yawkP = new LoggedTunableNumber("drivetrain/yawkP", 0.07);
-    //    inputs = new GyroIOInputsAutoLogged();
+    inputs = new GyroIOInputsAutoLogged();
 
     // check for duplicates
     assert (!SwervePodHardwareID.check_duplicates_all(
@@ -173,16 +173,16 @@ public class Drivetrain extends SubsystemBase {
           System.out.println("[init] normal swervePods");
           podFR =
               new SwervePod(
-                  0, new SwervePodIOFalconSpark(Hardwaremap.POD006, Hardwaremap.STEER_FR_CID));
+                  0, new SwervePodIOFalconSpark(Hardwaremap.POD001, Hardwaremap.STEER_FR_CID));
           podFL =
               new SwervePod(
-                  1, new SwervePodIOFalconSpark(Hardwaremap.POD001, Hardwaremap.STEER_FL_CID));
+                  1, new SwervePodIOFalconSpark(Hardwaremap.POD002, Hardwaremap.STEER_FL_CID));
           podBL =
               new SwervePod(
-                  2, new SwervePodIOFalconSpark(Hardwaremap.POD009, Hardwaremap.STEER_BL_CID));
+                  2, new SwervePodIOFalconSpark(Hardwaremap.POD003, Hardwaremap.STEER_BL_CID));
           podBR =
               new SwervePod(
-                  3, new SwervePodIOFalconSpark(Hardwaremap.POD003, Hardwaremap.STEER_BR_CID));
+                  3, new SwervePodIOFalconSpark(Hardwaremap.POD004, Hardwaremap.STEER_BR_CID));
           break;
         case CTRL_BOARD:
         case ROBOT_SIMBOT:
