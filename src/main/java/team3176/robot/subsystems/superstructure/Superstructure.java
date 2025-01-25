@@ -14,7 +14,9 @@ public class Superstructure {
     arm = Arm.getInstance();
   }
 
-  
+  public Command grabCoral() {
+    return arm.spinArm();
+  }
 
   public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()

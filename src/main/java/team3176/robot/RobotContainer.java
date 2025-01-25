@@ -42,7 +42,7 @@ public class RobotContainer {
   // is this why we don't have a compressor? private final Compressor m_Compressor
   private Drivetrain drivetrain;
   private LEDSubsystem leds;
-  //  private Superstructure superstructure;
+  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
   private LoggedDashboardChooser<Command> autonChooser;
@@ -59,9 +59,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-    // superstructure = Superstructure.getInstance();
+    superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
-
     leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
     endMatchAlert.onTrue(leds.EndgameStart());
@@ -117,6 +116,10 @@ public class RobotContainer {
                     () -> controller.getSpin() * 1.5)
                 .withName("boost drive"));
 
+    /*
+     *  Trans Stick
+     */
+
     controller
         .transStick
         .button(5)
@@ -138,6 +141,14 @@ public class RobotContainer {
      * Operator
      */
 
+    controller
+        .operator
+        .x()
+        .whileTrue(superstructure.grabCoral());
+
+    /*
+     * Switch Box
+     */
     controller
         .switchBox
         .button(5)
