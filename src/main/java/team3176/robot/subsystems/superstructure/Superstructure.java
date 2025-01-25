@@ -4,17 +4,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team3176.robot.FieldConstants;
 // import java.util.function.IntSupplier;
 import team3176.robot.subsystems.drivetrain.Drivetrain;
+import team3176.robot.subsystems.superstructure.arm.Arm;
 
 public class Superstructure {
   private static Superstructure instance;
+  private Arm arm;
 
-  public Superstructure() {}
-
-  /*
-  public Command climbDown() {
-    return climb.moveLeftRightPosition(0, 0);
+  public Superstructure() {
+    arm = Arm.getInstance();
   }
-  */
+
+  
 
   public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()

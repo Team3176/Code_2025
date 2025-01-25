@@ -104,15 +104,8 @@ public class RobotContainer {
      */
     shooterOverride = controller.switchBox.button(1);
     ampOverride = controller.switchBox.button(2);
-    // intakeOverride = controller.switchBox.button(3);
     visionOverride = controller.switchBox.button(4);
-    /*
-     * Translation Stick
-     */
-    /*     controller
-    .transStick
-    .button(1)
-    .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE)); */
+
     controller
         .transStick
         .button(1)
@@ -124,19 +117,10 @@ public class RobotContainer {
                     () -> controller.getSpin() * 1.5)
                 .withName("boost drive"));
 
-    /*
-        controller
+    controller
         .transStick
-        .button(4)
-        .whileTrue(
-            drivetrain
-                .chaseNoteTeleo(
-                    () -> controller.getForward(),
-                    () -> controller.getStrafe(),
-                    () -> controller.getSpin())
-                .alongWith(superstructure.intakeNote()));
-    */
-    controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
+        .button(5)
+        .onTrue(drivetrain.resetPoseToVisionCommand());
     controller
         .transStick
         .button(10)
@@ -153,14 +137,6 @@ public class RobotContainer {
     /*
      * Operator
      */
-    /*
-    controller
-        .operator
-        .rightBumper()
-        .whileTrue(superstructure.moveClimbRightPosition(() -> controller.operator.getRightY()))
-        .onFalse(superstructure.stopClimbRight());
-        */
-    // controller.operator.povDown().onTrue(superstructure.intakeNote());
 
     controller
         .switchBox

@@ -17,16 +17,12 @@ public class Arm extends SubsystemBase {
   private static Arm instance;
   private final ArmIO io;
   private final ArmIOInputsAutoLogged inputs = new ArmIOInputsAutoLogged();
-  private final LoggedTunableNumber deployPivotVolts;
   private final LoggedTunableNumber rollerVolts;
-  private final LoggedTunableNumber retractPivotVolts;
-  private final LoggedTunableNumber waitTime;
   private final TunablePID pivotPID;
   private Timer deployTime = new Timer();
   private double pivotSetpoint;
   private final double DEPLOY_POS = 2.1;
   private double pivot_offset = 0;
-  private InterpolatingDoubleTreeMap kG = new InterpolatingDoubleTreeMap();
   private boolean ishomed = false;
   private double lastRollerSpeed = 0.0;
 
@@ -34,7 +30,7 @@ public class Arm extends SubsystemBase {
     DEPLOY,
     RETRACT,
     IDLE,
-    HOLD
+    HOLD,
   };
 
   private pivotStates pivotState = pivotStates.HOLD;
@@ -43,26 +39,7 @@ public class Arm extends SubsystemBase {
   private Arm(ArmIO io) {
     this.io = io;
     this.pivotPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
-    this.deployPivotVolts = new LoggedTunableNumber("Arm/rollerDeployVolts", 0);
     this.rollerVolts = new LoggedTunableNumber("Arm/rollerVolts", 7.0);
-    this.retractPivotVolts = new LoggedTunableNumber("Arm/rollerRetractVolts", 0);
-    this.waitTime = new LoggedTunableNumber("Arm/waitTime", 0);
-  }
-
-  public Command EmergencyHold() {
-    return this.runEnd(() -> io.setPivotVolts(-2.5), () -> io.setPivotVolts(0.0));
-  }
-
-  public Command manualDown() {
-    return this.runEnd(
-        () -> {
-          io.setPivotVolts(2.5);
-          io.setRollerVolts(4.0);
-        },
-        () -> {
-          io.setPivotVolts(0.0);
-          io.setRollerVolts(0);
-        });
   }
 
   private void runPivot(double volts) {
@@ -71,9 +48,6 @@ public class Arm extends SubsystemBase {
     io.setPivotVolts(volts);
   }
 
-  private boolean rollerSwitch() {
-    return lastRollerSpeed - inputs.rollerVelocityRadPerSec > 15.0;
-  }
 
   public static Arm getInstance() {
     if (instance == null) {
@@ -87,45 +61,25 @@ public class Arm extends SubsystemBase {
   }
 
   // Example command to show how to set the pivot state
-  public Command deployPivot() {
+  public Command reefLevelPivot (double reefLevel)
+  {
     return this.runOnce(
-        () -> {
-          this.pivotSetpoint = DEPLOY_POS;
-          deployTime.restart();
-        });
+      () -> {
+        this.pivotSetpoint = reefLevel;
+        deployTime.restart();
+      });
   }
 
   public Command retractPivot() {
     return this.runOnce(() -> this.pivotSetpoint = 0.0);
   }
 
-  public Command climbArm() {
-    return this.runOnce(() -> this.pivotSetpoint = 0.45);
-  }
-
   public Command spinArm() {
     return this.runEnd(() -> io.setRollerVolts(rollerVolts.get()), () -> io.setRollerVolts(0));
   }
 
-  public Command spinArmRollersSlow() {
-    return this.runEnd(() -> io.setRollerVolts(rollerVolts.get() / 2), () -> io.setRollerVolts(0));
-  }
-
   public Command stopRollers() {
     return this.runOnce(() -> io.setRollerVolts(0));
-  }
-  /*
-   * this can be much simpler than before just needs to spin the Arm and retract when done.
-   * keep the high level logic up in superstructure
-   */
-  public Command ArmNote() {
-    return (deployPivot()
-        .andThen(spinArm())
-        .finallyDo(
-            () -> {
-              this.pivotSetpoint = 0.0;
-              io.setRollerVolts(0.0);
-            }));
   }
 
   // TODO: might need to deploy the Arm during a spit but maybe not
