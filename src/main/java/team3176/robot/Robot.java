@@ -177,7 +177,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void disabledPeriodic() {
-    robotContainer.checkAutonomousSelection();
+    // robotContainer.checkAutonomousSelection();
     robotContainer.checkAllaince();
   }
 
@@ -185,7 +185,7 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     robotContainer.clearCanFaults();
     //    robotContainer.setThrustBrake();
-    autonomousCommand = robotContainer.getAutonomousCommand();
+    // autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {

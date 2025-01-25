@@ -146,7 +146,7 @@ public class Drivetrain extends SubsystemBase {
     this.io = io;
     this.pitchkP = new LoggedTunableNumber("drivetrain/pitchkP", 0.1);
     this.yawkP = new LoggedTunableNumber("drivetrain/yawkP", 0.07);
-    //    inputs = new GyroIOInputsAutoLogged();
+    inputs = new GyroIOInputsAutoLogged();
 
     // check for duplicates
     assert (!SwervePodHardwareID.check_duplicates_all(

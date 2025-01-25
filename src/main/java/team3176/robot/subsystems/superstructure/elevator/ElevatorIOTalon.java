@@ -84,7 +84,7 @@ public class ElevatorIOTalon implements ElevatorIO {
     // SuperStructureConstants.ELEVATORRIGHT_ZERO_POS;
     // configsRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     TalonUtils.applyTalonFxConfigs(elevatorLeftLeader, configsLeft);
-    TalonUtils.applyTalonFxConfigs(elevatorRightFollower, configsRight);
+    // TalonUtils.applyTalonFxConfigs(elevatorRightFollower, configsRight);
     // elevatorLeftLeader.setInverted(true);
     // elevatorRightFollower.setInverted(false);
 

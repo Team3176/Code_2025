@@ -122,7 +122,7 @@ public class Elevator extends SubsystemBase {
         () -> io.setLeftVoltage(0.0));
   }
 
-  public Command moveLeftRightPosition(DoubleSupplier deltaLeft, DoubleSupplier deltaRight) {
+  public Command moveLeftRightPosition(invalid deltaLeft, invalid deltaRight) {
     return this.runEnd(
         () -> {
           //        io.setRightVoltage(5 * deltaRight.getAsDouble());
@@ -178,4 +178,19 @@ public class Elevator extends SubsystemBase {
     }
     return instance;
   }
+
+  public Command moveLeftPosition(invalid i, invalid j) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'moveLeftPosition'");
+  }
+
+  public Command moveLeftPosition(int i) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'moveLeftPosition'");
+  }
+
+public Command moveLeftRightPosition(Object deltaLeft, Object deltaRight) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'moveLeftRightPosition'");
+}
 }
