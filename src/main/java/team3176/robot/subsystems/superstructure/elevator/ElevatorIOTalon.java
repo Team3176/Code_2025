@@ -32,24 +32,25 @@ public class ElevatorIOTalon implements ElevatorIO {
   NeutralOut brake;
   DigitalInput elevatorLBLimitswitch, elevatorRBLimitswitch;
   TalonFXConfiguration configsLeft, configsRight;
-  private final StatusSignal<Angle> rightPosition;
+  // private final StatusSignal<Angle> rightPosition;
   private final StatusSignal<Angle> leftPosition;
-  private final StatusSignal<Double> rightError;
+  // private final StatusSignal<Double> rightError;
   private final StatusSignal<Double> leftError;
-  private final StatusSignal<Voltage> rightVolts;
+  // private final StatusSignal<Voltage> rightVolts;
   private final StatusSignal<Voltage> leftVolts;
-  private final StatusSignal<Current> rightAmps;
+  // private final StatusSignal<Current> rightAmps;
   private final StatusSignal<Current> leftAmps;
 
   public ElevatorIOTalon() {
     configsLeft = new TalonFXConfiguration();
-    configsRight = new TalonFXConfiguration();
+    // configsRight = new TalonFXConfiguration();
     brake = new NeutralOut();
     voltPosition = new PositionVoltage(0);
     elevatorLBLimitswitch = new DigitalInput(Hardwaremap.elevatorLBLimitSwitch_DIO);
     elevatorRBLimitswitch = new DigitalInput(Hardwaremap.elevatorRBLimitSwitch_DIO);
     elevatorLeftLeader = new TalonFX(Hardwaremap.elevatorLeft_CID, Hardwaremap.elevatorLeft_CBN);
-    elevatorRightFollower = new TalonFX(Hardwaremap.elevatorRight_CID, Hardwaremap.elevatorRight_CBN);
+    elevatorRightFollower =
+        new TalonFX(Hardwaremap.elevatorRight_CID, Hardwaremap.elevatorRight_CBN);
     elevatorLeftLeader.getConfigurator().apply(configsLeft);
     elevatorRightFollower.getConfigurator().apply(configsLeft);
     elevatorRightFollower.setControl(new Follower(elevatorLeftLeader.getDeviceID(), false));
@@ -69,31 +70,31 @@ public class ElevatorIOTalon implements ElevatorIO {
         SuperStructureConstants.ELEVATORLEFT_ZERO_POS;
     configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    configsRight.Slot0.kP = 2.4; // An error of 1 rotations results in 40 amps output
-    configsRight.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
-    configsRight.Slot0.kD = 0.0; // A change of 1 rotation per second results in 0.1 volts output
-    configsRight.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
+    // configsRight.Slot0.kP = 2.4; // An error of 1 rotations results in 40 amps output
+    // configsRight.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
+    // configsRight.Slot0.kD = 0.0; // A change of 1 rotation per second results in 0.1 volts output
+    // configsRight.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     // configsRight.Voltage.PeakForwardVoltage = 8;
     // configsRight.Voltage.PeakReverseVoltage = -8;
-    configsRight.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    configsRight.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-        SuperStructureConstants.ELEVATORRIGHT_TOP_POS;
-    configsRight.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    configsRight.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
-        SuperStructureConstants.ELEVATORRIGHT_ZERO_POS;
-    configsRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    // configsRight.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    // configsRight.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
+    // SuperStructureConstants.ELEVATORRIGHT_TOP_POS;
+    // configsRight.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    // configsRight.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
+    // SuperStructureConstants.ELEVATORRIGHT_ZERO_POS;
+    // configsRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     TalonUtils.applyTalonFxConfigs(elevatorLeftLeader, configsLeft);
     TalonUtils.applyTalonFxConfigs(elevatorRightFollower, configsRight);
-    elevatorLeftLeader.setInverted(true);
-    elevatorRightFollower.setInverted(false);
+    // elevatorLeftLeader.setInverted(true);
+    // elevatorRightFollower.setInverted(false);
 
     leftPosition = elevatorLeftLeader.getPosition();
-    rightPosition = elevatorRightFollower.getPosition();
-    rightError = elevatorRightFollower.getClosedLoopError();
+    // rightPosition = elevatorRightFollower.getPosition();
+    // rightError = elevatorRightFollower.getClosedLoopError();
     leftError = elevatorLeftLeader.getClosedLoopError();
-    rightAmps = elevatorRightFollower.getStatorCurrent();
+    // rightAmps = elevatorRightFollower.getStatorCurrent();
     leftAmps = elevatorLeftLeader.getStatorCurrent();
-    rightVolts = elevatorRightFollower.getMotorVoltage();
+    // rightVolts = elevatorRightFollower.getMotorVoltage();
     leftVolts = elevatorLeftLeader.getMotorVoltage();
 
     elevatorRightFollower.setPosition(0);
@@ -101,12 +102,12 @@ public class ElevatorIOTalon implements ElevatorIO {
     BaseStatusSignal.setUpdateFrequencyForAll(
         50,
         leftPosition,
-        rightPosition,
-        rightError,
+        // rightPosition,
+        // rightError,
         leftError,
-        rightAmps,
+        // rightAmps,
         leftAmps,
-        rightVolts,
+        // rightVolts,
         leftVolts);
     elevatorLeftLeader.optimizeBusUtilization();
     elevatorRightFollower.optimizeBusUtilization();
@@ -116,22 +117,22 @@ public class ElevatorIOTalon implements ElevatorIO {
   public void updateInputs(ElevatorIOInputs inputs) {
     BaseStatusSignal.refreshAll(
         leftPosition,
-        rightPosition,
-        rightError,
+        // rightPosition,
+        // rightError,
         leftError,
-        rightAmps,
+        // rightAmps,
         leftAmps,
-        rightVolts,
+        // rightVolts,
         leftVolts);
     inputs.isLeftLimitswitch = (!elevatorLBLimitswitch.get());
     inputs.isRightLimitswitch = (!elevatorRBLimitswitch.get());
     inputs.leftPosition = leftPosition.getValueAsDouble();
-    inputs.rightPosition = rightPosition.getValueAsDouble();
+    // inputs.rightPosition = rightPosition.getValueAsDouble();
     inputs.leftError = leftError.getValue();
-    inputs.rightError = rightError.getValue();
-    inputs.rightAmpsStator = rightAmps.getValueAsDouble();
+    // inputs.rightError = rightError.getValue();
+    // inputs.rightAmpsStator = rightAmps.getValueAsDouble();
     inputs.leftAmpsStator = leftAmps.getValueAsDouble();
-    inputs.rightVolts = rightVolts.getValueAsDouble();
+    // inputs.rightVolts = rightVolts.getValueAsDouble();
     inputs.leftVolts = leftVolts.getValueAsDouble();
   }
 
@@ -140,25 +141,25 @@ public class ElevatorIOTalon implements ElevatorIO {
     elevatorLeftLeader.setControl(voltPosition.withPosition(position));
   }
 
-  @Override
-  public void setRightPIDPosition(double position) {
-    elevatorRightFollower.setControl(voltPosition.withPosition(position));
-  }
+  // @Override
+  // public void setRightPIDPosition(double position) {
+  // elevatorRightFollower.setControl(voltPosition.withPosition(position));
+  // }
 
-  @Override
-  public void setRight(double percent) {
-    elevatorRightFollower.set(percent);
-  }
+  // @Override
+  // public void setRight(double percent) {
+  // elevatorRightFollower.set(percent);
+  // }
 
   @Override
   public void setLeft(double percent) {
     elevatorLeftLeader.set(percent);
   }
 
-  @Override
-  public void setRightVoltage(double voltage) {
-    elevatorRightFollower.setVoltage(voltage);
-  }
+  // @Override
+  // public void setRightVoltage(double voltage) {
+  // elevatorRightFollower.setVoltage(voltage);
+  // }
 
   @Override
   public void setLeftVoltage(double voltage) {
@@ -168,7 +169,7 @@ public class ElevatorIOTalon implements ElevatorIO {
   @Override
   public void setElevatorVoltge(double voltage) {
     elevatorLeftLeader.setVoltage(voltage);
-    elevatorRightFollower.setVoltage(voltage);
+    // elevatorRightFollower.setVoltage(voltage);
   }
   // System.out.println("ElevatorIOFalcon.set was called");
   // elevatorLeaderMotor.setControl(voltPosition.withPosition(.25));

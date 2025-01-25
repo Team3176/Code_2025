@@ -34,11 +34,11 @@ public interface ElevatorIO {
 
   public default void setLeft(double percentOutput) {}
 
-  public default void setRight(double percentOutput) {}
+  // public default void setRight(double percentOutput) {}
 
   public default void setLeftPIDPosition(double rotations) {}
 
-  public default void setRightPIDPosition(double rotations) {}
+  // public default void setRightPIDPosition(double rotations) {}
 
   public default void setElevatorVoltage(double voltage) {}
 
@@ -54,7 +54,7 @@ public interface ElevatorIO {
 
   public default void setLeftVoltage(double voltage) {}
 
-  public default void setRightVoltage(double voltage) {}
+  // public default void setRightVoltage(double voltage) {}
 
   public default void setElevatorVoltge(double voltage) {}
 

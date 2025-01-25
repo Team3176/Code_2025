@@ -25,6 +25,7 @@ import team3176.robot.subsystems.drivetrain.Drivetrain;
 import team3176.robot.subsystems.leds.LEDS;
 import team3176.robot.subsystems.leds.LEDSubsystem;
 import team3176.robot.subsystems.superstructure.*;
+import team3176.robot.subsystems.superstructure.elevator.Elevator;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 /**
@@ -172,6 +173,8 @@ public class RobotContainer {
         .button(4)
         .onTrue(drivetrain.setVisionOverride(true))
         .onFalse(drivetrain.setVisionOverride(false));
+
+    controller.operator.b().whileTrue(Elevator.getInstance().moveLeftRightPosition(null, null));
   }
 
   public void clearCanFaults() {

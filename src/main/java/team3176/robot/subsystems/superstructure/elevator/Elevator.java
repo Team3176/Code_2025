@@ -38,15 +38,15 @@ public class Elevator extends SubsystemBase {
     return this.runOnce(() -> io.setLeftVoltage(0.0));
   }
 
-  public Command stopRight() {
-    return this.runOnce(() -> io.setRightVoltage(0.0));
-  }
+  //  public Command stopRight() {
+  // return this.runOnce(() -> io.setRightVoltage(0.0));
+  // }
 
   public Command stopLeftRight() {
     return this.runOnce(
         () -> {
           io.setLeftVoltage(0.0);
-          io.setRightVoltage(0.0);
+          // io.setRightVoltage(0.0);
         });
   }
 
@@ -77,14 +77,14 @@ public class Elevator extends SubsystemBase {
     io.setLeftPIDPosition(position);
   }
 
-  private void rightGoToPosition(double position) {
-    if (position > SuperStructureConstants.CLIMBRIGHT_TOP_POS) {
-      position = SuperStructureConstants.CLIMBRIGHT_TOP_POS;
-    } else if (position < 0.0) {
-      position = 0.0;
-    }
-    io.setRightPIDPosition(position);
-  }
+  // private void rightGoToPosition(double position) {
+  // if (position > SuperStructureConstants.CLIMBRIGHT_TOP_POS) {
+  // position = SuperStructureConstants.CLIMBRIGHT_TOP_POS;
+  // } else if (position < 0.0) {
+  // position = 0.0;
+  // }
+  // io.setRightPIDPosition(position);
+  // }
 
   public Command setLeftPosition(DoubleSupplier position) {
     return this.runEnd(
@@ -94,25 +94,25 @@ public class Elevator extends SubsystemBase {
         () -> io.setLeftVoltage(0.0));
   }
 
-  public Command setRightPosition(DoubleSupplier position) {
-    return this.runEnd(
-        () -> {
-          rightGoToPosition((position.getAsDouble()));
-        },
-        () -> io.setRightVoltage(0.0));
-  }
+  // public Command setRightPosition(DoubleSupplier position) {
+  // return this.runEnd(
+  //  () -> {
+  //  rightGoToPosition((position.getAsDouble()));
+  //  },
+  // () -> io.setRightVoltage(0.0));
+  // }
 
   public Command setAmpPosition() {
     return goToPosition(() -> AmpClimbHeight.get());
   }
 
-  public Command moveRightPosition(DoubleSupplier delta) {
-    return this.runEnd(
-        () -> {
-          io.setRightVoltage((5 * delta.getAsDouble()));
-        },
-        () -> io.setRightVoltage(0.0));
-  }
+  // public Command moveRightPosition(DoubleSupplier delta) {
+  // return this.runEnd(
+  //  () -> {
+  //  io.setRightVoltage((5 * delta.getAsDouble()));
+  // },
+  // () -> io.setRightVoltage(0.0));
+  // }
 
   public Command moveLeftPosition(DoubleSupplier delta) {
     return this.runEnd(
@@ -125,11 +125,11 @@ public class Elevator extends SubsystemBase {
   public Command moveLeftRightPosition(DoubleSupplier deltaLeft, DoubleSupplier deltaRight) {
     return this.runEnd(
         () -> {
-          io.setRightVoltage(5 * deltaRight.getAsDouble());
+          //        io.setRightVoltage(5 * deltaRight.getAsDouble());
           io.setLeftVoltage(5 * deltaLeft.getAsDouble());
         },
         () -> {
-          io.setRightVoltage(0.0);
+          //      io.setRightVoltage(0.0);
           io.setLeftVoltage(0.0);
         });
   }
@@ -138,11 +138,11 @@ public class Elevator extends SubsystemBase {
     return this.runEnd(
             () -> {
               leftGoToPosition(position.getAsDouble());
-              rightGoToPosition(position.getAsDouble());
+              // rightGoToPosition(position.getAsDouble());
             },
             () -> {
               io.setLeftVoltage(0.0);
-              io.setRightVoltage(0.0);
+              // io.setRightVoltage(0.0);
             })
         .until(() -> leftPIDController.atSetpoint() && rightPIDController.atSetpoint());
   }
