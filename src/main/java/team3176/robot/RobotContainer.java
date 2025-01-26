@@ -169,7 +169,7 @@ public class RobotContainer {
            .onTrue(drivetrain.setVisionOverride(true))
            .onFalse(drivetrain.setVisionOverride(false));
     */
-    controller.operator.b().whileTrue(Elevator.getInstance().moveLeftPosition(5));
+    controller.operator.b().whileTrue(Elevator.getInstance().moveLeftRightPosition(autonChooser, ampOverride));
   }
 
   public void clearCanFaults() {
