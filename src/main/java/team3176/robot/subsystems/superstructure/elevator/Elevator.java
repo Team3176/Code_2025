@@ -122,7 +122,7 @@ public class Elevator extends SubsystemBase {
         () -> io.setLeftVoltage(0.0));
   }
 
-  public Command moveLeftRightPosition(invalid deltaLeft, invalid deltaRight) {
+  public Command moveLeftRightPositionManual(DoubleSupplier deltaLeft) {
     return this.runEnd(
         () -> {
           //        io.setRightVoltage(5 * deltaRight.getAsDouble());
@@ -133,6 +133,19 @@ public class Elevator extends SubsystemBase {
           io.setLeftVoltage(0.0);
         });
   }
+
+  public Command moveLeftRightPosition(double LX_Pos) {
+    return this.runEnd(
+        () -> {
+          //        io.setRightVoltage(5 * deltaRight.getAsDouble());
+          io.setLeftVoltage(5 * LX_Pos);
+        },
+        () -> {
+          //      io.setRightVoltage(0.0);
+          io.setLeftVoltage(0.0);
+        });
+  }
+
   /** Given a double supplier run the PID until we reach the setpoint then end */
   public Command goToPosition(DoubleSupplier position) {
     return this.runEnd(
@@ -189,8 +202,8 @@ public class Elevator extends SubsystemBase {
     throw new UnsupportedOperationException("Unimplemented method 'moveLeftPosition'");
   }
 
-public Command moveLeftRightPosition(Object deltaLeft, Object deltaRight) {
+  public Command moveLeftRightPosition(Object deltaLeft, Object deltaRight) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'moveLeftRightPosition'");
-}
+  }
 }

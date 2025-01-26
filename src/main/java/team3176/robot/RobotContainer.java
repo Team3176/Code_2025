@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import team3176.robot.constants.Hardwaremap;
+import team3176.robot.constants.SuperStructureConstants;
 import team3176.robot.subsystems.Visualization;
 import team3176.robot.subsystems.controller.Controller;
 import team3176.robot.subsystems.leds.LEDS;
@@ -169,7 +170,12 @@ public class RobotContainer {
            .onTrue(drivetrain.setVisionOverride(true))
            .onFalse(drivetrain.setVisionOverride(false));
     */
-    controller.operator.b().whileTrue(Elevator.getInstance().moveLeftRightPosition(autonChooser, ampOverride));
+    controller
+        .operator
+        .b()
+        .whileTrue(
+            Elevator.getInstance()
+                .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L1_POS));
   }
 
   public void clearCanFaults() {
