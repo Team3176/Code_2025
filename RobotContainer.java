@@ -15,13 +15,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import team3176.robot.constants.Hardwaremap;
-import team3176.robot.constants.SuperStructureConstants;
 import team3176.robot.subsystems.Visualization;
 import team3176.robot.subsystems.controller.Controller;
 import team3176.robot.subsystems.leds.LEDS;
 import team3176.robot.subsystems.leds.LEDSubsystem;
 import team3176.robot.subsystems.superstructure.*;
-import team3176.robot.subsystems.superstructure.elevator.Elevator;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 /**

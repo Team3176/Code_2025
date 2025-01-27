@@ -14,7 +14,6 @@ public class Superstructure {
     arm = Arm.getInstance();
   }
 
-
   /*
   public Command climbDown() {
     return climb.moveLeftRightPosition(0, 0);
