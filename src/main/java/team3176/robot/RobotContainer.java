@@ -161,6 +161,10 @@ public class RobotContainer {
         .onFalse(superstructure.stopClimbRight());
         */
     // controller.operator.povDown().onTrue(superstructure.intakeNote());
+    controller
+    .operator
+    .a()
+    .whileTrue(superstructure.)
 
     controller
         .switchBox
@@ -172,6 +176,7 @@ public class RobotContainer {
         .button(4)
         .onTrue(drivetrain.setVisionOverride(true))
         .onFalse(drivetrain.setVisionOverride(false));
+
   }
 
   public void clearCanFaults() {
