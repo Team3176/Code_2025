@@ -95,6 +95,14 @@ public class Intake extends SubsystemBase {
         });
   }
 
+  public void movePivot (int x) {
+     io.setPivotPIDPosition(x);
+    }
+
+   public Command movePivotPid() {
+    return this.runEnd(() -> movePivot(5), ()-> movePivot(0));
+   }
+
   public Command retractPivot() {
     return this.runOnce(() -> this.pivotSetpoint = 0.0);
   }
