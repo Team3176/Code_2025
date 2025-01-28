@@ -142,7 +142,7 @@ public class Elevator extends SubsystemBase {
         },
         () -> {
           //      io.setRightVoltage(0.0);
-          io.setLeftVoltage(0.0);
+          io.setLeftVoltage(0);
         });
   }
 

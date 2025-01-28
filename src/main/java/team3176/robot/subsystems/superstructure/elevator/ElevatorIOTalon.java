@@ -54,7 +54,7 @@ public class ElevatorIOTalon implements ElevatorIO {
     elevatorLeftLeader.getConfigurator().apply(configsLeft);
     elevatorRightFollower.getConfigurator().apply(configsLeft);
     elevatorRightFollower.setControl(new Follower(elevatorLeftLeader.getDeviceID(), false));
-    elevatorLeftLeader.setSafetyEnabled(true);
+    elevatorLeftLeader.setSafetyEnabled(false);
     // config setting
     configsLeft.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
     configsLeft.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
