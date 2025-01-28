@@ -8,7 +8,7 @@ import team3176.robot.subsystems.superstructure.arm.Arm;
 
 public class Superstructure {
   private static Superstructure instance;
-  private Arm arm;
+  public Arm arm;
 
   public Superstructure() {
     arm = Arm.getInstance();
