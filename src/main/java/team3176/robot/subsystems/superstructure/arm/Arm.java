@@ -1,7 +1,6 @@
 package team3176.robot.subsystems.superstructure.arm;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -48,7 +47,6 @@ public class Arm extends SubsystemBase {
     io.setPivotVolts(volts);
   }
 
-
   public static Arm getInstance() {
     if (instance == null) {
       if (Constants.getMode() == Mode.REAL && Constants.getRobot() != RobotType.ROBOT_DEFENSE) {
@@ -61,13 +59,12 @@ public class Arm extends SubsystemBase {
   }
 
   // Example command to show how to set the pivot state
-  public Command reefLevelPivot (double reefLevel)
-  {
+  public Command reefLevelPivot(double reefLevel) {
     return this.runOnce(
-      () -> {
-        this.pivotSetpoint = reefLevel;
-        deployTime.restart();
-      });
+        () -> {
+          this.pivotSetpoint = reefLevel;
+          deployTime.restart();
+        });
   }
 
   public Command retractPivot() {
@@ -87,6 +84,13 @@ public class Arm extends SubsystemBase {
     return this.runEnd(() -> io.setRollerVolts(-1.5), () -> io.setRollerVolts(0));
   }
 
+  public Command PID() {
+    return this.run(() -> io.setPivotPIDPosition(180));
+  }
+
+  public Command negativePID() {
+    return this.run(() -> io.setPivotPIDPosition(-180));
+  }
   @Override
   public void periodic() {
     io.updateInputs(inputs);

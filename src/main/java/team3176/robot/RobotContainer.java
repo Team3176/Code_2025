@@ -120,10 +120,7 @@ public class RobotContainer {
      *  Trans Stick
      */
 
-    controller
-        .transStick
-        .button(5)
-        .onTrue(drivetrain.resetPoseToVisionCommand());
+    controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
     controller
         .transStick
         .button(10)
@@ -141,10 +138,9 @@ public class RobotContainer {
      * Operator
      */
 
-    controller
-        .operator
-        .x()
-        .whileTrue(superstructure.grabCoral());
+    controller.operator.x().whileTrue(superstructure.grabCoral());
+    controller.operator.a().whileTrue(superstructure.testPID());
+    controller.operator.b().whileTrue(superstructure.negativeTestPID());
 
     /*
      * Switch Box

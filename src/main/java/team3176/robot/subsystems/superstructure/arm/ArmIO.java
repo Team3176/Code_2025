@@ -27,7 +27,7 @@ public interface ArmIO {
     public double rollerAmpsSupply = 0.0;
     public double rollerTempCelcius = 0.0;
 
-    public boolean isRollerLinebreak = false;
+    public boolean coralLaserCAN = false;
     public boolean isPivotLinebreak = false;
     public boolean upperLimitSwitch = false;
     public boolean lowerLimitSwitch = false;

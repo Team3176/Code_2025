@@ -18,6 +18,14 @@ public class Superstructure {
     return arm.spinArm();
   }
 
+  public Command testPID() {
+    return arm.PID();
+  }
+
+  public Command negativeTestPID() {
+    return arm.negativePID();
+  }
+
   public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()
         .goToPoint(FieldConstants.CoralStation.leftCenterFace)
