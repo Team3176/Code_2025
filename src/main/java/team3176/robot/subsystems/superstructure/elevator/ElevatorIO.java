@@ -22,12 +22,14 @@ public interface ElevatorIO {
     public double rightVolts = 0.0;
     public double leftAmpsStator = 0.0;
     public double rightAmpsStator = 0.0;
-    public boolean isLeftLimitswitch = true;
-    public boolean isRightLimitswitch = true;
+    public boolean istopLimitswitch = true;
+    public boolean isbotLimitswitch = true;
 
     // constructor if needed for some inputs
     ElevatorIOInputs() {}
   }
+
+  Object istopLimitswitch = null;
 
   /** Updates the set of loggable inputs. */
   public default void updateInputs(ElevatorIOInputs inputs) {}

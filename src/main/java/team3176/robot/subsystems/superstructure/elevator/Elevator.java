@@ -175,6 +175,13 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
+    // if (> 0) {
+    // if(inputs.istopLimitswitch){
+    // io.setLeftVoltage(0);
+    // }
+    // }
+    System.out.println(inputs.leftPosition);
+    io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
     pid.checkParemeterUpdate();
   }

@@ -30,7 +30,7 @@ public class ElevatorIOTalon implements ElevatorIO {
   TalonFX elevatorLeftLeader, elevatorRightFollower;
   PositionVoltage voltPosition;
   NeutralOut brake;
-  DigitalInput elevatorLBLimitswitch, elevatorRBLimitswitch;
+  DigitalInput elevatortoplimitswitch, elevatorbotLimitswitch;
   TalonFXConfiguration configsLeft, configsRight;
   // private final StatusSignal<Angle> rightPosition;
   private final StatusSignal<Angle> leftPosition;
@@ -46,8 +46,8 @@ public class ElevatorIOTalon implements ElevatorIO {
     // configsRight = new TalonFXConfiguration();
     brake = new NeutralOut();
     voltPosition = new PositionVoltage(0);
-    elevatorLBLimitswitch = new DigitalInput(Hardwaremap.elevatorLBLimitSwitch_DIO);
-    elevatorRBLimitswitch = new DigitalInput(Hardwaremap.elevatorRBLimitSwitch_DIO);
+    elevatortoplimitswitch = new DigitalInput(Hardwaremap.elevatorLBLimitSwitch_DIO);
+    elevatorbotLimitswitch = new DigitalInput(Hardwaremap.elevatorRBLimitSwitch_DIO);
     elevatorLeftLeader = new TalonFX(Hardwaremap.elevatorLeft_CID, Hardwaremap.elevatorLeft_CBN);
     elevatorRightFollower =
         new TalonFX(Hardwaremap.elevatorRight_CID, Hardwaremap.elevatorRight_CBN);
@@ -62,7 +62,7 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     // configsLeft.Voltage.PeakForwardVoltage = 8;
     // configsLeft.Voltage.PeakReverseVoltage = -8;
-    configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
         SuperStructureConstants.ELEVATORLEFT_TOP_POS;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
@@ -124,8 +124,8 @@ public class ElevatorIOTalon implements ElevatorIO {
         leftAmps,
         // rightVolts,
         leftVolts);
-    inputs.isLeftLimitswitch = (!elevatorLBLimitswitch.get());
-    inputs.isRightLimitswitch = (!elevatorRBLimitswitch.get());
+    inputs.istopLimitswitch = (!elevatortoplimitswitch.get());
+    inputs.isbotLimitswitch = (!elevatorbotLimitswitch.get());
     inputs.leftPosition = leftPosition.getValueAsDouble();
     // inputs.rightPosition = rightPosition.getValueAsDouble();
     inputs.leftError = leftError.getValue();
