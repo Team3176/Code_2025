@@ -42,7 +42,7 @@ public class RobotContainer {
   // is this why we don't have a compressor? private final Compressor m_Compressor
   private Drivetrain drivetrain;
   private LEDSubsystem leds;
-  //  private Superstructure superstructure;
+  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
   private LoggedDashboardChooser<Command> autonChooser;
@@ -59,7 +59,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-    // superstructure = Superstructure.getInstance();
+    superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 
     leds = LEDSubsystem.getInstance();
@@ -161,10 +161,9 @@ public class RobotContainer {
         .onFalse(superstructure.stopClimbRight());
         */
     // controller.operator.povDown().onTrue(superstructure.intakeNote());
-    controller
-    .operator
-    .a()
-    .whileTrue(superstructure.)
+    controller.operator.a().whileTrue(superstructure.deployIntakePivot());
+
+    controller.operator.b().whileTrue(superstructure.retractIntakePivot());
 
     controller
         .switchBox
@@ -176,7 +175,6 @@ public class RobotContainer {
         .button(4)
         .onTrue(drivetrain.setVisionOverride(true))
         .onFalse(drivetrain.setVisionOverride(false));
-
   }
 
   public void clearCanFaults() {

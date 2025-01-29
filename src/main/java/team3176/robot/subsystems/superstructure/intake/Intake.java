@@ -1,17 +1,13 @@
 package team3176.robot.subsystems.superstructure.intake;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
-import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
-
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.VelocityVoltage;
-import com.ctre.phoenix6.hardware.TalonFX;
-
 import team3176.robot.Constants;
 import team3176.robot.Constants.Mode;
 import team3176.robot.Constants.RobotType;
@@ -24,7 +20,7 @@ public class Intake extends SubsystemBase {
   private final IntakeIO io;
   private final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
   private final LoggedTunableNumber deployPivotVolts;
-  private final LoggedTunableNumber rollerVolts; // note to self, use as velocity 
+  private final LoggedTunableNumber rollerVolts; // note to self, use as velocity
   private final LoggedTunableNumber retractPivotVolts;
   private final LoggedTunableNumber waitTime;
   private final TunablePID pivotPID;
@@ -38,14 +34,14 @@ public class Intake extends SubsystemBase {
   private final VelocityVoltage m_velocityVoltage = new VelocityVoltage(0).withSlot(0);
   private final TalonFXConfiguration configs = new TalonFXConfiguration();
 
-   /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
-   configs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
-   configs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
-   configs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
-   configs.Slot0.kI = 0; // No output for integrated error
-   configs.Slot0.kD = 0; // No output for error derivative
-   // Peak output of 8 volts
-
+  /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor
+     configs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+     configs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
+     configs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+     configs.Slot0.kI = 0; // No output for integrated error
+     configs.Slot0.kD = 0; // No output for error derivative
+     // Peak output of 8 volts
+  **/
 
   private enum pivotStates {
     DEPLOY,
@@ -112,13 +108,13 @@ public class Intake extends SubsystemBase {
         });
   }
 
-  public void movePivot (int x) {
-     io.setPivotPIDPosition(x);
-    }
+  public void movePivot(int x) {
+    io.setPivotPIDPosition(x);
+  }
 
-   public Command movePivotPid() {
-    return this.runEnd(() -> movePivot(5), ()-> movePivot(0));
-   }
+  public Command movePivotPid() {
+    return this.runEnd(() -> movePivot(5), () -> movePivot(0));
+  }
 
   public Command retractPivot() {
     return this.runOnce(() -> this.pivotSetpoint = 0.0);

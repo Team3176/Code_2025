@@ -4,11 +4,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team3176.robot.FieldConstants;
 // import java.util.function.IntSupplier;
 import team3176.robot.subsystems.drivetrain.Drivetrain;
+import team3176.robot.subsystems.superstructure.intake.Intake;
 
 public class Superstructure {
   private static Superstructure instance;
+  private Intake intake;
 
-  public Superstructure() {}
+  public Superstructure() {
+    intake = Intake.getInstance();
+  }
 
   /*
   public Command climbDown() {
@@ -29,5 +33,13 @@ public class Superstructure {
       System.out.println("Superstructure instance created.");
     }
     return instance;
+  }
+
+  public Command deployIntakePivot() {
+    return intake.deployPivot();
+  }
+
+  public Command retractIntakePivot() {
+    return intake.retractPivot();
   }
 }

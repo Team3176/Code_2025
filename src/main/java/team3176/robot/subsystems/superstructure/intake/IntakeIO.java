@@ -9,8 +9,6 @@ package team3176.robot.subsystems.superstructure.intake;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import lombok.val;
-
 /** Template hardware interface for a closed loop subsystem. */
 public interface IntakeIO {
   /** Contains all of the input data received from hardware. */
@@ -52,5 +50,4 @@ public interface IntakeIO {
   public default void setPivotPIDPosition(double position) {}
 
   public default void setCoastMode(boolean isCoastMode) {}
-
 }
