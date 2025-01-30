@@ -4,6 +4,7 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -37,6 +38,8 @@ public class SwervePodIOTalon implements SwervePodIO {
   // private final VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new
   // VelocityTorqueCurrentFOC(0).withUpdateFreqHz(0);
   private final VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new VelocityTorqueCurrentFOC(0);
+  private final PositionTorqueCurrentFOC positionTorqueCurrentFOC = new PositionTorqueCurrentFOC(0);
+
   private TalonFX thrustTalonFX;
   private CANcoder azimuthEncoder;
 
@@ -235,6 +238,12 @@ public class SwervePodIOTalon implements SwervePodIO {
   @Override
   public void setTurn(double percent) {
     turnTalonFX.set(percent);
+  }
+
+  @Override
+  public void setAzimuth(Rotation2d rotation) {
+    turnTalonFX.setControl(positionTorqueCurrentFOC.withPosition(rotation.getRotations()));
+    ;
   }
 
   /** Enable or disable brake mode on the drive motor. */

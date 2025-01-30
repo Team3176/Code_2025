@@ -36,6 +36,8 @@ public interface SwervePodIO {
   /** Run the turn motor at the specified voltage. */
   public default void setTurn(double volts) {}
 
+  public default void setAzimuth(Rotation2d rotation) {}
+
   public default void setOffset(Rotation2d offset) {}
 
   public default Rotation2d getOffset() {
