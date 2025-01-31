@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
@@ -74,14 +73,14 @@ public class RobotContainer {
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
-    drivetrain.setDefaultCommand(
+    /*     drivetrain.setDefaultCommand(
         drivetrain
             .swerveDriveJoysticks(
                 () -> controller.getForward(),
                 () -> controller.getStrafe(),
                 () -> controller.getSpin())
             .withName("default drive"));
-    leds.setDefaultCommand(leds.DefaultLED());
+    leds.setDefaultCommand(leds.DefaultLED()); */
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
     // NamedCommands.registerCommand(
@@ -113,16 +112,16 @@ public class RobotContainer {
     .transStick
     .button(1)
     .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE)); */
-    controller
-        .transStick
-        .button(1)
-        .whileTrue(
-            drivetrain
-                .swerveDriveJoysticks(
-                    () -> controller.getForward(),
-                    () -> controller.getStrafe(),
-                    () -> controller.getSpin() * 1.5)
-                .withName("boost drive"));
+    /*     controller
+    .transStick
+    .button(1)
+    .whileTrue(
+        drivetrain
+            .swerveDriveJoysticks(
+                () -> controller.getForward(),
+                () -> controller.getStrafe(),
+                () -> controller.getSpin() * 1.5)
+            .withName("boost drive")); */
 
     /*
         controller
@@ -136,19 +135,19 @@ public class RobotContainer {
                     () -> controller.getSpin())
                 .alongWith(superstructure.intakeNote()));
     */
-    controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
+    /*     controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
     controller
         .transStick
         .button(10)
-        .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense"));
+        .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense")); */
 
     /*
      *  Rotation Stick
      */
-    controller
-        .rotStick
-        .button(8)
-        .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain));
+    /*     controller
+    .rotStick
+    .button(8)
+    .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain)); */
 
     /*
      * Operator
