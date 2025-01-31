@@ -146,6 +146,19 @@ public class Elevator extends SubsystemBase {
         });
   }
 
+  public Command moveLeftRightPositionTorque(double LX_Pos) {
+    return this.runEnd(
+        () -> {
+          //        io.setRightVoltage(5 * deltaRight.getAsDouble());
+          io.setLeftPositionTorque(5 * LX_Pos);
+        },
+        () -> {
+          //      io.setRightVoltage(0.0);
+          io.setLeftPositionTorque(0);
+        });
+  }
+
+
   /** Given a double supplier run the PID until we reach the setpoint then end */
   public Command goToPosition(DoubleSupplier position) {
     return this.runEnd(
