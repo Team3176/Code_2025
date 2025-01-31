@@ -13,6 +13,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.Angle;
@@ -40,7 +41,8 @@ public class ElevatorIOTalon implements ElevatorIO {
   private final StatusSignal<Voltage> leftVolts;
   // private final StatusSignal<Current> rightAmps;
   private final StatusSignal<Current> leftAmps;
-
+  
+  private final PositionTorqueCurrentFOC m_PositionTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
   public ElevatorIOTalon() {
     configsLeft = new TalonFXConfiguration();
     // configsRight = new TalonFXConfiguration();
@@ -62,13 +64,15 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     // configsLeft.Voltage.PeakForwardVoltage = 8;
     // configsLeft.Voltage.PeakReverseVoltage = -8;
+    configsLeft.TorqueCurrent.withPeakForwardTorqueCurrent(120).withPeakReverseTorqueCurrent(-120);
+
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
         SuperStructureConstants.ELEVATORLEFT_TOP_POS;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
         SuperStructureConstants.ELEVATORLEFT_ZERO_POS;
-    configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
     // configsRight.Slot0.kP = 2.4; // An error of 1 rotations results in 40 amps output
     // configsRight.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
@@ -139,6 +143,12 @@ public class ElevatorIOTalon implements ElevatorIO {
   @Override
   public void setLeftPIDPosition(double position) {
     elevatorLeftLeader.setControl(voltPosition.withPosition(position));
+  }
+
+  
+  @Override
+  public void setLeftPositionTorque(double position){
+    elevatorLeftLeader.setControl(m_PositionTorque.withFeedForward(position));
   }
 
   // @Override

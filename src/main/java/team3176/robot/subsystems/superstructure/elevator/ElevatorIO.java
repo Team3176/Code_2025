@@ -40,6 +40,7 @@ public interface ElevatorIO {
 
   public default void setLeftPIDPosition(double rotations) {}
 
+  public default void setLeftPositionTorque(double position) {}
   // public default void setRightPIDPosition(double rotations) {}
 
   public default void setElevatorVoltage(double voltage) {}

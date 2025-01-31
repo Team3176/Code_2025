@@ -181,7 +181,7 @@ public class RobotContainer {
         .a()
         .whileTrue(
             Elevator.getInstance()
-                .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L0_POS));
+                .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L0_POS * -1));
   }
 
   public void clearCanFaults() {
