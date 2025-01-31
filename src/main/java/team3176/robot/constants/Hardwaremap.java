@@ -19,12 +19,12 @@ public class Hardwaremap {
   public static final int LaserCanIntakeSide_CID = 49;
   public static final int LaserCanShooterSide_CID = 48;
   */
-  public static final int intakePivot_CID = 4;
-  public static final int indexerPivot_CID = 4;
-  public static final int climbLeft_CID = 45;
-  public static final int climbRight_CID = 46;
-  public static final int elevatorLeft_CID = 45;
-  public static final int elevatorRight_CID = 46;
+  public static final int intakePivot_CID = 45;
+  public static final int indexerPivot_CID = 46;
+  public static final int climbLeft_CID = 41;
+  public static final int climbRight_CID = 42;
+  public static final int elevatorLeft_CID = 43;
+  public static final int elevatorRight_CID = 44;
   public static int PDH_CID = 1;
 
   public static final String conveyor_CBN = "rio";

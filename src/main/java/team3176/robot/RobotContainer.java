@@ -60,7 +60,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     controller = Controller.getInstance();
     superstructure = Superstructure.getInstance();
-    drivetrain = Drivetrain.getInstance();
+    // drivetrain = Drivetrain.getInstance();
 
     leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
