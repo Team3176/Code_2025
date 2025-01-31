@@ -1,9 +1,7 @@
 package team3176.robot.subsystems.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team3176.robot.FieldConstants;
 // import java.util.function.IntSupplier;
-import team3176.robot.subsystems.drivetrain.Drivetrain;
 import team3176.robot.subsystems.superstructure.intake.Intake;
 
 public class Superstructure {
@@ -12,19 +10,6 @@ public class Superstructure {
 
   public Superstructure() {
     intake = Intake.getInstance();
-  }
-
-  /*
-  public Command climbDown() {
-    return climb.moveLeftRightPosition(0, 0);
-  }
-  */
-
-  public Command getProcessorCoralLeftAuto() {
-    return Drivetrain.getInstance()
-        .goToPoint(FieldConstants.CoralStation.leftCenterFace)
-        // .andThen(Drivetrain.getInstance().chaseNote().raceWith(intakeNote()));
-        .andThen(Drivetrain.getInstance().chaseNote());
   }
 
   public static Superstructure getInstance() {
