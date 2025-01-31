@@ -85,12 +85,14 @@ public class Arm extends SubsystemBase {
   }
 
   public Command PID() {
-    return this.run(() -> io.setPivotPIDPosition(180));
+    return this.run(() -> io.setPivotPIDPosition(0.5));
   }
 
   public Command negativePID() {
-    return this.run(() -> io.setPivotPIDPosition(-180));
+    // wait(.1);
+    return this.run(() -> io.setPivotPIDPosition(-0.5));
   }
+
   @Override
   public void periodic() {
     io.updateInputs(inputs);
