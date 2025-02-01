@@ -89,7 +89,6 @@ public class Arm extends SubsystemBase {
   }
 
   public Command negativePID() {
-    // wait(.1);
     return this.runOnce(() -> this.pivotSetpoint = -0.5);
   }
 

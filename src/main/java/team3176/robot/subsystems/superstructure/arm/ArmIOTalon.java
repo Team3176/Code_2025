@@ -11,6 +11,7 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -51,6 +52,8 @@ public class ArmIOTalon implements ArmIO {
   private final StatusSignal<Angle> pivotPosition;
   private final StatusSignal<Temperature> pivotTemp;
 
+  private final PositionTorqueCurrentFOC pivotTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
+
   private final StatusSignal<Voltage> rollerAppliedVolts;
   private final StatusSignal<Current> rollerCurrentAmpsStator;
   private final StatusSignal<Current> rollerCurrentAmpsSupply;
@@ -82,6 +85,12 @@ public class ArmIOTalon implements ArmIO {
 
     // pivotConfigs.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
     // pivotConfigs.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
+
+    //Torque Position
+    pivotConfigs.Slot1.kP = 0;
+    pivotConfigs.Slot1.kI = 0;
+    pivotConfigs.Slot1.kD = 0;
+
     pivotConfigs.Voltage.PeakForwardVoltage = 8;
     pivotConfigs.Voltage.PeakReverseVoltage = -10;
     pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -183,4 +192,10 @@ public class ArmIOTalon implements ArmIO {
   public void setPivotVolts(double volts) {
     pivotController.setControl(pivotVolts.withOutput(volts));
   }
+
+  @Override
+  public void setPivotTorquePosition(double position) {
+    pivotController.setControl(pivotTorque.withPosition(position));
+  }
+
 }
