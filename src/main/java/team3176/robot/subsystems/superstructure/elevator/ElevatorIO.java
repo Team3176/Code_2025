@@ -20,8 +20,10 @@ public interface ElevatorIO {
     public double rightError = 0.0;
     public double leftVolts = 0.0;
     public double rightVolts = 0.0;
+    public double LeftElevatorHeight = 0;
     public double leftAmpsStator = 0.0;
     public double rightAmpsStator = 0.0;
+    public double desiredrotation = 1.0;
     public boolean istopLimitswitch = true;
     public boolean isbotLimitswitch = true;
 
@@ -36,6 +38,7 @@ public interface ElevatorIO {
 
   public default void setLeft(double percentOutput) {}
 
+  public default void setLeftElevatorH(double height) {}
   // public default void setRight(double percentOutput) {}
 
   public default void setLeftPIDPosition(double rotations) {}

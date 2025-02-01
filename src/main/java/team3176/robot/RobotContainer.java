@@ -170,6 +170,7 @@ public class RobotContainer {
            .onTrue(drivetrain.setVisionOverride(true))
            .onFalse(drivetrain.setVisionOverride(false));
     */
+
     controller
         .operator
         .b()
@@ -183,12 +184,7 @@ public class RobotContainer {
             Elevator.getInstance()
                 .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L0_POS * -1));
 
-    controller
-        .operator
-        .x()
-        .whileTrue(
-            Elevator.getInstance()
-                  .moveLeftRightPositionTorque(SuperStructureConstants.ELEVATORLEFT_L1_POS));
+    controller.operator.x().onTrue(Elevator.getInstance().moveLeftRightPositionTorque(1));
   }
 
   public void clearCanFaults() {

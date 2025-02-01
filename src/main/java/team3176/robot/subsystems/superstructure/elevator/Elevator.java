@@ -18,6 +18,7 @@ public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
   private double leftSetPoint = 0;
   private double rightSetPoint = 0;
+
   private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
   private TunablePID pid = new TunablePID("climbLeft", 0.001, 0, 0);
   private TunablePID leftPIDController = new TunablePID("climbLeft", 1, 0, 0);
@@ -42,7 +43,7 @@ public class Elevator extends SubsystemBase {
   // return this.runOnce(() -> io.setRightVoltage(0.0));
   // }
 
-  public Command stopLeftRight() {
+  public Command stopLeftRight(int i) {
     return this.runOnce(
         () -> {
           io.setLeftVoltage(0.0);
@@ -52,6 +53,14 @@ public class Elevator extends SubsystemBase {
 
   public double getLeftPosition() {
     return inputs.leftPosition;
+  }
+
+  public boolean getTopLimitswitch() {
+    return inputs.istopLimitswitch;
+  }
+
+  public boolean getBotLimitswitch() {
+    return inputs.isbotLimitswitch;
   }
 
   public double getRightPosition() {
@@ -67,6 +76,9 @@ public class Elevator extends SubsystemBase {
         io::stopLeft);
   }
   */
+
+  
+
   private void leftGoToPosition(double position) {
     if (position > SuperStructureConstants.CLIMBLEFT_TOP_POS) {
       position = SuperStructureConstants.CLIMBLEFT_TOP_POS;
@@ -75,6 +87,16 @@ public class Elevator extends SubsystemBase {
       position = 0.0;
     }
     io.setLeftPIDPosition(position);
+  }
+
+  private void leftHeight(double height) {
+    if (height == SuperStructureConstants.ELEVATORLEFT_L1_POS) {
+      getTopLimitswitch();
+    }
+    if (height == SuperStructureConstants.ELEVATORLEFT_L0_POS) {
+      getBotLimitswitch();
+
+  }
   }
 
   // private void rightGoToPosition(double position) {
@@ -92,6 +114,14 @@ public class Elevator extends SubsystemBase {
           leftGoToPosition((position.getAsDouble()));
         },
         () -> io.setLeftVoltage(0.0));
+  }
+
+  public Command setLeftElevator( double LeftElevatorHeight) {
+    return this.runEnd(
+        () -> {
+          leftHeight((LeftElevatorHeight));
+        },
+        () -> io.setLeftElevatorH(0.0));
   }
 
   // public Command setRightPosition(DoubleSupplier position) {
@@ -146,18 +176,18 @@ public class Elevator extends SubsystemBase {
         });
   }
 
-  public Command moveLeftRightPositionTorque(double LX_Pos) {
+  public Command moveLeftRightPositionTorque(double desiredrotation) {
     return this.runEnd(
         () -> {
           //        io.setRightVoltage(5 * deltaRight.getAsDouble());
-          io.setLeftPositionTorque(5 * LX_Pos);
+          System.out.println("moveleftrightPT Working");
+          io.setLeftPositionTorque(5 * desiredrotation);
         },
         () -> {
           //      io.setRightVoltage(0.0);
           io.setLeftPositionTorque(0);
         });
   }
-
 
   /** Given a double supplier run the PID until we reach the setpoint then end */
   public Command goToPosition(DoubleSupplier position) {

@@ -13,7 +13,6 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.Angle;
@@ -41,8 +40,9 @@ public class ElevatorIOTalon implements ElevatorIO {
   private final StatusSignal<Voltage> leftVolts;
   // private final StatusSignal<Current> rightAmps;
   private final StatusSignal<Current> leftAmps;
-  
-  private final PositionTorqueCurrentFOC m_PositionTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
+
+  private final PositionVoltage m_PositionTorque = new PositionVoltage(0).withSlot(0);
+
   public ElevatorIOTalon() {
     configsLeft = new TalonFXConfiguration();
     // configsRight = new TalonFXConfiguration();
@@ -58,9 +58,8 @@ public class ElevatorIOTalon implements ElevatorIO {
     elevatorRightFollower.setControl(new Follower(elevatorLeftLeader.getDeviceID(), false));
     elevatorLeftLeader.setSafetyEnabled(false);
     // config setting
-    configsLeft.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
+    configsLeft.Slot0.kP = 1; // An error of 0.5 rotations results in 1.2 volts output
     configsLeft.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
-    configsLeft.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
     configsLeft.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     // configsLeft.Voltage.PeakForwardVoltage = 8;
     // configsLeft.Voltage.PeakReverseVoltage = -8;
@@ -145,10 +144,10 @@ public class ElevatorIOTalon implements ElevatorIO {
     elevatorLeftLeader.setControl(voltPosition.withPosition(position));
   }
 
-  
   @Override
-  public void setLeftPositionTorque(double position){
+  public void setLeftPositionTorque(double position) {
     elevatorLeftLeader.setControl(m_PositionTorque.withFeedForward(position));
+    System.out.println("setleftpt Working");
   }
 
   // @Override
@@ -173,7 +172,16 @@ public class ElevatorIOTalon implements ElevatorIO {
 
   @Override
   public void setLeftVoltage(double voltage) {
-    elevatorLeftLeader.setVoltage(voltage);
+    if (voltage > 0 && elevatortoplimitswitch.get()){
+      elevatorLeftLeader.setVoltage(voltage);
+    }
+    else if(voltage < 0 && elevatorbotLimitswitch.get()){
+      elevatorLeftLeader.setVoltage(voltage);
+    }
+    else{
+
+      elevatorLeftLeader.setVoltage(0);
+    }
   }
 
   @Override
