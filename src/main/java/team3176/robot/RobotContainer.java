@@ -4,23 +4,19 @@
 
 package team3176.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
+// import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import team3176.robot.commands.WheelRadiusCharacterization;
-import team3176.robot.commands.WheelRadiusCharacterization.Direction;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.subsystems.Visualization;
 import team3176.robot.subsystems.controller.Controller;
-import team3176.robot.subsystems.drivetrain.Drivetrain;
 import team3176.robot.subsystems.leds.LEDS;
 import team3176.robot.subsystems.leds.LEDSubsystem;
 import team3176.robot.subsystems.superstructure.*;
@@ -39,7 +35,7 @@ public class RobotContainer {
   private PowerDistribution pdh;
 
   // is this why we don't have a compressor? private final Compressor m_Compressor
-  private Drivetrain drivetrain;
+  // private Drivetrain drivetrain;
   private LEDSubsystem leds;
   private Superstructure superstructure;
   private PhotonVisionSystem vision;
@@ -73,14 +69,14 @@ public class RobotContainer {
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
-    /*     drivetrain.setDefaultCommand(
-        drivetrain
-            .swerveDriveJoysticks(
-                () -> controller.getForward(),
-                () -> controller.getStrafe(),
-                () -> controller.getSpin())
-            .withName("default drive"));
-    leds.setDefaultCommand(leds.DefaultLED()); */
+    // drivetrain.setDefaultCommand(
+    //   drivetrain
+    //     .swerveDriveJoysticks(
+    //       () -> controller.getForward(),
+    //     () -> controller.getStrafe(),
+    //   () -> controller.getSpin())
+    // .withName("default drive"));
+    leds.setDefaultCommand(leds.DefaultLED());
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
     // NamedCommands.registerCommand(
@@ -91,9 +87,9 @@ public class RobotContainer {
     //         .withTimeout(0.8)
     //         .withName("shooting"));
 
-    autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
+    // autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
 
-    SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
+    //  SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
     configureBindings();
   }
 
@@ -112,16 +108,16 @@ public class RobotContainer {
     .transStick
     .button(1)
     .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE)); */
-    /*     controller
-    .transStick
-    .button(1)
-    .whileTrue(
-        drivetrain
-            .swerveDriveJoysticks(
-                () -> controller.getForward(),
-                () -> controller.getStrafe(),
-                () -> controller.getSpin() * 1.5)
-            .withName("boost drive")); */
+    /*controller
+        .transStick
+        .button(1)
+        .whileTrue(
+            drivetrain
+                .swerveDriveJoysticks(
+                    () -> controller.getForward(),
+                    () -> controller.getStrafe(),
+                    () -> controller.getSpin() * 1.5)
+                .withName("boost drive"));
 
     /*
         controller
@@ -135,19 +131,19 @@ public class RobotContainer {
                     () -> controller.getSpin())
                 .alongWith(superstructure.intakeNote()));
     */
-    /*     controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
+    /*controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
     controller
         .transStick
         .button(10)
-        .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense")); */
+        .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense"));
 
     /*
      *  Rotation Stick
      */
-    /*     controller
-    .rotStick
-    .button(8)
-    .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain)); */
+    /*controller
+        .rotStick
+        .button(8)
+        .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain));
 
     /*
      * Operator
@@ -160,20 +156,21 @@ public class RobotContainer {
         .onFalse(superstructure.stopClimbRight());
         */
     // controller.operator.povDown().onTrue(superstructure.intakeNote());
-    controller.operator.a().onTrue(superstructure.movePivot());
 
-    controller.operator.b().onTrue(superstructure.movePivotVelocity());
+    /*  controller
+           .switchBox
+           .button(5)
+           .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE));
 
-    controller
-        .switchBox
-        .button(5)
-        .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE));
+       controller
+           .switchBox
+           .button(4)
+           .onTrue(drivetrain.setVisionOverride(true))
+           .onFalse(drivetrain.setVisionOverride(false));
+    */
+    controller.operator.b().whileTrue(superstructure.movePivot());
 
-    controller
-        .switchBox
-        .button(4)
-        .onTrue(drivetrain.setVisionOverride(true))
-        .onFalse(drivetrain.setVisionOverride(false));
+    controller.operator.a().whileTrue(superstructure.movePivotVelocity());
   }
 
   public void clearCanFaults() {
@@ -184,39 +181,39 @@ public class RobotContainer {
     pdh.getStickyFaults();
   }
 
-  public void checkAutonomousSelection(Boolean force) {
-    if (autonChooser.get() != null
-        && (!choosenAutonomousCommand.equals(autonChooser.get()) || force)) {
-      Long start = System.nanoTime();
-      choosenAutonomousCommand = autonChooser.get();
-      try {
+  /* public void checkAutonomousSelection(Boolean force) {
+      if (autonChooser.get() != null
+          && (!choosenAutonomousCommand.equals(autonChooser.get()) || force)) {
+        Long start = System.nanoTime();
         choosenAutonomousCommand = autonChooser.get();
-      } catch (Exception e) {
-        System.out.println("[ERROR] could not find" + autonChooser.get().getName());
-        System.out.println(e.toString());
+        try {
+          choosenAutonomousCommand = autonChooser.get();
+        } catch (Exception e) {
+          System.out.println("[ERROR] could not find" + autonChooser.get().getName());
+          System.out.println(e.toString());
+        }
+
+        Long totalTime = System.nanoTime() - start;
+        System.out.println(
+            "Autonomous Selected: ["
+                + autonChooser.get().getName()
+                + "] generated in "
+                + (totalTime / 1000000.0)
+                + "ms");
       }
-
-      Long totalTime = System.nanoTime() - start;
-      System.out.println(
-          "Autonomous Selected: ["
-              + autonChooser.get().getName()
-              + "] generated in "
-              + (totalTime / 1000000.0)
-              + "ms");
     }
-  }
 
-  public void checkAutonomousSelection() {
-    checkAutonomousSelection(false);
-  }
-
+    public void checkAutonomousSelection() {
+      checkAutonomousSelection(false);
+    }
+  */
   public void checkAllaince() {
     // TODO: check the optional return instead of just .get()
     if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
       currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
       // Updated any things that need to change
       System.out.println("changed alliance");
-      checkAutonomousSelection(true);
+      // checkAutonomousSelection(true);
     }
   }
 
@@ -225,7 +222,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return autonChooser.get();
-  }
+  // public Command getAutonomousCommand() {
+  // return autonChooser.get();
+  // }
 }
