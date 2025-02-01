@@ -116,6 +116,14 @@ public class Intake extends SubsystemBase {
     return this.runEnd(() -> movePivot(5), () -> movePivot(0));
   }
 
+  public void moveVelocity(int x) {
+    io.setPivotVolts(x);
+  }
+
+  public Command moveRollerVelocity() {
+    return this.runEnd(() -> moveVelocity(5), () -> moveVelocity(0));
+  }
+
   public Command retractPivot() {
     return this.runOnce(() -> this.pivotSetpoint = 0.0);
   }

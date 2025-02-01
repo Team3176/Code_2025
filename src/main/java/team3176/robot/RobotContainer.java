@@ -160,9 +160,9 @@ public class RobotContainer {
         .onFalse(superstructure.stopClimbRight());
         */
     // controller.operator.povDown().onTrue(superstructure.intakeNote());
-    controller.operator.a().whileTrue(superstructure.deployIntakePivot());
+    controller.operator.a().onTrue(superstructure.movePivot());
 
-    controller.operator.b().whileTrue(superstructure.retractIntakePivot());
+    controller.operator.b().onTrue(superstructure.movePivotVelocity());
 
     controller
         .switchBox
