@@ -49,5 +49,9 @@ public interface IntakeIO {
 
   public default void setPivotPIDPosition(double position) {}
 
+  public default void setIntakePIDPosition(double rotations) {}
+
   public default void setCoastMode(boolean isCoastMode) {}
+
+  public default void setIntakeVoltage(double voltage) {}
 }

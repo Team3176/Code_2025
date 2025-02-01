@@ -2,6 +2,7 @@ package team3176.robot.subsystems.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
 // import java.util.function.IntSupplier;
+import java.util.function.DoubleSupplier;
 import team3176.robot.subsystems.superstructure.intake.Intake;
 
 public class Superstructure {
@@ -34,5 +35,13 @@ public class Superstructure {
 
   public Command movePivotVelocity() {
     return intake.moveRollerVelocity();
+  }
+
+  public Command setIntakePosition(DoubleSupplier position) {
+    return intake.setIntakePosition(position);
+  }
+
+  public Command moveIntakePosition(DoubleSupplier position) {
+    return intake.moveIntakePosition(position);
   }
 }

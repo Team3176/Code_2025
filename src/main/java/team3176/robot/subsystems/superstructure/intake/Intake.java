@@ -7,6 +7,7 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 import team3176.robot.Constants;
 import team3176.robot.Constants.Mode;
@@ -82,6 +83,26 @@ public class Intake extends SubsystemBase {
     // this assumes positive voltage deploys the intake and negative voltage retracts it.
     // invert the motor if that is NOT true
     io.setPivotVolts(volts);
+  }
+
+  private void intakeGoToPosition(double position) {
+    io.setIntakePIDPosition(position);
+  }
+
+  public Command setIntakePosition(DoubleSupplier position) {
+    return this.runEnd(
+        () -> {
+          intakeGoToPosition((position.getAsDouble()));
+        },
+        () -> io.setIntakeVoltage(0.0));
+  }
+
+  public Command moveIntakePosition(DoubleSupplier delta) {
+    return this.runEnd(
+        () -> {
+          io.setIntakeVoltage((5 * delta.getAsDouble()));
+        },
+        () -> io.setIntakeVoltage(0.0));
   }
 
   private boolean rollerSwitch() {
