@@ -18,7 +18,7 @@ public class SwervePod {
 
   private SwerveModuleState desiredState = new SwerveModuleState();
   boolean lastHasResetOccurred;
-  public static final double WHEEL_DIAMETER = Units.inchesToMeters(2.99); // Inches
+  public static final double WHEEL_DIAMETER = Units.inchesToMeters(4); // Inches
   static final double ODOMETRY_FREQUENCY = 100.0;
 
   /**
@@ -36,11 +36,16 @@ public class SwervePod {
   // private double kAzimuthEncoderUnitsPerRevolution;
 
   // private double kP_Azimuth;
-  private LoggedTunableNumber kPAzimuth = new LoggedTunableNumber("kP_azimuth", .007);
+  private LoggedTunableNumber kPAzimuth = new LoggedTunableNumber("kP_azimuth", 600);
 
   private LoggedTunableNumber kIAzimuth = new LoggedTunableNumber("kI_azimuth", 0.0);
-  private LoggedTunableNumber kDAzimuth = new LoggedTunableNumber("kD_azimuth", 0.0003);
+  private LoggedTunableNumber kDAzimuth = new LoggedTunableNumber("kD_azimuth", 6);
   private LoggedTunableNumber turnMaxpercent = new LoggedTunableNumber("turn_max", 0.75);
+  private static final LoggedTunableNumber drivekS = new LoggedTunableNumber("kS_thrust");
+  private static final LoggedTunableNumber drivekV = new LoggedTunableNumber("kV_thrust");
+  private static final LoggedTunableNumber drivekT = new LoggedTunableNumber("kT_thrust");
+  private static final LoggedTunableNumber drivekP = new LoggedTunableNumber("kP_thrust");
+  private static final LoggedTunableNumber drivekD = new LoggedTunableNumber("kD_thrust");
   private String[] podNames = {"FR", "FL", "BL", "BR"};
 
   private LoggedTunableNumber offset;

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import java.util.Map;
 
 public final class Constants {
-  private static final RobotType robot = RobotType.ROBOT_2024C;
+  private static final RobotType robot = RobotType.ROBOT_2025C;
   public static final double LOOP_PERIODIC_SECS = 0.02;
   public static final boolean TUNING_MODE = true;
   public static final boolean VISION_CONNECTED = false;
@@ -23,7 +23,7 @@ public final class Constants {
         if (!invalidRobotAlertSent) {
           invalidRobotAlertSent = true;
         }
-        return RobotType.ROBOT_2024C;
+        return RobotType.ROBOT_2025C;
       } else {
         return robot;
       }
@@ -51,6 +51,7 @@ public final class Constants {
       Map.of(RobotType.ROBOT_2024C, "/media/sda1/");
 
   public static enum RobotType {
+    ROBOT_2025C,
     ROBOT_2024C,
     ROBOT_DEFENSE,
     CTRL_BOARD,

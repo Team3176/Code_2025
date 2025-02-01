@@ -9,10 +9,13 @@ import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -23,6 +26,7 @@ import java.util.Queue;
 import org.littletonrobotics.junction.Logger;
 import team3176.robot.Constants;
 import team3176.robot.Constants.RobotType;
+import team3176.robot.constants.DriveConstants;
 import team3176.robot.constants.SwervePodHardwareID;
 
 public class SwervePodIOTalon implements SwervePodIO {
@@ -35,6 +39,8 @@ public class SwervePodIOTalon implements SwervePodIO {
   private int id;
   private TalonFX turnTalonFX;
   final VelocityVoltage thrustVelocity = new VelocityVoltage(0.0);
+  double thrust_kT;
+
   // private final VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new
   // VelocityTorqueCurrentFOC(0).withUpdateFreqHz(0);
   private final VelocityTorqueCurrentFOC velocityTorqueCurrentFOC = new VelocityTorqueCurrentFOC(0);
@@ -82,18 +88,27 @@ public class SwervePodIOTalon implements SwervePodIO {
     var thrustTalonFXConfig = new TalonFXConfiguration();
 
     thrustTalonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    thrustTalonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = 80;
-    thrustTalonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = -80;
+    thrustTalonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent =
+        DriveConstants.SWERVEPOD_THRUST_CURRENTLIMIT;
+    thrustTalonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent =
+        -DriveConstants.SWERVEPOD_THRUST_CURRENTLIMIT;
     thrustTalonFXConfig.ClosedLoopRamps.TorqueClosedLoopRampPeriod = 0.02;
+    thrustTalonFXConfig.Feedback.SensorToMechanismRatio =
+        DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
+    thrustTalonFXConfig.CurrentLimits.StatorCurrentLimit =
+        DriveConstants.SWERVEPOD_THRUST_CURRENTLIMIT;
+    thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
     // thrustTalonFXConfig.Feedback.SensorToMechanismRatio = (1.0 / THRUST_GEAR_RATIO);
     // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimit = 40;
     // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
     // thrustTalonFXConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
 
-    thrustTalonFXConfig.Slot0.kP = 0.2;
-    thrustTalonFXConfig.Slot0.kI = 0.0;
+    thrustTalonFXConfig.Slot0.kP = 10;
+    thrustTalonFXConfig.Slot0.kI = 0;
     thrustTalonFXConfig.Slot0.kD = 0.0;
-    thrustTalonFXConfig.Slot0.kV = 0.12;
+    thrustTalonFXConfig.Slot0.kV = 0.0;
+    thrustTalonFXConfig.Slot0.kS = 0.0;
+    thrust_kT = (DriveConstants.SWERVEPOD_THRUST_REDUCTION / DCMotor.getKrakenX60Foc(1).KtNMPerAmp);
     thrustVelocity.Slot = 0;
 
     thrustTalonFXConfig.Slot1.kP = 5.0;
@@ -104,13 +119,25 @@ public class SwervePodIOTalon implements SwervePodIO {
 
     var turnTalonFXConfig = new TalonFXConfiguration();
     turnTalonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-    turnTalonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = 80;
-    turnTalonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = -80;
+    turnTalonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent =
+        DriveConstants.SWERVEPOD_AZIMUTH_CURRENTLIMIT;
+    turnTalonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent =
+        -DriveConstants.SWERVEPOD_AZIMUTH_CURRENTLIMIT;
     turnTalonFXConfig.ClosedLoopRamps.TorqueClosedLoopRampPeriod = 0.02;
-    turnTalonFXConfig.Slot0.kP = 0.2;
+    //    turnTalonFXConfig.Feedback.SensorToMechanismRatio =
+    // DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
+    turnTalonFXConfig.CurrentLimits.StatorCurrentLimit =
+        DriveConstants.SWERVEPOD_AZIMUTH_CURRENTLIMIT;
+    turnTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+    turnTalonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    turnTalonFXConfig.Feedback.FeedbackRemoteSensorID = id.CANCODER_CID;
+    turnTalonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+    turnTalonFXConfig.Feedback.RotorToSensorRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
+
+    turnTalonFXConfig.Slot0.kP = 600.0;
     turnTalonFXConfig.Slot0.kI = 0.0;
-    turnTalonFXConfig.Slot0.kD = 0.0;
-    turnTalonFXConfig.Slot0.kV = 0.12;
+    turnTalonFXConfig.Slot0.kD = 6.0;
+    turnTalonFXConfig.Slot0.kV = 0.0;
 
     turnTalonFXConfig.Slot1.kP = 5.0;
     turnTalonFXConfig.Slot1.kI = 0;
@@ -123,8 +150,13 @@ public class SwervePodIOTalon implements SwervePodIO {
     // turnSparkMax.setInverted(true);
 
     var azimuthEncoderConfig = new CANcoderConfiguration();
+    Rotation2d encoderOffset = Rotation2d.fromDegrees(id.OFFSET);
+    azimuthEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
+    ;
+
     azimuthEncoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
-    azimuthEncoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+    azimuthEncoderConfig.MagnetSensor.SensorDirection =
+        SensorDirectionValue.CounterClockwise_Positive;
     // TODO: convert offset values to be from -1 to 1 in revolution instead of encoder tics;
     // Comment out line below to test Akit way
 
@@ -227,7 +259,7 @@ public class SwervePodIOTalon implements SwervePodIO {
   public void setDrive(double velMetersPerSecond) {
     double velRotationsPerSec =
         velMetersPerSecond * (1.0 / (SwervePod.WHEEL_DIAMETER * Math.PI)) * 1.0 / THRUST_GEAR_RATIO;
-    if (Constants.getRobot() == RobotType.ROBOT_2024C) {
+    if (Constants.getRobot() == RobotType.ROBOT_2025C) {
       thrustTalonFX.setControl(velocityTorqueCurrentFOC.withVelocity(velRotationsPerSec));
     } else {
       thrustTalonFX.setControl(thrustVelocity.withVelocity(velRotationsPerSec));
