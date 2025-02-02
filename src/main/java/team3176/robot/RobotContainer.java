@@ -64,11 +64,11 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure what objects will be constructed
     // Controller controller = null;
-    // Drivetrain drivetrain = null;
+    Drivetrain drivetrain = null;
     // LEDSubsystem leds = null;
     // LEDSubsystem ledsRio = null;
     Superstructure superstructure = null;
-    // PhotonVisionSystem vision = null;
+    PhotonVisionSystem vision = null;
     // Visualization visualization = null;
     PDType pdType = PDType.REV; // Should be PdType.REV or PDType.CTRE
     PathPlannerPresent = true; // Should be true or false
