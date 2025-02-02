@@ -185,11 +185,15 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     robotContainer.clearCanFaults();
     //    robotContainer.setThrustBrake();
-    autonomousCommand = robotContainer.getAutonomousCommand();
+    if (robotContainer.isPathPlannerPresent()) {
+      autonomousCommand = robotContainer.getAutonomousCommand();
+    }
 
     // schedule the autonomous command (example)
-    if (autonomousCommand != null) {
-      autonomousCommand.schedule();
+    if (robotContainer.isPathPlannerPresent()) {
+      if (autonomousCommand != null) {
+        autonomousCommand.schedule();
+      }
     }
   }
 

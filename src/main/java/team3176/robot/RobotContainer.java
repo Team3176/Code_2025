@@ -36,13 +36,13 @@ import team3176.robot.subsystems.vision.PhotonVisionSystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private final Controller controller;
   private PowerDistribution pdh;
 
   // is this why we don't have a compressor? private final Compressor m_Compressor
+  private Controller controller;
   private Drivetrain drivetrain;
   private LEDSubsystem leds;
-  //  private Superstructure superstructure;
+  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
   private LoggedDashboardChooser<Command> autonChooser;
@@ -54,48 +54,89 @@ public class RobotContainer {
   //  private Trigger intakeOverride;
   private Trigger visionOverride;
   private LEDS ledsRio;
+  private boolean PathPlannerPresent;
+
+  enum PDType {
+    CTRE,
+    REV
+  }
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
-    controller = Controller.getInstance();
-    // superstructure = Superstructure.getInstance();
-    drivetrain = Drivetrain.getInstance();
+    // Configure what objects will be contstructed
+    // Controller controller = null;
+    // Drivetrain drivetrain = null;
+    // LEDSubsystem leds = null;
+    // LEDSubsystem ledsRio = null;
+    Superstructure superstructure = null;
+    // PhotonVisionSystem vision = null;
+    // Visualization visualization = null;
+    PDType pdType = PDType.REV; // Should be PdType.REV or PDType.CTRE
+    PathPlannerPresent = true; // Should be true or false
 
-    leds = LEDSubsystem.getInstance();
-    ledsRio = LEDS.getInstance();
-    endMatchAlert.onTrue(leds.EndgameStart());
+    // Construct objects
+    if (controller == null) {
+      controller = Controller.getInstance();
+    }
 
-    // superstructure = Superstructure.getInstance();
+    if (drivetrain == null) {
+      drivetrain = Drivetrain.getInstance();
+    }
+
+    if (leds == null) {
+      leds = LEDSubsystem.getInstance();
+      endMatchAlert.onTrue(leds.EndgameStart());
+    }
+
+    if (ledsRio == null) {
+      ledsRio = LEDS.getInstance();
+    }
+
     visualization = new Visualization();
     if (Constants.VISION_CONNECTED) {
       vision = PhotonVisionSystem.getInstance();
     }
 
-    pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
+    if (superstructure == null) {
+      superstructure = Superstructure.getInstance();
+    }
 
-    drivetrain.setDefaultCommand(
-        drivetrain
-            .swerveDriveJoysticks(
-                () -> controller.getForward(),
-                () -> controller.getStrafe(),
-                () -> controller.getSpin())
-            .withName("default drive"));
-    leds.setDefaultCommand(leds.DefaultLED());
-    // These all need to be sped up
-    NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
-    // NamedCommands.registerCommand(
-    //     "shoot",
-    //     superstructure
-    //         .aimClose()
-    //         .alongWith(new WaitCommand(0.5).andThen(superstructure.shoot().withTimeout(0.3)))
-    //         .withTimeout(0.8)
-    //         .withName("shooting"));
+    if (pdType == PDType.CTRE) {
+      pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kCTRE);
+    } else pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
-    autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
+    if (drivetrain != null) {
+      drivetrain.setDefaultCommand(
+          drivetrain
+              .swerveDriveJoysticks(
+                  () -> controller.getForward(),
+                  () -> controller.getStrafe(),
+                  () -> controller.getSpin())
+              .withName("default drive"));
+    }
 
-    SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
-    configureBindings();
+    if (leds != null) {
+      leds.setDefaultCommand(leds.DefaultLED());
+    }
+
+    if (PathPlannerPresent == true) {
+      // These all need to be sped up
+      NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
+      // NamedCommands.registerCommand(    //     "shoot",
+      //     superstructure
+      //         .aimClose
+      //         .alongWith(new WaitCommand(0.5).andThen(superstructure.shoot().withTimeout(0.3)))
+      //         .withTimeout(0.8)
+      //         .withName("shooting"));
+
+      autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
+
+      SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
+    }
+
+    if (controller != null) {
+      configureBindings();
+    }
   }
 
   private void configureBindings() {
@@ -225,5 +266,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return autonChooser.get();
+  }
+
+  public boolean isPathPlannerPresent() {
+    boolean isPathPlannerPresent = PathPlannerPresent ? true : false;
+    return isPathPlannerPresent;
   }
 }
