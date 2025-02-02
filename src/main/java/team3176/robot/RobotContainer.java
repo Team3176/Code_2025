@@ -51,7 +51,6 @@ public class RobotContainer {
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < 20);
   private Trigger shooterOverride;
   private Trigger ampOverride;
-  //  private Trigger intakeOverride;
   private Trigger visionOverride;
   private LEDS ledsRio;
   private boolean PathPlannerPresent;
@@ -63,7 +62,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure what objects will be contstructed
+    // Configure what objects will be constructed
     // Controller controller = null;
     // Drivetrain drivetrain = null;
     // LEDSubsystem leds = null;
