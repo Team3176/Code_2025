@@ -82,7 +82,7 @@ public class Robot extends LoggedRobot {
         }
 
         Logger.addDataReceiver(new NT4Publisher());
-        if (Constants.getRobot() == RobotType.ROBOT_2024C) {
+        if (Constants.getRobot() == RobotType.ROBOT_2025C) {
           LoggedPowerDistribution.getInstance(50, ModuleType.kRev);
         }
         break;

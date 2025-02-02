@@ -155,7 +155,7 @@ public class Drivetrain extends SubsystemBase {
     // Instantiate pods
     if (Constants.getMode() != Mode.REPLAY) {
       switch (Constants.getRobot()) {
-        case ROBOT_2024C:
+        case ROBOT_2025C:
           System.out.println("[init] normal swervePods");
           podFR = new SwervePod(0, new SwervePodIOTalon(Hardwaremap.FR, Hardwaremap.STEER_FR_CID));
           podFL = new SwervePod(1, new SwervePodIOTalon(Hardwaremap.FL, Hardwaremap.STEER_FL_CID));

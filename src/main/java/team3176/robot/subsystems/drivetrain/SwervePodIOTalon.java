@@ -103,8 +103,8 @@ public class SwervePodIOTalon implements SwervePodIO {
     // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
     // thrustTalonFXConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
 
-    thrustTalonFXConfig.Slot0.kP = 10;
-    thrustTalonFXConfig.Slot0.kI = 0;
+    thrustTalonFXConfig.Slot0.kP = 9;
+    thrustTalonFXConfig.Slot0.kI = 1;
     thrustTalonFXConfig.Slot0.kD = 0.0;
     thrustTalonFXConfig.Slot0.kV = 0.0;
     thrustTalonFXConfig.Slot0.kS = 0.0;
@@ -134,9 +134,9 @@ public class SwervePodIOTalon implements SwervePodIO {
     turnTalonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     turnTalonFXConfig.Feedback.RotorToSensorRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
 
-    turnTalonFXConfig.Slot0.kP = 600.0;
+    turnTalonFXConfig.Slot0.kP = 3.0;
     turnTalonFXConfig.Slot0.kI = 0.0;
-    turnTalonFXConfig.Slot0.kD = 6.0;
+    turnTalonFXConfig.Slot0.kD = 0.0;
     turnTalonFXConfig.Slot0.kV = 0.0;
 
     turnTalonFXConfig.Slot1.kP = 5.0;

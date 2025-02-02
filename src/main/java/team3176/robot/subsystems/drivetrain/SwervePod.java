@@ -36,10 +36,10 @@ public class SwervePod {
   // private double kAzimuthEncoderUnitsPerRevolution;
 
   // private double kP_Azimuth;
-  private LoggedTunableNumber kPAzimuth = new LoggedTunableNumber("kP_azimuth", 600);
+  private LoggedTunableNumber kPAzimuth = new LoggedTunableNumber("kP_azimuth", 6);
 
   private LoggedTunableNumber kIAzimuth = new LoggedTunableNumber("kI_azimuth", 0.0);
-  private LoggedTunableNumber kDAzimuth = new LoggedTunableNumber("kD_azimuth", 6);
+  private LoggedTunableNumber kDAzimuth = new LoggedTunableNumber("kD_azimuth", 0);
   private LoggedTunableNumber turnMaxpercent = new LoggedTunableNumber("turn_max", 0.75);
   private static final LoggedTunableNumber drivekS = new LoggedTunableNumber("kS_thrust");
   private static final LoggedTunableNumber drivekV = new LoggedTunableNumber("kV_thrust");

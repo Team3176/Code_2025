@@ -18,7 +18,7 @@ public final class Constants {
   public static boolean invalidRobotAlertSent = false;
 
   public static RobotType getRobot() {
-    if (!isHALdisable && RobotBase.isReal()) {
+    if (!disableHAL && RobotBase.isReal()) {
       if (robot == RobotType.ROBOT_SIMBOT) { // Invalid robot selected
         if (!invalidRobotAlertSent) {
           invalidRobotAlertSent = true;
@@ -34,7 +34,7 @@ public final class Constants {
 
   public static Mode getMode() {
     switch (getRobot()) {
-      case ROBOT_2024C:
+      case ROBOT_2025C:
         return Mode.REAL;
       case CTRL_BOARD:
         return RobotBase.isReal() ? Mode.REAL : Mode.REPLAY;
@@ -48,7 +48,7 @@ public final class Constants {
   }
 
   public static final Map<RobotType, String> logFolders =
-      Map.of(RobotType.ROBOT_2024C, "/media/sda1/");
+      Map.of(RobotType.ROBOT_2025C, "/media/sda1/");
 
   public static enum RobotType {
     ROBOT_2025C,
@@ -79,10 +79,10 @@ public final class Constants {
   }
 
   // Function to disable HAL interaction when running without native libs
-  public static boolean isHALdisable = false;
+  public static boolean disableHAL = false;
 
   public static void disableHAL() {
-    isHALdisable = true;
+    disableHAL = true;
   }
 
   /** Checks whether the robot the correct robot is selected when deploying. */

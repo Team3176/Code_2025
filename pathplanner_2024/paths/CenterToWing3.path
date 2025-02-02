@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.2951743872237744,
+        "y": 5.51611216503683
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.2050697410876046,
+        "y": 5.492445188825977
+      },
+      "isLocked": false,
+      "linkedName": "CenterStart"
+    },
+    {
+      "anchor": {
+        "x": 2.431788811968301,
+        "y": 4.313959357663443
+      },
+      "prevControl": {
+        "x": 1.2863055907693008,
+        "y": 4.2992736753403795
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Wing3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}
