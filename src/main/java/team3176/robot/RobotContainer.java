@@ -90,8 +90,10 @@ public class RobotContainer {
     if (ledsRio == null) {
       ledsRio = LEDS.getInstance();
     }
+    if (visualization == null) {
+      visualization = new Visualization();
+    }
 
-    visualization = new Visualization();
     if (Constants.VISION_CONNECTED) {
       vision = PhotonVisionSystem.getInstance();
     }
@@ -153,54 +155,56 @@ public class RobotContainer {
     .transStick
     .button(1)
     .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE)); */
-    controller
-        .transStick
-        .button(1)
-        .whileTrue(
-            drivetrain
-                .swerveDriveJoysticks(
-                    () -> controller.getForward(),
-                    () -> controller.getStrafe(),
-                    () -> controller.getSpin() * 1.5)
-                .withName("boost drive"));
+    if (controller != null) {
+      controller
+          .transStick
+          .button(1)
+          .whileTrue(
+              drivetrain
+                  .swerveDriveJoysticks(
+                      () -> controller.getForward(),
+                      () -> controller.getStrafe(),
+                      () -> controller.getSpin() * 1.5)
+                  .withName("boost drive"));
 
-    /*
-        controller
-        .transStick
-        .button(4)
-        .whileTrue(
-            drivetrain
-                .chaseNoteTeleo(
-                    () -> controller.getForward(),
-                    () -> controller.getStrafe(),
-                    () -> controller.getSpin())
-                .alongWith(superstructure.intakeNote()));
-    */
-    controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
-    controller
-        .transStick
-        .button(10)
-        .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense"));
+      /*
+          controller
+          .transStick
+          .button(4)
+          .whileTrue(
+              drivetrain
+                  .chaseNoteTeleo(
+                      () -> controller.getForward(),
+                      () -> controller.getStrafe(),
+                      () -> controller.getSpin())
+                  .alongWith(superstructure.intakeNote()));
+      */
+      controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
+      controller
+          .transStick
+          .button(10)
+          .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense"));
 
-    /*
-     *  Rotation Stick
-     */
-    controller
-        .rotStick
-        .button(8)
-        .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain));
+      /*
+       *  Rotation Stick
+       */
+      controller
+          .rotStick
+          .button(8)
+          .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain));
 
-    /*
-     * Operator
-     */
-    /*
-    controller
-        .operator
-        .rightBumper()
-        .whileTrue(superstructure.moveClimbRightPosition(() -> controller.operator.getRightY()))
-        .onFalse(superstructure.stopClimbRight());
-        */
-    // controller.operator.povDown().onTrue(superstructure.intakeNote());
+      /*
+       * Operator
+       */
+      /*
+      controller
+          .operator
+          .rightBumper()
+          .whileTrue(superstructure.moveClimbRightPosition(() -> controller.operator.getRightY()))
+          .onFalse(superstructure.stopClimbRight());
+          */
+      // controller.operator.povDown().onTrue(superstructure.intakeNote());
+    }
 
     controller
         .switchBox
