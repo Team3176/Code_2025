@@ -4,7 +4,6 @@
 
 package team3176.robot.subsystems.controller;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import team3176.robot.constants.ControllerConstants;
@@ -34,19 +33,18 @@ public class Controller {
     CommandXboxController operator = null;
     CommandJoystick switchBox = null;
 
-    
     /* Finish Creating the Objects */
 
-    if (transStick == null) { 
+    if (transStick == null) {
       transStick = new CommandJoystick(ControllerConstants.TRANS_ID);
     }
-    if (rotStick == null) { 
+    if (rotStick == null) {
       rotStick = new CommandJoystick(ControllerConstants.ROT_ID);
     }
-    if (operator == null) { 
+    if (operator == null) {
       operator = new CommandXboxController(ControllerConstants.OP_ID);
     }
-    if (switchBox == null) { 
+    if (switchBox == null) {
       switchBox = new CommandJoystick(3);
     }
   }
