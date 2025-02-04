@@ -169,12 +169,7 @@ public class RobotContainer {
            .onFalse(drivetrain.setVisionOverride(false));
     */
     // controller.operator.b().whileTrue(superstructure.movePivot());
-
-    controller
-        .operator
-        .b()
-        .whileTrue(superstructure.moveIntakePosition(() -> -controller.operator.getLeftY()));
-
+    controller.operator.b().whileTrue(superstructure.movePivot());
     controller.operator.a().whileTrue(superstructure.movePivotVelocity());
   }
 

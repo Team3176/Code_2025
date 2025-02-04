@@ -16,7 +16,6 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
@@ -25,6 +24,7 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.XboxController;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.util.TalonUtils;
 
@@ -56,11 +56,16 @@ public class IntakeIOTalon implements IntakeIO {
   private final StatusSignal<Current> rollerCurrentAmpsSupply;
   private final StatusSignal<AngularVelocity> rollerVelocity;
   private final StatusSignal<Temperature> rollerTemp;
+  private final PositionVoltage positionVoltage;
+
+  private final XboxController m_joystick;
 
   public IntakeIOTalon() {
 
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
+
+    m_joystick = new XboxController(0);
 
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
@@ -73,6 +78,8 @@ public class IntakeIOTalon implements IntakeIO {
 
     rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
     pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
+
+    positionVoltage = new PositionVoltage(0).withSlot(0);
 
     // config setting
     // rollerConfigs.CurrentLimits.StatorCurrentLimit = 50;
@@ -176,7 +183,8 @@ public class IntakeIOTalon implements IntakeIO {
 
   @Override
   public void setPivotPIDPosition(double position) {
-    pivotPID.setReference(position, SparkBase.ControlType.kPosition);
+    double desiredRotations = m_joystick.getLeftY() * 10; // Go for plus/minus 10 rotations
+    pivotController.setControl(positionVoltage.withPosition(desiredRotations));
   }
 
   @Override

@@ -4,6 +4,7 @@
 
 package team3176.robot;
 
+import au.grapplerobotics.CanBridge;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -51,6 +52,8 @@ public class Robot extends LoggedRobot {
     // TODO: Char restore this fxnality  -- mod build.gradle: see prepForState 723516
     // spark = new Spark(0);
     // spark.set(-0.88);
+    CanBridge.runTCP();
+
     System.out.println("[Init] Starting AdvantageKit");
     Logger.recordMetadata("Robot", Constants.getRobot().toString());
     Logger.recordMetadata("RuntimeType", getRuntimeType().toString());

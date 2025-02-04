@@ -201,7 +201,7 @@ public class Intake extends SubsystemBase {
     Logger.recordOutput("Intake/PID_out", commandVolts);
     Logger.recordOutput("Intake/setpoint", this.pivotSetpoint);
     Logger.recordOutput("Intake/offsetPos", pivot_pos);
-    runPivot(commandVolts);
+    // runPivot(commandVolts);
     pivotPID.checkParemeterUpdate();
     if (inputs.lowerLimitSwitch && !ishomed) {
       ishomed = true;
