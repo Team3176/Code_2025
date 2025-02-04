@@ -92,6 +92,10 @@ public class Arm extends SubsystemBase {
     return this.runOnce(() -> this.pivotSetpoint = -0.5);
   }
 
+  public Command torquePosition() {
+    return this.runOnce(() -> io.setPivotTorquePosition(0.5));
+  }
+
   @Override
   public void periodic() {
     io.updateInputs(inputs);

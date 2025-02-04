@@ -26,6 +26,10 @@ public class Superstructure {
     return arm.negativePID();
   }
 
+  public Command testTorque() {
+    return arm.torquePosition();
+  }
+  
   public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()
         .goToPoint(FieldConstants.CoralStation.leftCenterFace)
