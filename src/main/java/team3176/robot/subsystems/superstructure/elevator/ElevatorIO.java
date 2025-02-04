@@ -26,7 +26,7 @@ public interface ElevatorIO {
     public double desiredrotation = 1.0;
     public boolean istopLimitswitch = true;
     public boolean isbotLimitswitch = true;
-
+    public int periodic = 0;
     // constructor if needed for some inputs
     ElevatorIOInputs() {}
   }

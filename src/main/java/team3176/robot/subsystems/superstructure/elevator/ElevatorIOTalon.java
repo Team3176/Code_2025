@@ -23,6 +23,7 @@ import team3176.robot.constants.Hardwaremap;
 import team3176.robot.constants.SuperStructureConstants;
 import team3176.robot.subsystems.superstructure.elevator.ElevatorIO.ElevatorIOInputs;
 import team3176.robot.util.TalonUtils;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 /** Template hardware interface for the Elevator subsystem. */
 public class ElevatorIOTalon implements ElevatorIO {
@@ -150,6 +151,14 @@ public class ElevatorIOTalon implements ElevatorIO {
     System.out.println("setleftpt Working");
   }
 
+  @ public double getLeftLeaderPosition()
+  {
+   //return elevatorLeftLeader.getPosition();
+   // TODO Need to convert get position from angle to double value 
+   return 0;
+  }
+
+ 
   // @Override
   // public void setRightPIDPosition(double position) {
   // elevatorRightFollower.setControl(voltPosition.withPosition(position));
@@ -189,6 +198,13 @@ public class ElevatorIOTalon implements ElevatorIO {
     elevatorLeftLeader.setVoltage(voltage);
     // elevatorRightFollower.setVoltage(voltage);
   }
+
+
+
+
+ 
+
+
   // System.out.println("ElevatorIOFalcon.set was called");
   // elevatorLeaderMotor.setControl(voltPosition.withPosition(.25));
   // elevatorLeaderMotor.set(1);
