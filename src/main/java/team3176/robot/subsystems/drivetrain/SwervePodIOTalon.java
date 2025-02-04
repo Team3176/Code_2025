@@ -134,9 +134,8 @@ public class SwervePodIOTalon implements SwervePodIO {
     turnTalonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     turnTalonFXConfig.Feedback.RotorToSensorRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
 
-    turnTalonFXConfig.Slot0.kP = 3.0;
-    turnTalonFXConfig.Slot0.kI = 0.0;
-    turnTalonFXConfig.Slot0.kD = 0.0;
+    turnTalonFXConfig.Slot0.kP = 1000;
+    turnTalonFXConfig.Slot0.kD = 50;
     turnTalonFXConfig.Slot0.kV = 0.0;
 
     turnTalonFXConfig.Slot1.kP = 5.0;
@@ -155,8 +154,7 @@ public class SwervePodIOTalon implements SwervePodIO {
     ;
 
     azimuthEncoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
-    azimuthEncoderConfig.MagnetSensor.SensorDirection =
-        SensorDirectionValue.CounterClockwise_Positive;
+    azimuthEncoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
     // TODO: convert offset values to be from -1 to 1 in revolution instead of encoder tics;
     // Comment out line below to test Akit way
 
