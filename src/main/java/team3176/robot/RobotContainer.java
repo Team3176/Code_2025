@@ -176,15 +176,30 @@ public class RobotContainer {
         .b()
         .whileTrue(
             Elevator.getInstance()
-                .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L1_POS));
+            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L1_POS));
     controller
         .operator
         .a()
         .whileTrue(
             Elevator.getInstance()
-                .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L0_POS * -1));
+            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L2_POS));
 
-    controller.operator.x().onTrue(Elevator.getInstance().moveLeftRightPositionTorque(1));
+    controller
+    .operator
+    .x()
+    .whileTrue(
+        Elevator.getInstance()
+            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L3_POS));
+           // .moveLeftRightPosition0(SuperStructureConstants.ELEVATORLEFT_L2_POS));
+
+    controller
+    .operator
+    .y()
+    .whileTrue(
+        Elevator.getInstance()
+          .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L4_POS));
+
+    //controller.operator.x().onTrue(Elevator.getInstance().moveLeftRightPositionTorque(1));
   }
 
   public void clearCanFaults() {

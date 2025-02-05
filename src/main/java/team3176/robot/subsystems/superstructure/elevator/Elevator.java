@@ -18,6 +18,7 @@ public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
   private double leftSetPoint = 0;
   private double rightSetPoint = 0;
+  private double offset = 0;
 
   private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
   private TunablePID pid = new TunablePID("climbLeft", 0.001, 0, 0);
@@ -80,12 +81,12 @@ public class Elevator extends SubsystemBase {
   
 
   private void leftGoToPosition(double position) {
-    if (position > SuperStructureConstants.CLIMBLEFT_TOP_POS) {
-      position = SuperStructureConstants.CLIMBLEFT_TOP_POS;
-    }
-    if (position < 0.0) {
-      position = 0.0;
-    }
+    //if (position > SuperStructureConstants.ELEVATORLEFT_L4_POS) {
+    //  position = SuperStructureConstants.ELEVATORLEFT_L4_POS;
+   // }
+    //if (position < 0.0) {
+      //position = 0.0;
+   // }
     io.setLeftPIDPosition(position);
   }
 
@@ -164,7 +165,7 @@ public class Elevator extends SubsystemBase {
         });
   }
 
-  public Command moveLeftRightPosition(double LX_Pos) {
+  public Command moveLeftRightPosition0(double LX_Pos) {
     return this.runEnd(
         () -> {
           //        io.setRightVoltage(5 * deltaRight.getAsDouble());
@@ -227,6 +228,9 @@ public class Elevator extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
     pid.checkParemeterUpdate();
+
+
+
   }
 
   public static Elevator getInstance() {

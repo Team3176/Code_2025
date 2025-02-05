@@ -67,6 +67,8 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.TorqueCurrent.withPeakForwardTorqueCurrent(120).withPeakReverseTorqueCurrent(-120);
 
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+
+    //TODO set max height
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
         SuperStructureConstants.ELEVATORLEFT_TOP_POS;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
@@ -151,12 +153,6 @@ public class ElevatorIOTalon implements ElevatorIO {
     System.out.println("setleftpt Working");
   }
 
-  @ public double getLeftLeaderPosition()
-  {
-   //return elevatorLeftLeader.getPosition();
-   // TODO Need to convert get position from angle to double value 
-   return 0;
-  }
 
  
   // @Override
