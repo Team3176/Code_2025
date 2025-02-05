@@ -24,7 +24,6 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.XboxController;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.util.TalonUtils;
 
@@ -58,14 +57,14 @@ public class IntakeIOTalon implements IntakeIO {
   private final StatusSignal<Temperature> rollerTemp;
   private final PositionVoltage positionVoltage;
 
-  private final XboxController m_joystick;
+  // private final XboxController m_joystick;
 
   public IntakeIOTalon() {
 
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
 
-    m_joystick = new XboxController(0);
+    // m_joystick = new XboxController(0);
 
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
@@ -183,12 +182,13 @@ public class IntakeIOTalon implements IntakeIO {
 
   @Override
   public void setPivotPIDPosition(double position) {
-    double desiredRotations = m_joystick.getLeftY() * 10; // Go for plus/minus 10 rotations
+    double desiredRotations = 3 * 10; // Go for plus/minus 10 rotations
     pivotController.setControl(positionVoltage.withPosition(desiredRotations));
   }
 
   @Override
   public void setPivotVolts(double volts) {
-    pivotController.setControl(pivotVolts.withOutput(volts));
+    pivotController.setControl(pivotVolts.withOutput(5));
+    System.out.println(volts);
   }
 }
