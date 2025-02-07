@@ -51,6 +51,5 @@ public interface ArmIO {
 
   public default void setCoastMode(boolean isCoastMode) {}
 
-  public default void setPivotTorquePosition(double position) {}
-  
+  public default void setPivotVoltagePos(double position) {}
 }

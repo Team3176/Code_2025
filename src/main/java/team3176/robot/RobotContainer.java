@@ -157,9 +157,7 @@ public class RobotContainer {
         */
     // controller.operator.povDown().onTrue(superstructure.intakeNote());
     controller.operator.x().whileTrue(superstructure.grabCoral());
-    controller.operator.a().whileTrue(superstructure.testPID());
-    controller.operator.b().whileTrue(superstructure.negativeTestPID());
-    controller.operator.y().whileTrue(superstructure.testTorque());
+    controller.operator.a().whileTrue(superstructure.testVoltPos());
     /*  controller
            .switchBox
            .button(5)

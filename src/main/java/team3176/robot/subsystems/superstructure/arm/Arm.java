@@ -84,16 +84,8 @@ public class Arm extends SubsystemBase {
     return this.runEnd(() -> io.setRollerVolts(-1.5), () -> io.setRollerVolts(0));
   }
 
-  public Command PID() {
-    return this.runOnce(() -> this.pivotSetpoint = 0.5);
-  }
-
-  public Command negativePID() {
-    return this.runOnce(() -> this.pivotSetpoint = -0.5);
-  }
-
-  public Command torquePosition() {
-    return this.runOnce(() -> io.setPivotTorquePosition(0.5));
+  public Command testVoltage() {
+    return this.runOnce(() -> io.setPivotVoltagePos(2));
   }
 
   @Override
