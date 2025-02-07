@@ -100,12 +100,12 @@ public class SwervePod {
    * @param desiredState
    */
   public SwerveModuleState setModule(SwerveModuleState desiredState) {
-    SwerveModuleState desiredOptimized =
-        SwerveModuleState.optimize(
-            desiredState, Rotation2d.fromDegrees(inputs.turnAbsolutePositionDegrees));
-    this.desiredOptimizedAzimuthPosition = desiredOptimized.angle.getDegrees();
-    this.desiredState = desiredOptimized;
-    return desiredOptimized;
+    Rotation2d wheelAngle = Rotation2d.fromDegrees(inputs.turnAbsolutePositionDegrees);
+    desiredState.optimize(wheelAngle);
+    desiredState.cosineScale(wheelAngle);
+    this.desiredOptimizedAzimuthPosition = desiredState.angle.getDegrees();
+    this.desiredState = desiredState;
+    return desiredState;
   }
   /*
    * odometry calls
