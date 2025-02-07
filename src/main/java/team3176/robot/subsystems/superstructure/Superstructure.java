@@ -18,12 +18,8 @@ public class Superstructure {
     return arm.spinArm();
   }
 
-  public Command testPID() {
-    return arm.PID();
-  }
-
-  public Command negativeTestPID() {
-    return arm.negativePID();
+  public Command testVoltPos() {
+    return arm.testVoltage();
   }
 
   public Command getProcessorCoralLeftAuto() {

@@ -82,6 +82,11 @@ public class ArmIOTalon implements ArmIO {
 
     // pivotConfigs.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
     // pivotConfigs.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
+
+    pivotConfigs.Slot0.kP = 60; // An error of 1 rotation results in 2.4 V output
+    pivotConfigs.Slot0.kI = 0; // No output for integrated error
+    pivotConfigs.Slot0.kD = 1; // A velocity of 1 rps results in 0.1 V output
+
     pivotConfigs.Voltage.PeakForwardVoltage = 8;
     pivotConfigs.Voltage.PeakReverseVoltage = -10;
     pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -182,5 +187,10 @@ public class ArmIOTalon implements ArmIO {
   @Override
   public void setPivotVolts(double volts) {
     pivotController.setControl(pivotVolts.withOutput(volts));
+  }
+
+  @Override
+  public void setPivotVoltagePos(double position) {
+    pivotController.setControl(voltPosition.withPosition(position));
   }
 }

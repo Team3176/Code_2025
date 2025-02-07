@@ -50,4 +50,6 @@ public interface ArmIO {
   public default void setPivotPIDPosition(double position) {}
 
   public default void setCoastMode(boolean isCoastMode) {}
+
+  public default void setPivotVoltagePos(double position) {}
 }
