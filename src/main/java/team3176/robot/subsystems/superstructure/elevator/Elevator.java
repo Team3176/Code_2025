@@ -18,7 +18,8 @@ public class Elevator extends SubsystemBase {
   private final ElevatorIO io;
   private double leftSetPoint = 0;
   private double rightSetPoint = 0;
-  private double offset = 0;
+  private double offsetbot = 0;
+ 
 
   private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
   private TunablePID pid = new TunablePID("climbLeft", 0.001, 0, 0);
@@ -34,6 +35,22 @@ public class Elevator extends SubsystemBase {
     this.io = io;
     leftPIDController.setTolerance(1.0);
     rightPIDController.setTolerance(1.0);
+    io.updateInputs(inputs);
+
+    System.out.println("Elevator Constructor Running");
+
+    if ((inputs.istopLimitswitch == true )){
+      System.out.println(inputs.leftPosition);
+    } else {
+      System.out.println("Top Limit Switch Not Pressed");
+    }
+   
+    if ((inputs.isbotLimitswitch == true )){
+      System.out.println(inputs.leftPosition);
+      offsetbot = inputs.leftPosition;
+    } else {
+      System.out.println("Bottom Limit Swith Not Pressed");
+    }
   }
 
   public Command stopLeft() {
@@ -81,6 +98,7 @@ public class Elevator extends SubsystemBase {
   
 
   private void leftGoToPosition(double position) {
+
     //if (position > SuperStructureConstants.ELEVATORLEFT_L4_POS) {
     //  position = SuperStructureConstants.ELEVATORLEFT_L4_POS;
    // }
@@ -89,6 +107,11 @@ public class Elevator extends SubsystemBase {
    // }
     io.setLeftPIDPosition(position);
   }
+
+  private double convertRobotPosToMotorPos(double robotPose) {
+    return offsetbot + robotPose;
+  }
+  
 
   private void leftHeight(double height) {
     if (height == SuperStructureConstants.ELEVATORLEFT_L1_POS) {
@@ -109,11 +132,12 @@ public class Elevator extends SubsystemBase {
   // io.setRightPIDPosition(position);
   // }
 
-  public Command setLeftPosition(DoubleSupplier position) {
+  public Command setLeftPosition(DoubleSupplier targetElevatorPosInRobotUnits) {
     return this.runEnd(
         () -> {
-          leftGoToPosition((position.getAsDouble()));
+          leftGoToPosition(convertRobotPosToMotorPos(targetElevatorPosInRobotUnits.getAsDouble()));
         },
+        
         () -> io.setLeftVoltage(0.0));
   }
 
@@ -123,6 +147,7 @@ public class Elevator extends SubsystemBase {
           leftHeight((LeftElevatorHeight));
         },
         () -> io.setLeftElevatorH(0.0));
+
   }
 
   // public Command setRightPosition(DoubleSupplier position) {
