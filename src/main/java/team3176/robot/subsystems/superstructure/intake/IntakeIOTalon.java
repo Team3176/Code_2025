@@ -188,7 +188,7 @@ public class IntakeIOTalon implements IntakeIO {
 
   @Override
   public void setPivotVolts(double volts) {
-    pivotController.setControl(pivotVolts.withOutput(5));
+    pivotController.setControl(pivotVolts.withOutput(volts * 12));
     System.out.println(volts);
   }
 }

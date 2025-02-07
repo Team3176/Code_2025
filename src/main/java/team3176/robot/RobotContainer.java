@@ -173,9 +173,7 @@ public class RobotContainer {
     controller
         .transStick
         .button(1)
-        .whileTrue(
-            superstructure.movePivotVelocity((double) controller.transStick.getRawAxis(3) * 12));
-    System.out.println(controller.transStick.getRawAxis(3) * 12);
+        .whileTrue(superstructure.movePivotVelocity(() -> controller.transStick.getRawAxis(+3)));
   }
 
   public void clearCanFaults() {

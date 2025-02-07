@@ -33,7 +33,7 @@ public class Superstructure {
     //return intake.movePivotPid(10);
   } */
 
-  public Command movePivotVelocity(double velocity) {
+  public Command movePivotVelocity(DoubleSupplier velocity) {
     return intake.moveRollerVelocity(velocity);
   }
 
