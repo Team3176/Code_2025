@@ -106,7 +106,7 @@ public class Arm extends SubsystemBase {
     Logger.recordOutput("Arm/PID_out", commandVolts);
     Logger.recordOutput("Arm/setpoint", this.pivotSetpoint);
     Logger.recordOutput("Arm/offsetPos", pivot_pos);
-    runPivot(commandVolts);
+    //runPivot(commandVolts);
     pivotPID.checkParemeterUpdate();
     if (inputs.lowerLimitSwitch && !ishomed) {
       ishomed = true;

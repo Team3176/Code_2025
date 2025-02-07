@@ -21,10 +21,6 @@ public class Superstructure {
   public Command testVoltPos() {
     return arm.testVoltage();
   }
-
-  public Command testTorque() {
-    return arm.torquePosition();
-  }
   
   public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()

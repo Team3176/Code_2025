@@ -11,7 +11,6 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -51,8 +50,6 @@ public class ArmIOTalon implements ArmIO {
   private final StatusSignal<AngularVelocity> pivotVelocity;
   private final StatusSignal<Angle> pivotPosition;
   private final StatusSignal<Temperature> pivotTemp;
-
-  private final PositionTorqueCurrentFOC pivotTorque = new PositionTorqueCurrentFOC(0).withSlot(1);
 
   private final StatusSignal<Voltage> rollerAppliedVolts;
   private final StatusSignal<Current> rollerCurrentAmpsStator;
