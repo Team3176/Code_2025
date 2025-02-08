@@ -169,7 +169,12 @@ public class RobotContainer {
            .onFalse(drivetrain.setVisionOverride(false));
     */
     // controller.operator.b().whileTrue(superstructure.movePivot());
-    // controller.operator.b().whileTrue(superstructure.movePivot());
+
+    controller
+        .transStick
+        .button(2)
+        .whileTrue(superstructure.movePivot(() -> controller.transStick.getRawAxis(+3)));
+
     controller
         .transStick
         .button(1)

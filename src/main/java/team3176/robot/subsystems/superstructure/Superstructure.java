@@ -29,9 +29,9 @@ public class Superstructure {
     return intake.retractPivot();
   }
 
-  /*  public Command movePivot() {
-    //return intake.movePivotPid(10);
-  } */
+  public Command movePivot(DoubleSupplier position) {
+    return intake.movePivotPid(position);
+  }
 
   public Command movePivotVelocity(DoubleSupplier velocity) {
     return intake.moveRollerVelocity(velocity);

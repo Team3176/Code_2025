@@ -7,6 +7,8 @@
 
 package team3176.robot.subsystems.superstructure.intake;
 
+import static edu.wpi.first.units.Units.*;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -64,21 +66,19 @@ public class IntakeIOTalon implements IntakeIO {
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
 
-    // m_joystick = new XboxController(0);
-
-    // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
-    // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
-
-    // rollerLinebreak = new DigitalInput(Hardwaremap.intakeRollerLinebreak_DIO);
-    // pivotLinebreak = new DigitalInput(Hardwaremap.intakePivotLinebreak_DIO);
-
-    upperLimitSwitch = new DigitalInput(Hardwaremap.intakeUpperLimitSwitch_DIO);
-    lowerLimitSwitch = new DigitalInput(Hardwaremap.intakeLowerLimitSwitch_DIO);
-
     rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
     pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
 
     positionVoltage = new PositionVoltage(0).withSlot(0);
+
+    rollerConfigs.Slot0.kP = 2.4; // An error of 1 rotation results in 60 A output
+    rollerConfigs.Slot0.kI = 0; // No output for integrated error
+    rollerConfigs.Slot0.kD = 0.1; // A velocity of 1 rps results in 6 A output
+    // Peak output of 120 A
+    /*   rollerConfigs
+    .TorqueCurrent
+    .withPeakForwardTorqueCurrent(Amps.of(120))
+    .withPeakReverseTorqueCurrent(Amps.of(-120)); */
 
     // config setting
     // rollerConfigs.CurrentLimits.StatorCurrentLimit = 50;
@@ -182,8 +182,9 @@ public class IntakeIOTalon implements IntakeIO {
 
   @Override
   public void setPivotPIDPosition(double position) {
-    double desiredRotations = 3 * 10; // Go for plus/minus 10 rotations
-    pivotController.setControl(positionVoltage.withPosition(desiredRotations));
+    double desiredRotations = position * 10; // Go for plus/minus 10 rotations
+    System.out.println(desiredRotations);
+    rollerController.setControl(positionVoltage.withPosition(desiredRotations));
   }
 
   @Override

@@ -129,12 +129,12 @@ public class Intake extends SubsystemBase {
         });
   }
 
-  public void movePivot(int x) {
-    io.setPivotPIDPosition(x);
+  public void movePivot(DoubleSupplier x) {
+    io.setPivotPIDPosition(x.getAsDouble());
   }
 
-  public Command movePivotPid() {
-    return this.runEnd(() -> movePivot(5), () -> movePivot(0));
+  public Command movePivotPid(DoubleSupplier position) {
+    return this.runEnd(() -> movePivot(position), () -> io.setPivotVolts(0));
   }
 
   public void moveVelocity(DoubleSupplier x) {
@@ -187,7 +187,7 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    io.updateInputs(inputs);
+    // io.updateInputs(inputs);
     Logger.processInputs("Intake", inputs);
     Logger.recordOutput("Intake/state", pivotState);
     double pivot_pos = inputs.pivotPosition - pivot_offset;
