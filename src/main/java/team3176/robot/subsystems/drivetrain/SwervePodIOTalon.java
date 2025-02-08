@@ -30,8 +30,7 @@ import team3176.robot.constants.DriveConstants;
 import team3176.robot.constants.SwervePodHardwareID;
 
 public class SwervePodIOTalon implements SwervePodIO {
-  private static final double AZIMUTH_GEAR_RATIO =
-      70.0 / 1.0; // Is the Versa gearbox btwn motor & encoder
+  private static final double AZIMUTH_GEAR_RATIO = 70.0 / 1.0; // Is the Versa gearbox btwn motor & encoder
   public static final double THRUST_GEAR_RATIO = (14.0 / 22.0) * (15.0 / 45.0);
 
   public static final double AZIMUTH_ENCODER_UNITS_PER_REVOLUTION = 4096;

@@ -36,9 +36,11 @@ public class SwervePod {
   // private double kAzimuthEncoderUnitsPerRevolution;
 
   // private double kP_Azimuth;
+  /** TunableNumber for Azimuth kP */
   private LoggedTunableNumber kPAzimuth = new LoggedTunableNumber("kP_azimuth", 1000);
-
+  /** TunableNumber for Azimuth kI */
   private LoggedTunableNumber kIAzimuth = new LoggedTunableNumber("kI_azimuth", 0.0);
+  /** TunableNumber for Azimuth kD */
   private LoggedTunableNumber kDAzimuth = new LoggedTunableNumber("kD_azimuth", 50);
   private LoggedTunableNumber turnMaxpercent = new LoggedTunableNumber("turn_max", 0.75);
   private static final LoggedTunableNumber drivekS = new LoggedTunableNumber("kS_thrust");
@@ -48,9 +50,9 @@ public class SwervePod {
   private static final LoggedTunableNumber drivekD = new LoggedTunableNumber("kD_thrust");
   private String[] podNames = {"FR", "FL", "BL", "BR"};
 
+  /** TunableNumber for pod offset. Units correspond CANCoder Position value */
   private LoggedTunableNumber offset;
   private Rotation2d local_offset;
-  private double turnMaxpercentLocal = 0.7;
   private double lastDistance = 0.0;
   private double lastDistanceSimNoNoise = 0.0;
   private double delta = 0.0;
@@ -211,9 +213,6 @@ public class SwervePod {
       turningPIDController.setP(kPAzimuth.get());
       turningPIDController.setI(kIAzimuth.get());
       turningPIDController.setD(kDAzimuth.get());
-    }
-    if (turnMaxpercent.hasChanged(hashCode())) {
-      turnMaxpercentLocal = turnMaxpercent.get();
     }
 
     double turnOutput;
