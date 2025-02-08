@@ -88,6 +88,10 @@ public class Arm extends SubsystemBase {
     return this.runOnce(() -> io.setPivotVoltagePos(0.5));
   }
 
+  public Command testVoltVelocity() {
+    return this.run(() -> io.setRollerVolts(1));
+  }
+
   @Override
   public void periodic() {
     io.updateInputs(inputs);

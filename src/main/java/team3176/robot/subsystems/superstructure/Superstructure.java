@@ -22,6 +22,10 @@ public class Superstructure {
     return arm.testVoltage();
   }
   
+  public Command testVoltVel() {
+    return arm.testVoltVelocity();
+  }
+
   public Command getProcessorCoralLeftAuto() {
     return Drivetrain.getInstance()
         .goToPoint(FieldConstants.CoralStation.leftCenterFace)
