@@ -137,12 +137,19 @@ public class Intake extends SubsystemBase {
     return this.runEnd(() -> movePivot(position), () -> io.setPivotVolts(0));
   }
 
+  public void movePivotVelocity(DoubleSupplier x) {
+    io.setVelocityVoltage(x.getAsDouble());
+  }
+
+  public Command movePivotVelocityVoltage(DoubleSupplier velocity) {
+    return this.runEnd(() -> movePivotVelocity(velocity), () -> io.setVelocityVoltage(0));
+  }
+
   public void moveVelocity(DoubleSupplier x) {
     io.setPivotVolts(x.getAsDouble());
   }
 
   public Command moveRollerVelocity(DoubleSupplier velocity) {
-
     System.out.println(velocity);
     return this.runEnd(() -> moveVelocity(velocity), () -> io.setPivotVolts(0));
   }

@@ -37,6 +37,10 @@ public class Superstructure {
     return intake.moveRollerVelocity(velocity);
   }
 
+  public Command movePivotVelocityVoltage(DoubleSupplier velocity) {
+    return intake.movePivotVelocityVoltage(velocity);
+  }
+
   public Command setIntakePosition(DoubleSupplier position) {
     return intake.setIntakePosition(position);
   }

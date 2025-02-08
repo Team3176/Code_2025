@@ -170,15 +170,17 @@ public class RobotContainer {
     */
     // controller.operator.b().whileTrue(superstructure.movePivot());
 
+    // position
     controller
         .transStick
         .button(2)
         .whileTrue(superstructure.movePivot(() -> controller.transStick.getRawAxis(+3)));
-
+    // velocity
     controller
         .transStick
         .button(1)
-        .whileTrue(superstructure.movePivotVelocity(() -> controller.transStick.getRawAxis(+3)));
+        .whileTrue(
+            superstructure.movePivotVelocityVoltage(() -> controller.transStick.getRawAxis(+3)));
   }
 
   public void clearCanFaults() {

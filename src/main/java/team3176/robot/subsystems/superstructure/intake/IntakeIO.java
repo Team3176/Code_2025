@@ -54,4 +54,6 @@ public interface IntakeIO {
   public default void setCoastMode(boolean isCoastMode) {}
 
   public default void setIntakeVoltage(double voltage) {}
+
+  public default void setVelocityVoltage(double volts) {}
 }

@@ -58,6 +58,7 @@ public class IntakeIOTalon implements IntakeIO {
   private final StatusSignal<AngularVelocity> rollerVelocity;
   private final StatusSignal<Temperature> rollerTemp;
   private final PositionVoltage positionVoltage;
+  private final VelocityVoltage velocityVoltage;
 
   // private final XboxController m_joystick;
 
@@ -70,6 +71,7 @@ public class IntakeIOTalon implements IntakeIO {
     pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
 
     positionVoltage = new PositionVoltage(0).withSlot(0);
+    velocityVoltage = new VelocityVoltage(0).withSlot(0);
 
     rollerConfigs.Slot0.kP = 2.4; // An error of 1 rotation results in 60 A output
     rollerConfigs.Slot0.kI = 0; // No output for integrated error
@@ -88,6 +90,14 @@ public class IntakeIOTalon implements IntakeIO {
 
     // pivotConfigs.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
     // pivotConfigs.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
+    pivotConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    pivotConfigs.Slot0.kV =
+        0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts
+    // / rotation per second
+    pivotConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+    pivotConfigs.Slot0.kI = 0; // No output for integrated error
+    pivotConfigs.Slot0.kD = 0; // No output for error derivative
+
     pivotConfigs.Voltage.PeakForwardVoltage = 8;
     pivotConfigs.Voltage.PeakReverseVoltage = -10;
     pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -191,5 +201,11 @@ public class IntakeIOTalon implements IntakeIO {
   public void setPivotVolts(double volts) {
     pivotController.setControl(pivotVolts.withOutput(volts * 12));
     System.out.println(volts);
+  }
+
+  public void setVelocityVoltage(double volts) {
+    double desiredRotations = volts * 10; // Go for plus/minus 10 rotations
+    System.out.println(desiredRotations);
+    pivotController.setControl(velocityVoltage.withVelocity(desiredRotations));
   }
 }
