@@ -85,11 +85,11 @@ public class Arm extends SubsystemBase {
   }
 
   public Command testVoltage() {
-    return this.runOnce(() -> io.setPivotVoltagePos(0.5));
+    return this.runOnce(() -> io.setPivotVoltagePos(0.5)).andThen(() -> io.setPivotVoltagePos(0));
   }
 
   public Command testVoltVelocity() {
-    return this.run(() -> io.setRollerVolts(1));
+    return this.runEnd(() -> io.setRollerVolts(1), () -> io.setRollerVolts(0));
   }
 
   @Override
