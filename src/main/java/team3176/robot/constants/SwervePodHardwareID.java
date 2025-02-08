@@ -12,6 +12,7 @@ public class SwervePodHardwareID {
   public int CANCODER_CID;
   public String CANCODER_CBN;
   public double OFFSET;
+  // public podPosition POD_POSITION;
 
   SwervePodHardwareID() {}
 
@@ -51,6 +52,13 @@ public class SwervePodHardwareID {
     this.OFFSET = offset;
   }
 
+  enum podPosition {
+    FL,
+    FR,
+    BL,
+    BR
+  }
+
   public static boolean check_duplicates(SwervePodHardwareID a, SwervePodHardwareID b) {
     boolean are_duplicates = (a.CANCODER_CID == b.CANCODER_CID) | (a.THRUST_CID == b.THRUST_CID);
     return are_duplicates;
@@ -65,4 +73,21 @@ public class SwervePodHardwareID {
         | check_duplicates(b, d)
         | check_duplicates(c, d);
   }
+
+  /*
+    public void setPodPosition (String podPosition) {
+      this.POD_POSITION = podPosition.equals("FL") ? podPosition.FL : podPosition.equals("FR") ? podPosition.FR : podPosition.equals("BL") ? podPosition.BL : podPosition.BR;
+    }
+
+    public void setPodPosition (int podPosition) {
+      this.POD_POSITION = podPosition.equals("FL") ? setPodPosition.FL : podPosition.equals("FR") ? podPosition.FR : podPosition.equals("BL") ? podPosition.BL : podPosition.BR;
+    }
+  */
+
+  /*
+  public String getPodPosition() {
+    return this.POD_POSITION.toString();
+  }
+  */
+
 }

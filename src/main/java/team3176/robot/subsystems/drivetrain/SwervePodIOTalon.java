@@ -189,6 +189,7 @@ public class SwervePodIOTalon implements SwervePodIO {
     turnPositionQueue =
         PhoenixOdometryThread.getInstance()
             .registerSignal(azimuthEncoder, azimuthEncoder.getAbsolutePosition());
+    //            .registerSignal(turnTalonFX, turnTalonFX.getPosition());
   }
 
   @Override
