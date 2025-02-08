@@ -28,22 +28,22 @@ import org.littletonrobotics.junction.Logger;
  * <p>This version is intended for devices like the SparkMax that require polling rather than a
  * blocking thread. A Notifier thread is used to gather samples with consistent timing.
  */
-public class SparkMaxOdometryThread {
+public class TalonOdometryThread {
   private List<Supplier<OptionalDouble>> signals = new ArrayList<>();
   private List<Queue<Double>> queues = new ArrayList<>();
   private List<Queue<Double>> timestampQueues = new ArrayList<>();
 
   private final Notifier notifier;
-  private static SparkMaxOdometryThread instance = null;
+  private static TalonOdometryThread instance = null;
 
-  public static SparkMaxOdometryThread getInstance() {
+  public static TalonOdometryThread getInstance() {
     if (instance == null) {
-      instance = new SparkMaxOdometryThread();
+      instance = new TalonOdometryThread();
     }
     return instance;
   }
 
-  private SparkMaxOdometryThread() {
+  private TalonOdometryThread() {
     notifier = new Notifier(this::periodic);
     notifier.setName("SparkMaxOdometryThread");
   }
