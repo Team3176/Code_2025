@@ -74,7 +74,7 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
         SuperStructureConstants.ELEVATORLEFT_ZERO_POS;
-    configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     // configsRight.Slot0.kP = 2.4; // An error of 1 rotations results in 40 amps output
     // configsRight.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
