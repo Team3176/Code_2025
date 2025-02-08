@@ -36,7 +36,7 @@ public class ArmIOTalon implements ArmIO {
   VelocityVoltage voltVelocity;
   VoltageOut rollerVolts = new VoltageOut(0.0);
   VoltageOut pivotVolts = new VoltageOut(0.0);
-  PositionVoltage voltPosition;
+  PositionVoltage voltPosition = new PositionVoltage(0);
   private SparkClosedLoopController pivotPID;
 
   DigitalInput rollerLinebreak;

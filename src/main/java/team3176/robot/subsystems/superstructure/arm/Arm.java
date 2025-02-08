@@ -85,7 +85,7 @@ public class Arm extends SubsystemBase {
   }
 
   public Command testVoltage() {
-    return this.runOnce(() -> io.setPivotVoltagePos(2));
+    return this.runOnce(() -> io.setPivotVoltagePos(0.5));
   }
 
   @Override
