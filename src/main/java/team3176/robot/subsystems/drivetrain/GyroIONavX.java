@@ -14,9 +14,9 @@ public class GyroIONavX implements GyroIO {
   public GyroIONavX() {
     navX = new AHRS(SPI.Port.kMXP);
 
-    yawTimestampQueue = SparkMaxOdometryThread.getInstance().makeTimestampQueue();
+    yawTimestampQueue = TalonOdometryThread.getInstance().makeTimestampQueue();
     yawPositionQueue =
-        SparkMaxOdometryThread.getInstance()
+        TalonOdometryThread.getInstance()
             .registerSignal(
                 () -> {
                   boolean valid = navX.isConnected();

@@ -202,7 +202,7 @@ public class Drivetrain extends SubsystemBase {
     visionPose3d = new Pose3d();
 
     PhoenixOdometryThread.getInstance().start();
-    SparkMaxOdometryThread.getInstance().start();
+    TalonOdometryThread.getInstance().start();
 
     odom =
         new SwerveDriveOdometry(
@@ -699,6 +699,7 @@ public class Drivetrain extends SubsystemBase {
     return pods.stream().mapToDouble(SwervePod::getThrustPosition).toArray();
   }
 
+  /** Stop the drivetain */
   public Command stop() {
     return new InstantCommand(() -> driveVelocity(new ChassisSpeeds()));
   }
