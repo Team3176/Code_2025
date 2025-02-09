@@ -14,13 +14,17 @@ public class Hardwaremap {
   public static final int shooterTransfer_CID = 5;
   public static final int shooterPivot_CID = 8;
   public static final int intakeRoller_CID = 9;
+  public static final int indexerRoller_CID = 9;
   /*
   public static final int LaserCanIntakeSide_CID = 49;
   public static final int LaserCanShooterSide_CID = 48;
   */
   public static final int intakePivot_CID = 4;
+  public static final int indexerPivot_CID = 4;
   public static final int climbLeft_CID = 45;
   public static final int climbRight_CID = 46;
+  public static final int elevatorLeft_CID = 45;
+  public static final int elevatorRight_CID = 46;
   public static int PDH_CID = 1;
 
   public static final String conveyor_CBN = "rio";
@@ -30,9 +34,13 @@ public class Hardwaremap {
   public static final String shooterPivot_CBN = "rio";
   public static final String intakeRoller_CBN = "rio";
   public static final String intakePivot_CBN = "rio";
+  public static final String indexerPivot_CBN = "rio";
   /*   public static final String LaserCan_CBN = "rio"; */
   public static final String climbLeft_CBN = "rio";
   public static final String climbRight_CBN = "rio";
+  public static final String elevatorLeft_CBN = "rio";
+  public static final String elevatorRight_CBN = "rio";
+  public static final String indexerRoller_CBN = "rio";
 
   public static String PDH_CBN = "rio";
 
@@ -40,10 +48,14 @@ public class Hardwaremap {
   // public static final int elevatorFollowerLimitSwitch_DIO = 6;
   public static final int climbLBLimitSwitch_DIO = 9;
   public static final int climbRBLimitSwitch_DIO = 0; // 1;
+  public static final int elevatorLBLimitSwitch_DIO = 9;
+  public static final int elevatorRBLimitSwitch_DIO = 0; // 1;
   // public static final int intakeRollerLinebreak_DIO = 5;
   // public static final int intakePivotLinebreak_DIO = 4;
   public static final int intakeUpperLimitSwitch_DIO = 7;
   public static final int intakeLowerLimitSwitch_DIO = 8; // 7;
+  public static final int indexerUpperLimitSwitch_DIO = 7;
+  public static final int indexerLowerLimitSwitch_DIO = 8; // 7;
   public static final int shooterPivotLower_DIO = 2; // 8;
   public static final int shooterPivotUpper_DIO = 1; // 9;
   public static final int conveyorFrontLinebreak = 6;

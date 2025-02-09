@@ -79,7 +79,7 @@ public class LoggedAprilPhotonCam {
             robot2Camera.getRotation().getX(),
             robot2Camera.getRotation().getX());
     try {
-      field = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
+      field = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
       field.setOrigin(OriginPosition.kBlueAllianceWallRightSide);
     } catch (Exception e) {
       System.out.println("woops can't load the field");

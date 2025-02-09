@@ -51,7 +51,6 @@ import team3176.robot.Constants.Mode;
 import team3176.robot.FieldConstants;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.constants.SwervePodHardwareID;
-import team3176.robot.subsystems.superstructure.shooter.Shooter;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
 import team3176.robot.util.AllianceFlipUtil;
 import team3176.robot.util.LocalADStarAK;
@@ -147,7 +146,7 @@ public class Drivetrain extends SubsystemBase {
     this.io = io;
     this.pitchkP = new LoggedTunableNumber("drivetrain/pitchkP", 0.1);
     this.yawkP = new LoggedTunableNumber("drivetrain/yawkP", 0.07);
-    inputs = new GyroIOInputsAutoLogged();
+    //    inputs = new GyroIOInputsAutoLogged();
 
     // check for duplicates
     assert (!SwervePodHardwareID.check_duplicates_all(
@@ -437,16 +436,20 @@ public class Drivetrain extends SubsystemBase {
   /**
    * @return navx pitch -180 to 180 around the X axis of the Navx
    */
+  /*
   public double getChassisPitch() {
     return inputs.pitch;
   }
+  */
 
   /**
    * @return navx roll -180 to 180 around the X axis of the Navx
    */
+  /*
   public double getChassisRoll() {
     return inputs.roll;
   }
+  */
 
   public void resetFieldOrientation() {
     Rotation2d redOrBlueZero = new Rotation2d();
@@ -498,12 +501,11 @@ public class Drivetrain extends SubsystemBase {
     Translation2d difference =
         (this.getPose()
             .getTranslation()
-            .minus(
-                AllianceFlipUtil.apply(
-                    FieldConstants.Speaker.centerSpeakerOpening.toTranslation2d())));
+            .minus(AllianceFlipUtil.apply(FieldConstants.Reef.centerFaces[0]).getTranslation()));
     return difference.getAngle();
   }
 
+  /*
   private Rotation2d getAimAngleFuture() {
     Translation2d difference =
         (this.getPoseFuture(Shooter.LOOKAHEAD_SEC)
@@ -513,12 +515,14 @@ public class Drivetrain extends SubsystemBase {
                     FieldConstants.Speaker.centerSpeakerOpening.toTranslation2d())));
     return difference.getAngle();
   }
+  */
 
   @AutoLogOutput
   public double aimErrorDegrees() {
     return Math.abs(getPose().getRotation().minus(getAimAngle()).getDegrees());
   }
 
+  /*
   private Rotation2d getAimAnglePass() {
     Translation2d difference =
         (this.getPose()
@@ -526,6 +530,7 @@ public class Drivetrain extends SubsystemBase {
             .minus(AllianceFlipUtil.apply(FieldConstants.passLocation.getTranslation())));
     return difference.getAngle();
   }
+  */
 
   public Command swerveDefenseCommand() {
     return this.runOnce(
@@ -639,6 +644,7 @@ public class Drivetrain extends SubsystemBase {
     return swerveDriveJoysticks(forward, strafe, spin, field, null);
   }
 
+  /*
   public Command driveAndAim(DoubleSupplier x, DoubleSupplier y) {
     return swerveDriveJoysticks(x, y, () -> 0.0, true, this::getAimAngleFuture);
   }
@@ -646,6 +652,7 @@ public class Drivetrain extends SubsystemBase {
   public Command driveAndAimPass(DoubleSupplier x, DoubleSupplier y) {
     return swerveDriveJoysticks(x, y, () -> 0.0, true, this::getAimAnglePass);
   }
+  */
 
   public Command goToPoint(int x, int y) {
     Pose2d targetPose = new Pose2d(x, y, Rotation2d.fromDegrees(180));

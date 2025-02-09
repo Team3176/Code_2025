@@ -19,9 +19,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
 import java.util.Optional;
-import team3176.robot.subsystems.superstructure.Superstructure;
-import team3176.robot.subsystems.superstructure.conveyor.Conveyor;
-import team3176.robot.subsystems.superstructure.shooter.Shooter;
 
 public class LEDS extends SubsystemBase {
   private static LEDS instance;
@@ -154,44 +151,43 @@ public class LEDS extends SubsystemBase {
     if (estopped) {
       solid(Color.kRed);
     } else if (DriverStation.isDisabled()) {
-      if (!Shooter.getInstance().isHomed) {
-        solid(Color.kRed);
-      } else if (lastEnabledAuto && Timer.getFPGATimestamp() - lastEnabledTime < autoFadeMaxTime) {
-        // Auto fade
-        solid(1.0 - ((Timer.getFPGATimestamp() - lastEnabledTime) / autoFadeTime), Color.kGreen);
-      } else if (lowBatteryAlert) {
-        // Low battery
-        solid(Color.kOrangeRed);
-      } else if (prideLeds) {
-        // Pride stripes
-        stripes(
-            List.of(
-                Color.kBlack,
-                Color.kRed,
-                Color.kOrangeRed,
-                Color.kYellow,
-                Color.kGreen,
-                Color.kBlue,
-                Color.kPurple,
-                Color.kBlack,
-                new Color(0.15, 0.3, 1.0),
-                Color.kDeepPink,
-                Color.kWhite,
-                Color.kDeepPink,
-                new Color(0.15, 0.3, 1.0)),
-            20,
-            5.0);
-        buffer.setLED(staticSectionLength, teamColor);
-      } else {
-        // Default pattern
-        wave(teamColor, secondaryDisabledColor, waveAllianceCycleLength, waveAllianceDuration);
-      }
+    }
+    if (lastEnabledAuto && Timer.getFPGATimestamp() - lastEnabledTime < autoFadeMaxTime) {
+      // Auto fade
+      solid(1.0 - ((Timer.getFPGATimestamp() - lastEnabledTime) / autoFadeTime), Color.kGreen);
+    } else if (lowBatteryAlert) {
+      // Low battery
+      solid(Color.kOrangeRed);
+    } else if (prideLeds) {
+      // Pride stripes
+      stripes(
+          List.of(
+              Color.kBlack,
+              Color.kRed,
+              Color.kOrangeRed,
+              Color.kYellow,
+              Color.kGreen,
+              Color.kBlue,
+              Color.kPurple,
+              Color.kBlack,
+              new Color(0.15, 0.3, 1.0),
+              Color.kDeepPink,
+              Color.kWhite,
+              Color.kDeepPink,
+              new Color(0.15, 0.3, 1.0)),
+          20,
+          5.0);
+      buffer.setLED(staticSectionLength, teamColor);
+    } else {
+      // Default pattern
+      wave(teamColor, secondaryDisabledColor, waveAllianceCycleLength, waveAllianceDuration);
+    }
 
-      // Same battery alert
-      if (sameBattery) {
-        strobe(Color.kRed, strobeFastDuration);
-      }
-    } else if (DriverStation.isAutonomous()) {
+    // Same battery alert
+    if (sameBattery) {
+      strobe(Color.kRed, strobeFastDuration);
+    }
+    if (DriverStation.isAutonomous()) {
       rainbow(rainbowCycleLength, rainbowDuration);
       if (autoFinished) {
         double fullTime = (double) length / waveFastCycleLength * waveFastDuration;
@@ -202,12 +198,6 @@ public class LEDS extends SubsystemBase {
         // branch IMO:w
 
         strobe(Color.kWhite, strobeFastDuration);
-      } else if (Conveyor.getInstance().hasNote()) {
-        if (Superstructure.getInstance().readyToShoot()) {
-          solid(Color.kBlue);
-        } else {
-          solid(Color.kGreen);
-        }
 
       } else if (autoDrive || autoShoot) {
         rainbow(rainbowCycleLength, rainbowDuration);
