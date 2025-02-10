@@ -115,13 +115,12 @@ public class LEDS extends SubsystemBase {
   }
 
   public Command EndgameAlert() {
-    return this.run(() -> endgameAlert = true).withTimeout(1); 
+    return this.run(() -> endgameAlert = true).withTimeout(1);
   }
 
   public Command DefaultLED() {
     return this.run(() -> defaultLED = true).withTimeout(1);
-  } 
-
+  }
 
   public synchronized void periodic() {
     // Update alliance color
