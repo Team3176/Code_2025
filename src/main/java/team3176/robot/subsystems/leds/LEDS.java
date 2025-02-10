@@ -114,7 +114,7 @@ public class LEDS extends SubsystemBase {
   }
 
   public Command EndgameAlert() {
-    return this.run( () -> endgameAlert = true);
+    return this.run(() -> endgameAlert = true);
   }
 
   public synchronized void periodic() {

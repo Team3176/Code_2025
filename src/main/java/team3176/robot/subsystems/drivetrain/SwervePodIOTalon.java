@@ -30,7 +30,7 @@ import team3176.robot.constants.DriveConstants;
 import team3176.robot.constants.SwervePodHardwareID;
 
 public class SwervePodIOTalon implements SwervePodIO {
-  private static final double AZIMUTH_GEAR_RATIO = 70.0 / 1.0; 
+  private static final double AZIMUTH_GEAR_RATIO = 70.0 / 1.0;
   public static final double THRUST_GEAR_RATIO = (14.0 / 22.0) * (15.0 / 45.0);
 
   public static final double AZIMUTH_ENCODER_UNITS_PER_REVOLUTION = 4096;
@@ -229,7 +229,8 @@ public class SwervePodIOTalon implements SwervePodIO {
         "Drivetrain/IO/degreesNoOffset_enc" + id,
         Rotation2d.fromRotations(turnAbsolutePosition.getValueAsDouble()).getDegrees());
 
-    inputs.turnVelocityRPM = turnVelocity.getValueAsDouble(); // TODO:  Double check the math.  Does need modifier?
+    inputs.turnVelocityRPM =
+        turnVelocity.getValueAsDouble(); // TODO:  Double check the math.  Does need modifier?
     inputs.turnAppliedVolts = turnAppliedVolts.getValueAsDouble();
     inputs.turnAmpsStator = turnCurrentStator.getValueAsDouble();
     inputs.turnAmpsSupply = turnCurrentSupply.getValueAsDouble();

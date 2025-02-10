@@ -62,9 +62,9 @@ public class RobotContainer {
     // superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 
-    //leds = LEDSubsystem.getInstance();
+    leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
-    endMatchAlert.onTrue(ledsRio.EndgameAlert());
+    endMatchAlert.onTrue(leds.EndgameStart());
 
     // superstructure = Superstructure.getInstance();
     visualization = new Visualization();

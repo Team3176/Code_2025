@@ -42,6 +42,7 @@ public class SwervePod {
   private LoggedTunableNumber kIAzimuth = new LoggedTunableNumber("kI_azimuth", 0.0);
   /** TunableNumber for Azimuth kD */
   private LoggedTunableNumber kDAzimuth = new LoggedTunableNumber("kD_azimuth", 50);
+
   private LoggedTunableNumber turnMaxpercent = new LoggedTunableNumber("turn_max", 0.75);
   private static final LoggedTunableNumber drivekS = new LoggedTunableNumber("kS_thrust");
   private static final LoggedTunableNumber drivekV = new LoggedTunableNumber("kV_thrust");
@@ -52,6 +53,7 @@ public class SwervePod {
 
   /** TunableNumber for pod offset. Units correspond CANCoder Position value */
   private LoggedTunableNumber offset;
+
   private Rotation2d local_offset;
   private double lastDistance = 0.0;
   private double lastDistanceSimNoNoise = 0.0;
