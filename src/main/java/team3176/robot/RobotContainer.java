@@ -62,9 +62,9 @@ public class RobotContainer {
     // superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 
-    leds = LEDSubsystem.getInstance();
+    //leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
-    endMatchAlert.onTrue(leds.EndgameStart());
+    endMatchAlert.onTrue(ledsRio.EndgameAlert());
 
     // superstructure = Superstructure.getInstance();
     visualization = new Visualization();
@@ -81,7 +81,7 @@ public class RobotContainer {
                 () -> controller.getStrafe(),
                 () -> controller.getSpin())
             .withName("default drive"));
-    leds.setDefaultCommand(leds.DefaultLED());
+    ledsRio.setDefaultCommand(ledsRio.DefaultLED());
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
     // NamedCommands.registerCommand(

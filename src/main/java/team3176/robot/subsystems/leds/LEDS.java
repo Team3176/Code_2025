@@ -46,6 +46,7 @@ public class LEDS extends SubsystemBase {
   public double autoFinishedTime = 0.0;
   public boolean lowBatteryAlert = false;
   public boolean demoMode = false;
+  public boolean defaultLED = true;
 
   private Optional<Alliance> alliance = Optional.empty();
   private Color allianceColor = Color.kBlueViolet;
@@ -114,8 +115,13 @@ public class LEDS extends SubsystemBase {
   }
 
   public Command EndgameAlert() {
-    return this.run(() -> endgameAlert = true);
+    return this.run(() -> endgameAlert = true).withTimeout(1); 
   }
+
+  public Command DefaultLED() {
+    return this.run(() -> defaultLED = true).withTimeout(1);
+  } 
+
 
   public synchronized void periodic() {
     // Update alliance color
@@ -182,8 +188,10 @@ public class LEDS extends SubsystemBase {
           20,
           5.0);
       buffer.setLED(staticSectionLength, teamColor);
-    } else {
+    } else if (defaultLED) {
       // Default pattern
+      wave(teamColor, secondaryDisabledColor, waveAllianceCycleLength, waveAllianceDuration);
+    } else {
       wave(teamColor, secondaryDisabledColor, waveAllianceCycleLength, waveAllianceDuration);
     }
 
