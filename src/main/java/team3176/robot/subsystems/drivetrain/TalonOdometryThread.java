@@ -14,19 +14,20 @@
 package team3176.robot.subsystems.drivetrain;
 
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.RobotController;
+//import team3176.robot.Robot;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.Logger;
+//import org.littletonrobotics.junction.Logger;
 
 /**
  * Provides an interface for asynchronously reading high-frequency measurements to a set of queues.
  *
- * <p>This version is intended for devices like the SparkMax that require polling rather than a
- * blocking thread. A Notifier thread is used to gather samples with consistent timing.
  */
 public class TalonOdometryThread {
   private List<Supplier<OptionalDouble>> signals = new ArrayList<>();
@@ -45,7 +46,7 @@ public class TalonOdometryThread {
 
   private TalonOdometryThread() {
     notifier = new Notifier(this::periodic);
-    notifier.setName("SparkMaxOdometryThread");
+    notifier.setName("TalonOdometryThread");
   }
 
   public void start() {
@@ -79,7 +80,7 @@ public class TalonOdometryThread {
 
   private void periodic() {
     Drivetrain.odometryLock.lock();
-    double timestamp = Logger.getRealTimestamp() / 1e6;
+    double timestamp = RobotController.getFPGATime()/ 1e6;
     try {
       double[] values = new double[signals.size()];
       boolean isValid = true;
