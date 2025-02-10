@@ -113,6 +113,10 @@ public class LEDS extends SubsystemBase {
     return this.runEnd(() -> climbing = true, () -> climbing = false);
   }
 
+  public Command EndgameAlert() {
+    return this.run( () -> endgameAlert = true);
+  }
+
   public synchronized void periodic() {
     // Update alliance color
     if (DriverStation.isFMSAttached()) {
