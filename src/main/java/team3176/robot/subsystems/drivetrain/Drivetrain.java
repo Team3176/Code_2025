@@ -595,33 +595,37 @@ public class Drivetrain extends SubsystemBase {
    * Does Deadbanding and such within drivetrain
    */
   public Command swerveDriveJoysticks(
-      DoubleSupplier forward,
-      DoubleSupplier strafe,
-      DoubleSupplier spin,
-      Boolean isFieldCentric,
-      Supplier<Rotation2d> angle) {
-    Supplier<ChassisSpeeds> baseJoystickSpeeds =
-        this.convertJoysticks(forward, strafe, spin, isFieldCentric);
-    return this.run(
-        () -> {
-          ChassisSpeeds speeds = baseJoystickSpeeds.get();
-          if (angle != null) {
-            speeds.omegaRadiansPerSecond =
+    DoubleSupplier forward,
+    DoubleSupplier strafe,
+    DoubleSupplier spin,
+    Boolean isFieldCentric,
+    Supplier<Rotation2d> angle) 
+      {
+        Supplier<ChassisSpeeds> baseJoystickSpeeds =
+          this.convertJoysticks(forward, strafe, spin, isFieldCentric);
+        return this.run(
+          () -> {
+            ChassisSpeeds speeds = baseJoystickSpeeds.get();
+            if (angle != null) 
+            {
+              speeds.omegaRadiansPerSecond =
                 MathUtil.clamp(
-                    orientationPID.calculate(
-                        this.getPose().getRotation().getRadians(), angle.get().getRadians()),
-                    -2.5,
-                    2.5);
-            driveVelocityFieldCentric(speeds);
-          } else {
-            if (isFieldCentric) {
+                  orientationPID.calculate(
+                    this.getPose().getRotation().getRadians(), angle.get().getRadians()
+                  ),
+                  -2.5,
+                  2.5);
               driveVelocityFieldCentric(speeds);
             } else {
-              driveVelocity(speeds);
+              if (isFieldCentric) {
+                driveVelocityFieldCentric(speeds);
+              } else {
+                driveVelocity(speeds);
+              }
             }
           }
-        });
-  }
+        );
+      }
 
   public Command swerveDriveJoysticks(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin) {

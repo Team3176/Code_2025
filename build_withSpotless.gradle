@@ -145,3 +145,46 @@ gversion {
     timeZone     = "America/New_York"
     indent       = "  "
 }
+// Spotless formatting
+project.compileJava.dependsOn(spotlessApply)
+spotless {
+    java {
+        target fileTree(".") {
+            include "**/*.java"
+            exclude "**/build/**", "**/build-*/**", "**/.history/**"
+        }
+        toggleOffOn()
+        googleJavaFormat()
+        //removeUnusedImports()
+        indentWithSpaces(4)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    groovyGradle {
+        target fileTree(".") {
+            include "**/*.gradle"
+            exclude "**/build/**", "**/build-*/**", "**/.history/**"
+        }
+        greclipse()
+        indentWithSpaces(4)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    // json {
+    //     target fileTree(".") {
+    //         include "**/*.json"
+    //         exclude "**/build/**", "**/build-*/**"
+    //     }
+    //     gson().indentWithSpaces(2)
+    // }
+    // format "misc", {
+    //     target fileTree(".") {
+    //         include "**/*.md", "**/.gitignore"
+    //         exclude "**/build/**", "**/build-*/**"
+    //     }
+    //     trimTrailingWhitespace()
+    //     indentWithSpaces(2)
+    //     endWithNewline()
+    // }
+    // format "misc", {
+} 
