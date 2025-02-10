@@ -141,7 +141,7 @@ $RECYCLE.BIN/
 */build/
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 src/main/java/team3176/BuildConstants.java
-#build_*.gradle
+build_*.gradle
 
 # Ignore Gradle GUI config
 gradle-app.setting
