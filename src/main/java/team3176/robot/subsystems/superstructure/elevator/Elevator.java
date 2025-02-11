@@ -30,6 +30,7 @@ public class Elevator extends SubsystemBase {
   private LoggedTunableNumber LeftRightClimbHeight =
       new LoggedTunableNumber("climbLeftRightHeight", 0);
   private LoggedTunableNumber AmpClimbHeight = new LoggedTunableNumber("climb/climbAmpHeight", 60);
+  private int LogSkipCounter;
 
   private Elevator(ElevatorIO io) {
     this.io = io;
@@ -51,6 +52,8 @@ public class Elevator extends SubsystemBase {
     } else {
       System.out.println("Bottom Limit Swith Not Pressed");
     }
+
+    LogSkipCounter = 0;
   }
 
   public Command stopLeft() {
@@ -133,6 +136,7 @@ public class Elevator extends SubsystemBase {
   // }
 
   public Command setLeftPosition(DoubleSupplier targetElevatorPosInRobotUnits) {
+    System.out.println("setleftpos:" + targetElevatorPosInRobotUnits.getAsDouble());
     return this.runEnd(
         () -> {
           leftGoToPosition(convertRobotPosToMotorPos(targetElevatorPosInRobotUnits.getAsDouble()));
@@ -249,7 +253,12 @@ public class Elevator extends SubsystemBase {
     // io.setLeftVoltage(0);
     // }
     // }
-    System.out.println(inputs.leftPosition);
+    LogSkipCounter += 1;
+
+    if (LogSkipCounter >= 20) {
+      System.out.println(inputs.leftPosition);
+      LogSkipCounter = 0;
+    }
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
     pid.checkParemeterUpdate();
