@@ -43,12 +43,12 @@ public class GyroIONavX implements GyroIO {
         TalonOdometryThread.getInstance()
             .registerSignal(
                 () -> {
-                  boolean valid = navX.isConnected();
-                  if (valid) {
+                  //boolean valid = navX.isConnected();
+                  //if (valid) {
                     return OptionalDouble.of(navX.getRotation2d().getDegrees());
-                  } else {
-                    return OptionalDouble.empty();
-                  }
+                  //} else {
+                  //  return OptionalDouble.empty();
+                  //}
                 });
     //yawPositionQueue = TalonOdometryThread.getInstance().registerSignal(pigeon.getYaw);
   }

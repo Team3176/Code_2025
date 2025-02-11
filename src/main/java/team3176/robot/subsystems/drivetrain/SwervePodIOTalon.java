@@ -133,8 +133,8 @@ public class SwervePodIOTalon implements SwervePodIO {
     turnTalonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     turnTalonFXConfig.Feedback.RotorToSensorRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
 
-    turnTalonFXConfig.Slot0.kP = 1000;
-    turnTalonFXConfig.Slot0.kD = 50;
+    turnTalonFXConfig.Slot0.kP = 300;
+    turnTalonFXConfig.Slot0.kD = 60;
     turnTalonFXConfig.Slot0.kV = 0.0;
 
     turnTalonFXConfig.Slot1.kP = 5.0;
@@ -187,8 +187,8 @@ public class SwervePodIOTalon implements SwervePodIO {
             .registerSignal(thrustTalonFX, thrustTalonFX.getPosition());
     turnPositionQueue =
         PhoenixOdometryThread.getInstance()
-            .registerSignal(azimuthEncoder, azimuthEncoder.getAbsolutePosition());
-    //            .registerSignal(turnTalonFX, turnTalonFX.getPosition());
+   //         .registerSignal(azimuthEncoder, azimuthEncoder.getAbsolutePosition());
+                .registerSignal(turnTalonFX, turnTalonFX.getPosition());
   }
 
   @Override

@@ -109,6 +109,8 @@ public class SwervePod {
     desiredState.cosineScale(wheelAngle);
     this.desiredOptimizedAzimuthPosition = desiredState.angle.getDegrees();
     this.desiredState = desiredState;
+    io.setAzimuth(desiredState.angle);
+    io.setDrive(desiredState.speedMetersPerSecond); //*  angleErrorPenalty);
     return desiredState;
   }
   /*
@@ -225,7 +227,7 @@ public class SwervePod {
 
     // Logger.recordOutput("Drive/Module" + Integer.toString(this.id) + "", id);
     // io.setTurn(MathUtil.clamp(turnOutput, -turnMaxpercentLocal, turnMaxpercentLocal));
-    io.setAzimuth(desiredState.angle);
+    //io.setAzimuth(desiredState.angle);
     Logger.recordOutput("Drivetrain/Module" + this.id + "/error", turningPIDController.getError());
     Logger.recordOutput("Drivetrain/Module" + this.id + "/deltanonoise", this.deltaSimNoNoise);
     // Logger.recordOutput("Drive/Module" + Integer.toString(this.id) +
@@ -241,7 +243,7 @@ public class SwervePod {
         "Drivetrain/Module" + this.id + "/CommandOutput",
         desiredState.speedMetersPerSecond * angleErrorPenalty);
     Logger.recordOutput("Drivetrain/Module" + this.id + "/MeasuredVelocity", getVelocity(true));
-    io.setDrive(desiredState.speedMetersPerSecond * angleErrorPenalty);
+    //io.setDrive(desiredState.speedMetersPerSecond * angleErrorPenalty);
 
     int sampleCount = inputs.odometryTimestamps.length; // All signals are sampled together
     odometryPositions = new SwerveModulePosition[sampleCount];
