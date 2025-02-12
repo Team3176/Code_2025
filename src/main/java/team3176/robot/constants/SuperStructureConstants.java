@@ -33,8 +33,8 @@ public class SuperStructureConstants {
   public static final double CLIMBLEFT_kD = 0; // .001
   public static final double CLIMBLEFT_kg = 0.2;
   public static final double CLIMBLEFT_TOLERANCE = 3;
-  public static final double CLIMBLEFT_ZERO_POS = 0.39;
-  public static final double CLIMBLEFT_TOP_POS = 75 + CLIMBLEFT_ZERO_POS;
+  public static final double CLIMBLEFT_ZERO_POS = 0.5;
+  public static final double CLIMBLEFT_TOP_POS = 4 + CLIMBLEFT_ZERO_POS;
   public static final double CLIMBLEFT_SIM_OFFSET = 63 + CLIMBLEFT_ZERO_POS;
 
   public static final double CLIMBRIGHT_kP = 0.006;

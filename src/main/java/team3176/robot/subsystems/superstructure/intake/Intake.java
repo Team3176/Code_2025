@@ -154,44 +154,6 @@ public class Intake extends SubsystemBase {
     return this.runEnd(() -> moveVelocity(velocity), () -> io.setPivotVolts(0));
   }
 
-  public Command retractPivot() {
-    return this.runOnce(() -> this.pivotSetpoint = 0.0);
-  }
-
-  public Command climbIntake() {
-    return this.runOnce(() -> this.pivotSetpoint = 0.45);
-  }
-
-  public Command spinIntake() {
-    return this.runEnd(() -> io.setRollerVolts(rollerVolts.get()), () -> io.setRollerVolts(0));
-  }
-
-  public Command spinIntakeRollersSlow() {
-    return this.runEnd(() -> io.setRollerVolts(rollerVolts.get() / 2), () -> io.setRollerVolts(0));
-  }
-
-  public Command stopRollers() {
-    return this.runOnce(() -> io.setRollerVolts(0));
-  }
-  /*
-   * this can be much simpler than before just needs to spin the intake and retract when done.
-   * keep the high level logic up in superstructure
-   */
-  public Command intakeNote() {
-    return (deployPivot()
-        .andThen(spinIntake())
-        .finallyDo(
-            () -> {
-              this.pivotSetpoint = 0.0;
-              io.setRollerVolts(0.0);
-            }));
-  }
-
-  // TODO: might need to deploy the intake during a spit but maybe not
-  public Command spit() {
-    return this.runEnd(() -> io.setRollerVolts(-1.5), () -> io.setRollerVolts(0));
-  }
-
   @Override
   public void periodic() {
     // io.updateInputs(inputs);

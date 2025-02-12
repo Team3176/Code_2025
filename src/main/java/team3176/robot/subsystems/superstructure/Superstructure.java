@@ -3,14 +3,17 @@ package team3176.robot.subsystems.superstructure;
 import edu.wpi.first.wpilibj2.command.Command;
 // import java.util.function.IntSupplier;
 import java.util.function.DoubleSupplier;
+import team3176.robot.subsystems.superstructure.climb.Climb;
 import team3176.robot.subsystems.superstructure.intake.Intake;
 
 public class Superstructure {
   private static Superstructure instance;
   private Intake intake;
+  private Climb climb;
 
   public Superstructure() {
-    intake = Intake.getInstance();
+    // intake = Intake.getInstance();
+    climb = Climb.getInstance();
   }
 
   public static Superstructure getInstance() {
@@ -21,12 +24,8 @@ public class Superstructure {
     return instance;
   }
 
-  public Command deployIntakePivot() {
+  /*  public Command deployIntakePivot() {
     return intake.deployPivot();
-  }
-
-  public Command retractIntakePivot() {
-    return intake.retractPivot();
   }
 
   public Command movePivot(DoubleSupplier position) {
@@ -39,13 +38,13 @@ public class Superstructure {
 
   public Command movePivotVelocityVoltage(DoubleSupplier velocity) {
     return intake.movePivotVelocityVoltage(velocity);
+  } */
+
+  public Command moveClimbLeftPosition(DoubleSupplier position) {
+    return climb.moveLeftPosition(position);
   }
 
-  public Command setIntakePosition(DoubleSupplier position) {
-    return intake.setIntakePosition(position);
-  }
-
-  public Command moveIntakePosition(DoubleSupplier position) {
-    return intake.moveIntakePosition(position);
+  public Command stopClimbLeft() {
+    return climb.stopLeft();
   }
 }

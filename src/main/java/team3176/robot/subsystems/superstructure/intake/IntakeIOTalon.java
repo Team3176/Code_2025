@@ -26,8 +26,6 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
-import team3176.robot.constants.Hardwaremap;
-import team3176.robot.util.TalonUtils;
 
 /** Template hardware interface for a closed loop subsystem. */
 public class IntakeIOTalon implements IntakeIO {
@@ -67,8 +65,8 @@ public class IntakeIOTalon implements IntakeIO {
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
 
-    rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
-    pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
+    // rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
+    // pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
 
     positionVoltage = new PositionVoltage(0).withSlot(0);
     velocityVoltage = new VelocityVoltage(0).withSlot(0);
@@ -107,8 +105,8 @@ public class IntakeIOTalon implements IntakeIO {
     pivotConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
-    TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
+    // TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
+    // TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
     pivotController.setPosition(0, 0);
 
     pivotAppliedVolts = pivotController.getMotorVoltage();
@@ -140,8 +138,8 @@ public class IntakeIOTalon implements IntakeIO {
         rollerTemp,
         rollerCurrentAmpsSupply);
 
-    rollerController.optimizeBusUtilization();
-    pivotController.optimizeBusUtilization();
+    // rollerController.optimizeBusUtilization();
+    // pivotController.optimizeBusUtilization();
   }
   /** Updates the set of loggable inputs. */
   @Override

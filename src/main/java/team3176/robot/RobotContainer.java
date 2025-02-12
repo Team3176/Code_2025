@@ -170,8 +170,15 @@ public class RobotContainer {
     */
     // controller.operator.b().whileTrue(superstructure.movePivot());
 
-    // position
+    // climb
     controller
+        .operator
+        .b()
+        .whileTrue(superstructure.moveClimbLeftPosition(() -> controller.operator.getLeftY()))
+        .onFalse(superstructure.stopClimbLeft());
+
+    // position
+    /* controller
         .transStick
         .button(2)
         .whileTrue(superstructure.movePivot(() -> controller.transStick.getRawAxis(+3)));
@@ -180,7 +187,7 @@ public class RobotContainer {
         .transStick
         .button(1)
         .whileTrue(
-            superstructure.movePivotVelocityVoltage(() -> controller.transStick.getRawAxis(+3)));
+            superstructure.movePivotVelocityVoltage(() -> controller.transStick.getRawAxis(+3))); */
   }
 
   public void clearCanFaults() {
