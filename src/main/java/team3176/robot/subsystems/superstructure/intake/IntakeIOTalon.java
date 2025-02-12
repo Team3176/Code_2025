@@ -7,6 +7,8 @@
 
 package team3176.robot.subsystems.superstructure.intake;
 
+import static edu.wpi.first.units.Units.*;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -16,8 +18,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.SparkPIDController;
+import com.revrobotics.spark.SparkClosedLoopController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -25,8 +26,6 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
-import team3176.robot.constants.Hardwaremap;
-import team3176.robot.util.TalonUtils;
 
 /** Template hardware interface for a closed loop subsystem. */
 public class IntakeIOTalon implements IntakeIO {
@@ -37,7 +36,7 @@ public class IntakeIOTalon implements IntakeIO {
   VoltageOut rollerVolts = new VoltageOut(0.0);
   VoltageOut pivotVolts = new VoltageOut(0.0);
   PositionVoltage voltPosition;
-  private SparkPIDController pivotPID;
+  private SparkClosedLoopController pivotPID;
 
   DigitalInput rollerLinebreak;
   DigitalInput pivotLinebreak;
@@ -56,23 +55,30 @@ public class IntakeIOTalon implements IntakeIO {
   private final StatusSignal<Current> rollerCurrentAmpsSupply;
   private final StatusSignal<AngularVelocity> rollerVelocity;
   private final StatusSignal<Temperature> rollerTemp;
+  private final PositionVoltage positionVoltage;
+  private final VelocityVoltage velocityVoltage;
+
+  // private final XboxController m_joystick;
 
   public IntakeIOTalon() {
 
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
 
-    // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
-    // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
+    // rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
+    // pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
 
-    // rollerLinebreak = new DigitalInput(Hardwaremap.intakeRollerLinebreak_DIO);
-    // pivotLinebreak = new DigitalInput(Hardwaremap.intakePivotLinebreak_DIO);
+    positionVoltage = new PositionVoltage(0).withSlot(0);
+    velocityVoltage = new VelocityVoltage(0).withSlot(0);
 
-    upperLimitSwitch = new DigitalInput(Hardwaremap.intakeUpperLimitSwitch_DIO);
-    lowerLimitSwitch = new DigitalInput(Hardwaremap.intakeLowerLimitSwitch_DIO);
-
-    rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
-    pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
+    rollerConfigs.Slot0.kP = 2.4; // An error of 1 rotation results in 60 A output
+    rollerConfigs.Slot0.kI = 0; // No output for integrated error
+    rollerConfigs.Slot0.kD = 0.1; // A velocity of 1 rps results in 6 A output
+    // Peak output of 120 A
+    /*   rollerConfigs
+    .TorqueCurrent
+    .withPeakForwardTorqueCurrent(Amps.of(120))
+    .withPeakReverseTorqueCurrent(Amps.of(-120)); */
 
     // config setting
     // rollerConfigs.CurrentLimits.StatorCurrentLimit = 50;
@@ -82,6 +88,14 @@ public class IntakeIOTalon implements IntakeIO {
 
     // pivotConfigs.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
     // pivotConfigs.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
+    pivotConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    pivotConfigs.Slot0.kV =
+        0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts
+    // / rotation per second
+    pivotConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+    pivotConfigs.Slot0.kI = 0; // No output for integrated error
+    pivotConfigs.Slot0.kD = 0; // No output for error derivative
+
     pivotConfigs.Voltage.PeakForwardVoltage = 8;
     pivotConfigs.Voltage.PeakReverseVoltage = -10;
     pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -91,8 +105,8 @@ public class IntakeIOTalon implements IntakeIO {
     pivotConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
-    TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
+    // TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
+    // TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
     pivotController.setPosition(0, 0);
 
     pivotAppliedVolts = pivotController.getMotorVoltage();
@@ -124,8 +138,8 @@ public class IntakeIOTalon implements IntakeIO {
         rollerTemp,
         rollerCurrentAmpsSupply);
 
-    rollerController.optimizeBusUtilization();
-    pivotController.optimizeBusUtilization();
+    // rollerController.optimizeBusUtilization();
+    // pivotController.optimizeBusUtilization();
   }
   /** Updates the set of loggable inputs. */
   @Override
@@ -176,11 +190,20 @@ public class IntakeIOTalon implements IntakeIO {
 
   @Override
   public void setPivotPIDPosition(double position) {
-    pivotPID.setReference(position, CANSparkBase.ControlType.kPosition);
+    double desiredRotations = position * 10; // Go for plus/minus 10 rotations
+    System.out.println(desiredRotations);
+    rollerController.setControl(positionVoltage.withPosition(desiredRotations));
   }
 
   @Override
   public void setPivotVolts(double volts) {
-    pivotController.setControl(pivotVolts.withOutput(volts));
+    pivotController.setControl(pivotVolts.withOutput(volts * 12));
+    System.out.println(volts);
+  }
+
+  public void setVelocityVoltage(double volts) {
+    double desiredRotations = volts * 10; // Go for plus/minus 10 rotations
+    System.out.println(desiredRotations);
+    pivotController.setControl(velocityVoltage.withVelocity(desiredRotations));
   }
 }
