@@ -64,7 +64,7 @@ public class Hardwaremap {
   public static final int blinkin_pwm_port = 9;
 
   /*
-   * Drivetrain CIDs
+  
    */
   // statics constants for swerve pods
   public static final String SWERVEPOD_CTRE_CBN =

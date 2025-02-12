@@ -74,13 +74,16 @@ public class RobotContainer {
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
-    drivetrain.setDefaultCommand(
-        drivetrain
+        ///drivetraiN.swerveDefenseCommand();
+
+        drivetrain.setDefaultCommand(
+          drivetrain
             .swerveDriveJoysticks(
                 () -> controller.getForward(),
                 () -> controller.getStrafe(),
                 () -> controller.getSpin())
             .withName("default drive"));
+
     ledsRio.setDefaultCommand(ledsRio.DefaultLED());
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));

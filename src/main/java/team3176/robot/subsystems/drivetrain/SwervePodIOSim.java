@@ -67,7 +67,8 @@ public class SwervePodIOSim implements SwervePodIO {
         Rotation2d.fromDegrees(turnAbsolutePositionRad).minus(offset).getDegrees();
     Logger.recordOutput(
         "Drivetrain/IO/raw/rawNoOffset_enc" + id,
-        Rotation2d.fromDegrees(turnAbsolutePositionRad).getRotations());
+   //     Rotation2d.fromDegrees(turnAbsolutePositionRad).getRotations());
+          0);
     Logger.recordOutput("Drivetrain/IO/degreesNoOffset_enc" + id, turnAbsolutePositionRad);
     inputs.turnAbsolutePositionDegrees =
         Rotation2d.fromDegrees(turnAbsolutePositionRad).minus(offset).getDegrees()
