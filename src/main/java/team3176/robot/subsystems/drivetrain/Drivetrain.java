@@ -156,14 +156,14 @@ public class Drivetrain extends SubsystemBase {
     if (Constants.getMode() != Mode.REPLAY) {
       switch (Constants.getRobot()) {
         case ROBOT_2025C:
-          System.out.println("[init] normal swervePods");
+          //System.out.println("[init] normal swervePods");
           podFR = new SwervePod(0, new SwervePodIOTalon(Hardwaremap.FR, Hardwaremap.STEER_FR_CID));
           podFL = new SwervePod(1, new SwervePodIOTalon(Hardwaremap.FL, Hardwaremap.STEER_FL_CID));
           podBL = new SwervePod(2, new SwervePodIOTalon(Hardwaremap.BL, Hardwaremap.STEER_BL_CID));
           podBR = new SwervePod(3, new SwervePodIOTalon(Hardwaremap.BR, Hardwaremap.STEER_BR_CID));
           break;
         case ROBOT_DEFENSE:
-          System.out.println("[init] normal swervePods");
+          //System.out.println("[init] normal swervePods");
           podFR =
               new SwervePod(0, new SwervePodIOTalon(Hardwaremap.POD001, Hardwaremap.STEER_FR_CID));
           podFL =
@@ -175,7 +175,7 @@ public class Drivetrain extends SubsystemBase {
           break;
         case CTRL_BOARD:
         case ROBOT_SIMBOT:
-          System.out.println("[init] simulated swervePods");
+          //System.out.println("[init] simulated swervePods");
           podFR = new SwervePod(0, new SwervePodIOSim(0));
           podFL = new SwervePod(1, new SwervePodIOSim(1));
           podBL = new SwervePod(2, new SwervePodIOSim(2));
@@ -284,7 +284,7 @@ public class Drivetrain extends SubsystemBase {
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
     Logger.recordOutput("Drivetrain/speedsRaw", discreteSpeeds);
     Logger.recordOutput(
-        "SwerveSetpoints/BeforePoofs", kinematics.toSwerveModuleStates(discreteSpeeds));
+        "SwerveSetpoints/Before", kinematics.toSwerveModuleStates(discreteSpeeds));
     // SwerveSetpoint output =
     //     setpointGenerator.generateSetpoint(moduleLimits, prevSetpoint, discreteSpeeds, 0.02);
     // SwerveModuleState[] podStates = output.moduleStates();
@@ -522,7 +522,7 @@ public class Drivetrain extends SubsystemBase {
   */
 
   public Command swerveDefenseCommand() {
-    System.out.println("swerveDefenseCommand");
+    //System.out.println("swerveDefenseCommand");
     return this.runOnce(
         () -> {
           kinematics.resetHeadings(
@@ -536,7 +536,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Command swerveDrivePercent(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin, boolean isFieldCentric) {
-        System.out.println("sweveDrivePercent 1 command");
+        //System.out.println("sweveDrivePercent 1 command");
     return this.run(
         () -> {
           ChassisSpeeds speeds =
@@ -554,7 +554,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Command swerveDrivePercent(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin) {
-        System.out.println("swerveDrivePercent 2 command");
+        //System.out.println("swerveDrivePercent 2 command");
     return swerveDrivePercent(forward, strafe, spin, true);
   }
 
@@ -604,7 +604,7 @@ public class Drivetrain extends SubsystemBase {
     Boolean isFieldCentric,
     Supplier<Rotation2d> angle) 
       {
-        System.out.println("serveDriveJoysticks 0 command");
+        //System.out.println("serveDriveJoysticks 0 command");
         Supplier<ChassisSpeeds> baseJoystickSpeeds =
           this.convertJoysticks(forward, strafe, spin, isFieldCentric);
         return this.run(
@@ -633,13 +633,13 @@ public class Drivetrain extends SubsystemBase {
 
   public Command swerveDriveJoysticks(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin) {
-        System.out.println("swerveDriveJoysticks 1");
+        //System.out.println("swerveDriveJoysticks 1");
     return swerveDriveJoysticks(forward, strafe, spin, true, null);
   }
 
   public Command swerveDriveJoysticks(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin, boolean field) {
-        System.out.println("swerveDriveJoysticks 2 command");
+        //System.out.println("swerveDriveJoysticks 2 command");
     return swerveDriveJoysticks(forward, strafe, spin, field, null);
   }
 
@@ -654,7 +654,7 @@ public class Drivetrain extends SubsystemBase {
   */
 
   public Command goToPoint(int x, int y) {
-    System.out.println("goToPoint x y command");
+    //System.out.println("goToPoint x y command");
     Pose2d targetPose = new Pose2d(x, y, Rotation2d.fromDegrees(180));
     PathConstraints constraints =
         new PathConstraints(3.0, 1.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
@@ -664,7 +664,7 @@ public class Drivetrain extends SubsystemBase {
    * flips if needed
    */
   public Command goToPoint(Pose2d pose) {
-    System.out.println("goToPoint pose command");
+    //System.out.println("goToPoint pose command");
     PathConstraints constraints =
         new PathConstraints(3.0, 2.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
     return new ConditionalCommand(
@@ -675,7 +675,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Command chaseNoteTeleo(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin) {
-        System.out.println("chaseNoteTeleo command");
+        //System.out.println("chaseNoteTeleo command");
     Supplier<ChassisSpeeds> baseJoy = convertJoysticks(forward, strafe, spin, true);
     return this.run(
         () -> {
@@ -691,7 +691,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public Command chaseNote() {
-    System.out.println("chaseNote command");
+    //System.out.println("chaseNote command");
     return this.run(
         () -> {
           driveVelocity(getNoteChaseSpeeds());
@@ -700,7 +700,7 @@ public class Drivetrain extends SubsystemBase {
 
   // Not protected by mutex lock to not interrupt the pathplanner command
   public Command autoChaseTarget(orientationGoal goal) {
-    System.out.println("autoChaseTarget command");
+    //System.out.println("autoChaseTarget command");
     return Commands.runEnd(
         () -> autonTarget = goal, () -> autonTarget = orientationGoal.PATHPLANNER);
   }
@@ -716,17 +716,17 @@ public class Drivetrain extends SubsystemBase {
 
   /** Stop the drivetain */
   public Command stop() {
-    System.out.println("stop command");
+    //System.out.println("stop command");
     return new InstantCommand(() -> driveVelocity(new ChassisSpeeds()));
   }
 
   public Command resetPoseToVisionCommand() {
-    System.out.println("resetPoseToVisionCommand command");
+    //System.out.println("resetPoseToVisionCommand command");
     return new InstantCommand(() -> resetPose(visionPose3d.toPose2d()));
   }
 
   public Command setVisionOverride(boolean onoff) {
-    System.out.println("setVisionOverride command");
+    //System.out.println("setVisionOverride command");
     return new InstantCommand(() -> this.visionOverride = onoff);
   }
 
