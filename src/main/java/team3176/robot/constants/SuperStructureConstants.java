@@ -46,6 +46,15 @@ public class SuperStructureConstants {
   public static final double CLIMBRIGHT_TOP_POS = 75 + CLIMBRIGHT_ZERO_POS;
   public static final double CLIMBRIGHT_SIM_OFFSET = 63 + CLIMBRIGHT_ZERO_POS;
 
+  public static final double ARM_kP = 0.006;
+  public static final double ARM_kI = 0; // .0025
+  public static final double ARM_kD = 0; // .001
+  public static final double ARM_kg = 0.2;
+  public static final double ARM_TOLERANCE = 3;
+  public static final double ARM_ZERO_POS = 0.39;
+  public static final double ARM_TOP_POS = 75 + ARM_ZERO_POS;
+  public static final double ARM_SIM_OFFSET = 63 + ARM_ZERO_POS;
+
   public static final double ELEVATORLEFTj_kP = 0.006;
   public static final double ELEVATORLEFT_kI = 0; // .0025
   public static final double ELEVATORLEFT_kD = 0; // .001

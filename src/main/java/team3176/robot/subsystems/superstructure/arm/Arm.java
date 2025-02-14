@@ -25,15 +25,15 @@ public class Arm extends SubsystemBase {
   private boolean ishomed = false;
   private double lastRollerSpeed = 0.0;
 
-  private enum pivotStates {
+   private enum pivotStates {
     DEPLOY,
     RETRACT,
     IDLE,
     HOLD,
-  };
+  }; 
 
   private pivotStates pivotState = pivotStates.HOLD;
-  // DigitalInput linebreak1 = new DigitalInput(Hardwaremap.ArmRollerLinebreak_DIO);
+  //DigitalInput linebreak1 = new DigitalInput(Hardwaremap.ArmRollerLinebreak_DIO); 
 
   private Arm(ArmIO io) {
     this.io = io;
