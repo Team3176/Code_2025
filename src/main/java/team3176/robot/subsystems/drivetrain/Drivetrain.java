@@ -567,6 +567,7 @@ public class Drivetrain extends SubsystemBase {
       @Override
       public ChassisSpeeds get() {
         double DEADBAND = 0.1;
+    
         double linearMagnitude =
             MathUtil.applyDeadband(
                 Math.hypot(forward.getAsDouble(), -
