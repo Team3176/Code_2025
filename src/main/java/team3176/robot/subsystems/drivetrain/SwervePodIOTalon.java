@@ -102,8 +102,8 @@ public class SwervePodIOTalon implements SwervePodIO {
     // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
     // thrustTalonFXConfig.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
 
-    thrustTalonFXConfig.Slot0.kP = 9;
-    thrustTalonFXConfig.Slot0.kI = 1;
+    thrustTalonFXConfig.Slot0.kP = 60;
+    thrustTalonFXConfig.Slot0.kI = 6;
     thrustTalonFXConfig.Slot0.kD = 0.0;
     thrustTalonFXConfig.Slot0.kV = 0.0;
     thrustTalonFXConfig.Slot0.kS = 0.0;

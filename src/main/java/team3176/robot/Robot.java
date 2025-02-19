@@ -25,6 +25,8 @@ import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import team3176.robot.Constants.RobotType;
 import team3176.robot.subsystems.leds.LEDS;
+import au.grapplerobotics.CanBridge;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -144,6 +146,8 @@ public class Robot extends LoggedRobot {
             (Command command) -> {
               logCommandFunction.accept(command, false);
             });
+    CanBridge.runTCP();
+
   }
 
   /**

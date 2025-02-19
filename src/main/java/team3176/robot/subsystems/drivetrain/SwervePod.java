@@ -105,7 +105,7 @@ public class SwervePod {
    */
   public SwerveModuleState setModule(SwerveModuleState desiredState) {
     Rotation2d wheelAngle = Rotation2d.fromDegrees(inputs.turnAbsolutePositionDegrees);
-    //desiredState.optimize(wheelAngle);
+    desiredState.optimize(wheelAngle);
     desiredState.cosineScale(wheelAngle);
     this.desiredOptimizedAzimuthPosition = desiredState.angle.getDegrees();
     this.desiredState = desiredState;
