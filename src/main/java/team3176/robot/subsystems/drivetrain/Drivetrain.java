@@ -97,13 +97,14 @@ public class Drivetrain extends SubsystemBase {
   // PowerDistribution(PowerManagementConstants.PDP_CAN_ID, ModuleType.kCTRE);
 
   private ArrayList<SwervePod> pods;
+  
 
   Rotation2d fieldAngleOffset = Rotation2d.fromDegrees(0.0);
   public static final Translation2d[] SwerveModuleTranslations = {
-    new Translation2d(LENGTH / 2.0, -WIDTH / 2.0), // FR where +x=forward and -y=starboard
-    new Translation2d(LENGTH / 2.0, WIDTH / 2.0), // FL where +x=forward and +y=port
-    new Translation2d(-LENGTH / 2.0, WIDTH / 2.0), // BL where -x=backward(aft) and +y=port
-    new Translation2d(-LENGTH / 2.0, -WIDTH / 2.0) // BR where -x=backward(aft) and -y=starboard
+    new Translation2d(LENGTH / 2.0, WIDTH / 2.0), // FR where +x=forward and -y=starboard
+    new Translation2d(LENGTH / 2.0, -WIDTH / 2.0), // FL where +x=forward and +y=port
+    new Translation2d(-LENGTH / 2.0, -WIDTH / 2.0), // BL where -x=backward(aft) and +y=port
+    new Translation2d(-LENGTH / 2.0, WIDTH / 2.0) // BR where -x=backward(aft) and -y=starboard
   };
   public static final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(SwerveModuleTranslations);
@@ -266,6 +267,7 @@ public class Drivetrain extends SubsystemBase {
             .build();
     orientationPID = new TunablePID("Drivetrain/orientationPID", 7.0, 0.0, 0.15);
     orientationPID.enableContinuousInput(-Math.PI, Math.PI);
+    setBrakeMode();
   }
 
   // Prevents more than one instance of drivetrian
@@ -277,6 +279,7 @@ public class Drivetrain extends SubsystemBase {
         instance = new Drivetrain(new GyroIO() {});
       }
     }
+   
     return instance;
   }
 
@@ -563,10 +566,12 @@ public class Drivetrain extends SubsystemBase {
     return new Supplier<ChassisSpeeds>() {
       @Override
       public ChassisSpeeds get() {
-        double DEADBAND = 0.05;
+        double DEADBAND = 0.1;
+    
         double linearMagnitude =
             MathUtil.applyDeadband(
-                Math.hypot(forward.getAsDouble(), strafe.getAsDouble()), DEADBAND);
+                Math.hypot(forward.getAsDouble(), -
+                strafe.getAsDouble()), DEADBAND);
         Rotation2d linearDirection = new Rotation2d(forward.getAsDouble(), strafe.getAsDouble());
         double omega = MathUtil.applyDeadband(spin.getAsDouble(), DEADBAND);
 

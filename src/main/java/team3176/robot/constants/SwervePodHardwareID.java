@@ -12,6 +12,7 @@ public class SwervePodHardwareID {
   public int CANCODER_CID;
   public String CANCODER_CBN;
   public double OFFSET;
+  public boolean INVERT;
   // public podPosition POD_POSITION;
 
   SwervePodHardwareID() {}
@@ -23,7 +24,8 @@ public class SwervePodHardwareID {
       String azimuth_cbn,
       int cancoder_cid,
       String cancoder_cbn,
-      double offset) {
+      double offset,
+      boolean invert) {
     this.THRUST_CID = thrust_cid;
     this.THRUST_CBN = thrust_cbn;
     this.AZIMUTH_CID = azimuth_cid;
@@ -31,6 +33,7 @@ public class SwervePodHardwareID {
     this.CANCODER_CID = cancoder_cid;
     this.CANCODER_CBN = cancoder_cbn;
     this.OFFSET = offset;
+    this.INVERT = invert;
   }
 
   SwervePodHardwareID(
@@ -41,7 +44,8 @@ public class SwervePodHardwareID {
       String azimuth_cbn,
       int cancoder_cid,
       String cancoder_cbn,
-      double offset) {
+      double offset,
+      boolean invert) {
     this.THRUST_CID = thrust_cid;
     this.THRUST_CBN = thrust_cbn;
     this.AZIMUTH_CID = azimuth_cid;
@@ -50,6 +54,7 @@ public class SwervePodHardwareID {
     this.CANCODER_CBN = cancoder_cbn;
     this.SERIAL = serial;
     this.OFFSET = offset;
+    this.INVERT = invert;
   }
 
   enum podPosition {

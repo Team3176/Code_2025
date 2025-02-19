@@ -97,6 +97,10 @@ public class SwervePodIOTalon implements SwervePodIO {
     thrustTalonFXConfig.CurrentLimits.StatorCurrentLimit =
         DriveConstants.SWERVEPOD_THRUST_CURRENTLIMIT;
     thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+    if (id.INVERT) {thrustTalonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;} 
+    else {thrustTalonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;}
+    
+
     // thrustTalonFXConfig.Feedback.SensorToMechanismRatio = (1.0 / THRUST_GEAR_RATIO);
     // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimit = 40;
     // thrustTalonFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
