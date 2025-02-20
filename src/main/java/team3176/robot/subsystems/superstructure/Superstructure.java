@@ -21,9 +21,13 @@ public class Superstructure {
   public Command testVoltPos() {
     return arm.testVoltage();
   }
-  
+
   public Command testVoltVel() {
-    return arm.testVoltVelocity();
+    return arm.testVoltVelocity(1);
+  }
+
+  public Command testRevVoltVel() {
+    return arm.testVoltVelocity(-1);
   }
 
   public Command getProcessorCoralLeftAuto() {

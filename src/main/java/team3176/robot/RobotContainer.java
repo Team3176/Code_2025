@@ -156,7 +156,7 @@ public class RobotContainer {
         .onFalse(superstructure.stopClimbRight());
         */
     // controller.operator.povDown().onTrue(superstructure.intakeNote());
-    controller.operator.x().whileTrue(superstructure.grabCoral());
+    controller.operator.x().whileTrue(superstructure.testRevVoltVel());
     controller.operator.a().onTrue(superstructure.testVoltPos());
     controller.operator.b().whileTrue(superstructure.testVoltVel());
     /*  controller

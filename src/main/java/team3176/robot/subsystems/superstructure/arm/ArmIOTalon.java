@@ -10,7 +10,6 @@ package team3176.robot.subsystems.superstructure.arm;
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -98,10 +97,12 @@ public class ArmIOTalon implements ArmIO {
     pivotConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold = SuperStructureConstants.ARM_ZERO_POS;
-    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = SuperStructureConstants.ARM_TOP_POS;
-    pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
+        2;
+    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+    pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
+        -2;
+    pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true; 
 
     TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
     TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
