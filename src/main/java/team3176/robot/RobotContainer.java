@@ -56,13 +56,13 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-<<<<<<< HEAD
+/* <<<<<<< HEAD
     superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 =======
     // superstructure = Superstructure.getInstance();
     // drivetrain = Drivetrain.getInstance();
->>>>>>> elevator
+>>>>>>> elevator */
 
     // leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
@@ -76,7 +76,7 @@ public class RobotContainer {
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
-<<<<<<< HEAD
+/* <<<<<<< HEAD
         ///drivetraiN.swerveDefenseCommand();
 
         drivetrain.setDefaultCommand(
@@ -97,7 +97,7 @@ public class RobotContainer {
     //   () -> controller.getSpin())
     // .withName("default drive"));
     leds.setDefaultCommand(leds.DefaultLED());
->>>>>>> elevator
+>>>>>>> elevator */
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
     // NamedCommands.registerCommand(
@@ -170,7 +170,7 @@ public class RobotContainer {
      * Operator
      */
 
-<<<<<<< HEAD
+
   /*  controller
         .operator
         .leftBumper()
@@ -180,11 +180,7 @@ public class RobotContainer {
                 .alongWith(ledsRio.Climbing().asProxy()))
         .onFalse(superstructure.stopClimbLeft());
         */
-    controller
-        .switchBox
-        .button(5)
-        .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE));
-=======
+
     /*  controller
            .switchBox
            .button(5)
@@ -196,7 +192,7 @@ public class RobotContainer {
            .onTrue(drivetrain.setVisionOverride(true))
            .onFalse(drivetrain.setVisionOverride(false));
     */
->>>>>>> elevator
+
 
     controller
         .operator
@@ -235,7 +231,7 @@ public class RobotContainer {
 
   public void printCanFaults() {
     pdh.getStickyFaults();
-  }
+  } 
 
   /* public void checkAutonomousSelection(Boolean force) {
       if (autonChooser.get() != null
@@ -263,7 +259,7 @@ public class RobotContainer {
       checkAutonomousSelection(false);
     }
   */
-  public void checkAllaince() {
+/*   public void checkAllaince() {
     // TODO: check the optional return instead of just .get()
     if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
       currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
@@ -271,7 +267,7 @@ public class RobotContainer {
       System.out.println("changed alliance");
       // checkAutonomousSelection(true);
     }
-  }
+  } */
 
 
 

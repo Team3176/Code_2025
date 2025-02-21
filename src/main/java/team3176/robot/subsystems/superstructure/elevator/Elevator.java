@@ -273,7 +273,7 @@ public class Elevator extends SubsystemBase {
         instance = new Elevator(new ElevatorIOTalon() {});
         System.out.println("Elevator instance created for Mode.REAL");
       } else {
-        instance = new Elevator(new ElevatorIOSim() {});
+        //instance = new Elevator(new ElevatorIOSim() {});
         System.out.println("Elevator instance created for Mode.SIM");
       }
     }
