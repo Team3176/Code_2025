@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
     "fileName": "REVLib-2025.0.2.json",
     "name": "REVLib",
     "version": "2025.0.2",
@@ -13,57 +14,108 @@
             "groupId": "com.revrobotics.frc",
             "artifactId": "REVLib-java",
             "version": "2025.0.2"
+=======
+    "fileName": "URCL.json",
+    "name": "URCL",
+    "version": "2025.0.1",
+    "frcYear": "2025",
+    "uuid": "84246d17-a797-4d1e-bd9f-c59cd8d2477c",
+    "mavenUrls": [
+        "https://frcmaven.wpi.edu/artifactory/littletonrobotics-mvn-release/"
+    ],
+    "jsonUrl": "https://raw.githubusercontent.com/Mechanical-Advantage/URCL/main/URCL.json",
+    "javaDependencies": [
+        {
+            "groupId": "org.littletonrobotics.urcl",
+            "artifactId": "URCL-java",
+            "version": "2025.0.1"
+>>>>>>> climb:vendordeps/URCL.json
         }
     ],
     "jniDependencies": [
         {
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
             "groupId": "com.revrobotics.frc",
             "artifactId": "REVLib-driver",
             "version": "2025.0.2",
+=======
+            "groupId": "org.littletonrobotics.urcl",
+            "artifactId": "URCL-driver",
+            "version": "2025.0.1",
+>>>>>>> climb:vendordeps/URCL.json
             "skipInvalidPlatforms": true,
             "isJar": false,
             "validPlatforms": [
                 "windowsx86-64",
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
                 "linuxarm64",
                 "linuxx86-64",
                 "linuxathena",
                 "linuxarm32",
+=======
+                "linuxx86-64",
+                "linuxathena",
+>>>>>>> climb:vendordeps/URCL.json
                 "osxuniversal"
             ]
         }
     ],
     "cppDependencies": [
         {
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
             "groupId": "com.revrobotics.frc",
             "artifactId": "REVLib-cpp",
             "version": "2025.0.2",
             "libName": "REVLib",
+=======
+            "groupId": "org.littletonrobotics.urcl",
+            "artifactId": "URCL-cpp",
+            "version": "2025.0.1",
+            "libName": "URCL",
+>>>>>>> climb:vendordeps/URCL.json
             "headerClassifier": "headers",
             "sharedLibrary": false,
             "skipInvalidPlatforms": true,
             "binaryPlatforms": [
                 "windowsx86-64",
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
                 "linuxarm64",
                 "linuxx86-64",
                 "linuxathena",
                 "linuxarm32",
+=======
+                "linuxx86-64",
+                "linuxathena",
+>>>>>>> climb:vendordeps/URCL.json
                 "osxuniversal"
             ]
         },
         {
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
             "groupId": "com.revrobotics.frc",
             "artifactId": "REVLib-driver",
             "version": "2025.0.2",
             "libName": "REVLibDriver",
+=======
+            "groupId": "org.littletonrobotics.urcl",
+            "artifactId": "URCL-driver",
+            "version": "2025.0.1",
+            "libName": "URCLDriver",
+>>>>>>> climb:vendordeps/URCL.json
             "headerClassifier": "headers",
             "sharedLibrary": false,
             "skipInvalidPlatforms": true,
             "binaryPlatforms": [
                 "windowsx86-64",
+<<<<<<< HEAD:vendordeps_dippool/REVLib-2025.0.2.json
                 "linuxarm64",
                 "linuxx86-64",
                 "linuxathena",
                 "linuxarm32",
+=======
+                "linuxx86-64",
+                "linuxathena",
+>>>>>>> climb:vendordeps/URCL.json
                 "osxuniversal"
             ]
         }

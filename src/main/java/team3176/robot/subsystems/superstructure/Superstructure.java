@@ -1,27 +1,20 @@
 package team3176.robot.subsystems.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import java.util.function.DoubleSupplier;
 import team3176.robot.FieldConstants;
 // import java.util.function.IntSupplier;
 import team3176.robot.subsystems.drivetrain.Drivetrain;
+import team3176.robot.subsystems.superstructure.climb.Climb;
 
 public class Superstructure {
   private static Superstructure instance;
+  private Climb climb;
 
-  public Superstructure() {}
-
-  /*
-  public Command climbDown() {
-    return climb.moveLeftRightPosition(0, 0);
+  public Superstructure() {
+    climb = Climb.getInstance();
   }
-  */
 
-  public Command getProcessorCoralLeftAuto() {
-    return Drivetrain.getInstance()
-        .goToPoint(FieldConstants.CoralStation.leftCenterFace)
-        // .andThen(Drivetrain.getInstance().chaseNote().raceWith(intakeNote()));
-        .andThen(Drivetrain.getInstance().chaseNote());
-  }
 
   public static Superstructure getInstance() {
     if (instance == null) {

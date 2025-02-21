@@ -42,9 +42,9 @@ public class RobotContainer {
   // is this why we don't have a compressor? private final Compressor m_Compressor
   private Drivetrain drivetrain;
   private LEDSubsystem leds;
-  //  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
+  private Superstructure superstructure;
   private LoggedDashboardChooser<Command> autonChooser;
   private Command choosenAutonomousCommand = new WaitCommand(1.0);
   private Alliance currentAlliance = Alliance.Blue;
@@ -59,7 +59,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-    // superstructure = Superstructure.getInstance();
+    superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 
     // leds = LEDSubsystem.getInstance();
@@ -156,15 +156,16 @@ public class RobotContainer {
     /*
      * Operator
      */
-    /*
-    controller
-        .operator
-        .rightBumper()
-        .whileTrue(superstructure.moveClimbRightPosition(() -> controller.operator.getRightY()))
-        .onFalse(superstructure.stopClimbRight());
-        */
-    // controller.operator.povDown().onTrue(superstructure.intakeNote());
 
+  /*  controller
+        .operator
+        .leftBumper()
+        .whileTrue(
+            superstructure
+                .moveClimbLeftPosition(() -> -controller.operator.getLeftY())
+                .alongWith(ledsRio.Climbing().asProxy()))
+        .onFalse(superstructure.stopClimbLeft());
+        */
     controller
         .switchBox
         .button(5)
