@@ -25,8 +25,6 @@ import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import team3176.robot.Constants.RobotType;
 import team3176.robot.subsystems.leds.LEDS;
-import au.grapplerobotics.CanBridge;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -84,7 +82,7 @@ public class Robot extends LoggedRobot {
         }
 
         Logger.addDataReceiver(new NT4Publisher());
-        if (Constants.getRobot() == RobotType.ROBOT_2025C) {
+        if (Constants.getRobot() == RobotType.ROBOT_2024C) {
           LoggedPowerDistribution.getInstance(50, ModuleType.kRev);
         }
         break;
@@ -146,8 +144,6 @@ public class Robot extends LoggedRobot {
             (Command command) -> {
               logCommandFunction.accept(command, false);
             });
-    CanBridge.runTCP();
-
   }
 
   /**
@@ -192,9 +188,9 @@ public class Robot extends LoggedRobot {
     // autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    // if (autonomousCommand != null) {
-    // autonomousCommand.schedule();
-    // }
+    if (autonomousCommand != null) {
+      autonomousCommand.schedule();
+    }
   }
 
   /** This function is called periodically during autonomous. */

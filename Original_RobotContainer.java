@@ -15,13 +15,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import team3176.robot.constants.Hardwaremap;
-import team3176.robot.constants.SuperStructureConstants;
 import team3176.robot.subsystems.Visualization;
 import team3176.robot.subsystems.controller.Controller;
 import team3176.robot.subsystems.leds.LEDS;
 import team3176.robot.subsystems.leds.LEDSubsystem;
 import team3176.robot.subsystems.superstructure.*;
-import team3176.robot.subsystems.superstructure.elevator.Elevator;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 /**
@@ -39,9 +37,9 @@ public class RobotContainer {
   // is this why we don't have a compressor? private final Compressor m_Compressor
   // private Drivetrain drivetrain;
   private LEDSubsystem leds;
+  //  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
-  private Superstructure superstructure;
   private LoggedDashboardChooser<Command> autonChooser;
   private Command choosenAutonomousCommand = new WaitCommand(1.0);
   private Alliance currentAlliance = Alliance.Blue;
@@ -56,17 +54,12 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-/* <<<<<<< HEAD
     superstructure = Superstructure.getInstance();
-    drivetrain = Drivetrain.getInstance();
-=======
-    // superstructure = Superstructure.getInstance();
     // drivetrain = Drivetrain.getInstance();
->>>>>>> elevator */
 
-    // leds = LEDSubsystem.getInstance();
+    leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
-    endMatchAlert.onTrue(ledsRio.EndgameAlert());
+    endMatchAlert.onTrue(leds.EndgameStart());
 
     // superstructure = Superstructure.getInstance();
     visualization = new Visualization();
@@ -76,19 +69,6 @@ public class RobotContainer {
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
-/* <<<<<<< HEAD
-        ///drivetraiN.swerveDefenseCommand();
-
-        drivetrain.setDefaultCommand(
-          drivetrain
-            .swerveDriveJoysticks(
-                () -> controller.getForward(),
-                () -> controller.getStrafe(),
-                () -> controller.getSpin())
-            .withName("default drive"));
-
-    ledsRio.setDefaultCommand(ledsRio.DefaultLED());
-=======
     // drivetrain.setDefaultCommand(
     //   drivetrain
     //     .swerveDriveJoysticks(
@@ -97,7 +77,6 @@ public class RobotContainer {
     //   () -> controller.getSpin())
     // .withName("default drive"));
     leds.setDefaultCommand(leds.DefaultLED());
->>>>>>> elevator */
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
     // NamedCommands.registerCommand(
@@ -169,17 +148,14 @@ public class RobotContainer {
     /*
      * Operator
      */
-
-
-  /*  controller
+    /*
+    controller
         .operator
-        .leftBumper()
-        .whileTrue(
-            superstructure
-                .moveClimbLeftPosition(() -> -controller.operator.getLeftY())
-                .alongWith(ledsRio.Climbing().asProxy()))
-        .onFalse(superstructure.stopClimbLeft());
+        .rightBumper()
+        .whileTrue(superstructure.moveClimbRightPosition(() -> controller.operator.getRightY()))
+        .onFalse(superstructure.stopClimbRight());
         */
+    // controller.operator.povDown().onTrue(superstructure.intakeNote());
 
     /*  controller
            .switchBox
@@ -192,46 +168,23 @@ public class RobotContainer {
            .onTrue(drivetrain.setVisionOverride(true))
            .onFalse(drivetrain.setVisionOverride(false));
     */
-
-
+    /*
     controller
         .operator
         .b()
         .whileTrue(
             Elevator.getInstance()
-            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L1_POS));
-    controller
-        .operator
-        .a()
-        .whileTrue(
-            Elevator.getInstance()
-            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L2_POS));
-
-    controller
-    .operator
-    .x()
-    .whileTrue(
-        Elevator.getInstance()
-            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L3_POS));
-           // .moveLeftRightPosition0(SuperStructureConstants.ELEVATORLEFT_L2_POS));
-
-    controller
-    .operator
-    .y()
-    .whileTrue(
-        Elevator.getInstance()
-          .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L4_POS));
-
-    //controller.operator.x().onTrue(Elevator.getInstance().moveLeftRightPositionTorque(1));
+                .moveLeftRightPosition(SuperStructureConstants.ELEVATORLEFT_L1_POS));
+    */
   }
 
   public void clearCanFaults() {
     pdh.clearStickyFaults();
- }
+  }
 
   public void printCanFaults() {
     pdh.getStickyFaults();
-  } 
+  }
 
   /* public void checkAutonomousSelection(Boolean force) {
       if (autonChooser.get() != null
@@ -259,7 +212,7 @@ public class RobotContainer {
       checkAutonomousSelection(false);
     }
   */
-   public void checkAllaince() {
+  public void checkAllaince() {
     // TODO: check the optional return instead of just .get()
     if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
       currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
@@ -267,17 +220,8 @@ public class RobotContainer {
       System.out.println("changed alliance");
       // checkAutonomousSelection(true);
     }
-  } 
+  }
 
-
-
- 
-    
-
-
-
-  
-  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

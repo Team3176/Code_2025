@@ -51,7 +51,6 @@ import team3176.robot.Constants.Mode;
 import team3176.robot.FieldConstants;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.constants.SwervePodHardwareID;
-import team3176.robot.subsystems.vision.PhotonVisionSystem;
 import team3176.robot.util.AllianceFlipUtil;
 import team3176.robot.util.LocalADStarAK;
 import team3176.robot.util.LoggedTunableNumber;
@@ -470,23 +469,24 @@ public class Drivetrain extends SubsystemBase {
   }
 
   private ChassisSpeeds getNoteChaseSpeeds() {
-    if (PhotonVisionSystem.getInstance().seeNote) {
-      double yawError = 0 - PhotonVisionSystem.getInstance().noteYaw;
-      double pitchError = -25 - PhotonVisionSystem.getInstance().notePitch;
-      Logger.recordOutput("Drivetrain/yawError", yawError);
-      ChassisSpeeds speed =
-          new ChassisSpeeds(
-              MathUtil.clamp(-1.0 * pitchError * (pitchkP.get()), -2.0, 2.0)
-                  * Math.cos(Units.degreesToRadians(yawError)),
-              0,
-              yawError * (yawkP.get()));
-      return speed;
-    } else {
-      if (PhotonVisionSystem.getInstance().notePitch < -12) {
-        return new ChassisSpeeds(0.7, 0.0, 0.0);
-      }
-      return new ChassisSpeeds();
-    }
+    // if (PhotonVisionSystem.getInstance().seeNote) {
+    //   double yawError = 0 - PhotonVisionSystem.getInstance().noteYaw;
+    //   double pitchError = -25 - PhotonVisionSystem.getInstance().notePitch;
+    //   Logger.recordOutput("Drivetrain/yawError", yawError);
+    //   ChassisSpeeds speed =
+    //       new ChassisSpeeds(
+    //           MathUtil.clamp(-1.0 * pitchError * (pitchkP.get()), -2.0, 2.0)
+    //               * Math.cos(Units.degreesToRadians(yawError)),
+    //           0,
+    //           yawError * (yawkP.get()));
+    //   return speed;
+    // } else {
+    //   if (PhotonVisionSystem.getInstance().notePitch < -12) {
+    //     return new ChassisSpeeds(0.7, 0.0, 0.0);
+    //   }
+    //   return new ChassisSpeeds();
+    // }
+    return null;
   }
 
   private Rotation2d getAimAngle() {
@@ -678,7 +678,7 @@ public class Drivetrain extends SubsystemBase {
         AllianceFlipUtil::shouldFlip);
   }
 
-  public Command chaseNoteTeleo(
+ /*  public Command chaseNoteTeleo(
       DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier spin) {
         System.out.println("chaseNoteTeleo command");
     Supplier<ChassisSpeeds> baseJoy = convertJoysticks(forward, strafe, spin, true);
@@ -702,7 +702,7 @@ public class Drivetrain extends SubsystemBase {
           driveVelocity(getNoteChaseSpeeds());
         });
   }
-
+*/
   // Not protected by mutex lock to not interrupt the pathplanner command
   public Command autoChaseTarget(orientationGoal goal) {
     System.out.println("autoChaseTarget command");
