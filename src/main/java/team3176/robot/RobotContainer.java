@@ -4,27 +4,24 @@
 
 package team3176.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
+// import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import team3176.robot.commands.WheelRadiusCharacterization;
-import team3176.robot.commands.WheelRadiusCharacterization.Direction;
 import team3176.robot.constants.Hardwaremap;
+import team3176.robot.constants.SuperStructureConstants;
 import team3176.robot.subsystems.Visualization;
 import team3176.robot.subsystems.controller.Controller;
-import team3176.robot.subsystems.drivetrain.Drivetrain;
 import team3176.robot.subsystems.leds.LEDS;
 import team3176.robot.subsystems.leds.LEDSubsystem;
 import team3176.robot.subsystems.superstructure.*;
+import team3176.robot.subsystems.superstructure.elevator.Elevator;
 import team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 /**
@@ -40,7 +37,7 @@ public class RobotContainer {
   private PowerDistribution pdh;
 
   // is this why we don't have a compressor? private final Compressor m_Compressor
-  private Drivetrain drivetrain;
+  // private Drivetrain drivetrain;
   private LEDSubsystem leds;
   private PhotonVisionSystem vision;
   private Visualization visualization;
@@ -59,8 +56,13 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
+<<<<<<< HEAD
     superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
+=======
+    // superstructure = Superstructure.getInstance();
+    // drivetrain = Drivetrain.getInstance();
+>>>>>>> elevator
 
     // leds = LEDSubsystem.getInstance();
     ledsRio = LEDS.getInstance();
@@ -74,6 +76,7 @@ public class RobotContainer {
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
+<<<<<<< HEAD
         ///drivetraiN.swerveDefenseCommand();
 
         drivetrain.setDefaultCommand(
@@ -85,6 +88,16 @@ public class RobotContainer {
             .withName("default drive"));
 
     ledsRio.setDefaultCommand(ledsRio.DefaultLED());
+=======
+    // drivetrain.setDefaultCommand(
+    //   drivetrain
+    //     .swerveDriveJoysticks(
+    //       () -> controller.getForward(),
+    //     () -> controller.getStrafe(),
+    //   () -> controller.getSpin())
+    // .withName("default drive"));
+    leds.setDefaultCommand(leds.DefaultLED());
+>>>>>>> elevator
     // These all need to be sped up
     NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
     // NamedCommands.registerCommand(
@@ -95,9 +108,9 @@ public class RobotContainer {
     //         .withTimeout(0.8)
     //         .withName("shooting"));
 
-    autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
+    // autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
 
-    SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
+    //  SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
     configureBindings();
   }
 
@@ -116,7 +129,7 @@ public class RobotContainer {
     .transStick
     .button(1)
     .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE)); */
-    controller
+    /*controller
         .transStick
         .button(1)
         .whileTrue(
@@ -139,7 +152,7 @@ public class RobotContainer {
                     () -> controller.getSpin())
                 .alongWith(superstructure.intakeNote()));
     */
-    controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
+    /*controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
     controller
         .transStick
         .button(10)
@@ -148,7 +161,7 @@ public class RobotContainer {
     /*
      *  Rotation Stick
      */
-    controller
+    /*controller
         .rotStick
         .button(8)
         .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain));
@@ -157,6 +170,7 @@ public class RobotContainer {
      * Operator
      */
 
+<<<<<<< HEAD
   /*  controller
         .operator
         .leftBumper()
@@ -170,12 +184,49 @@ public class RobotContainer {
         .switchBox
         .button(5)
         .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE));
+=======
+    /*  controller
+           .switchBox
+           .button(5)
+           .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE));
+
+       controller
+           .switchBox
+           .button(4)
+           .onTrue(drivetrain.setVisionOverride(true))
+           .onFalse(drivetrain.setVisionOverride(false));
+    */
+>>>>>>> elevator
 
     controller
-        .switchBox
-        .button(4)
-        .onTrue(drivetrain.setVisionOverride(true))
-        .onFalse(drivetrain.setVisionOverride(false));
+        .operator
+        .b()
+        .whileTrue(
+            Elevator.getInstance()
+            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L1_POS));
+    controller
+        .operator
+        .a()
+        .whileTrue(
+            Elevator.getInstance()
+            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L2_POS));
+
+    controller
+    .operator
+    .x()
+    .whileTrue(
+        Elevator.getInstance()
+            .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L3_POS));
+           // .moveLeftRightPosition0(SuperStructureConstants.ELEVATORLEFT_L2_POS));
+
+    controller
+    .operator
+    .y()
+    .whileTrue(
+        Elevator.getInstance()
+          .setLeftPosition(()-> SuperStructureConstants.ELEVATORLEFT_L4_POS));
+
+    //controller.operator.x().onTrue(Elevator.getInstance().moveLeftRightPositionTorque(1));
   }
 
   public void clearCanFaults() {
@@ -186,48 +237,57 @@ public class RobotContainer {
     pdh.getStickyFaults();
   }
 
-  public void checkAutonomousSelection(Boolean force) {
-    if (autonChooser.get() != null
-        && (!choosenAutonomousCommand.equals(autonChooser.get()) || force)) {
-      Long start = System.nanoTime();
-      choosenAutonomousCommand = autonChooser.get();
-      try {
+  /* public void checkAutonomousSelection(Boolean force) {
+      if (autonChooser.get() != null
+          && (!choosenAutonomousCommand.equals(autonChooser.get()) || force)) {
+        Long start = System.nanoTime();
         choosenAutonomousCommand = autonChooser.get();
-      } catch (Exception e) {
-        System.out.println("[ERROR] could not find" + autonChooser.get().getName());
-        System.out.println(e.toString());
+        try {
+          choosenAutonomousCommand = autonChooser.get();
+        } catch (Exception e) {
+          System.out.println("[ERROR] could not find" + autonChooser.get().getName());
+          System.out.println(e.toString());
+        }
+
+        Long totalTime = System.nanoTime() - start;
+        System.out.println(
+            "Autonomous Selected: ["
+                + autonChooser.get().getName()
+                + "] generated in "
+                + (totalTime / 1000000.0)
+                + "ms");
       }
-
-      Long totalTime = System.nanoTime() - start;
-      System.out.println(
-          "Autonomous Selected: ["
-              + autonChooser.get().getName()
-              + "] generated in "
-              + (totalTime / 1000000.0)
-              + "ms");
     }
-  }
 
-  public void checkAutonomousSelection() {
-    checkAutonomousSelection(false);
-  }
-
+    public void checkAutonomousSelection() {
+      checkAutonomousSelection(false);
+    }
+  */
   public void checkAllaince() {
     // TODO: check the optional return instead of just .get()
     if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
       currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
       // Updated any things that need to change
       System.out.println("changed alliance");
-      checkAutonomousSelection(true);
+      // checkAutonomousSelection(true);
     }
   }
 
+
+
+ 
+    
+
+
+
+  
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return autonChooser.get();
-  }
+  // public Command getAutonomousCommand() {
+  // return autonChooser.get();
+  // }
 }
