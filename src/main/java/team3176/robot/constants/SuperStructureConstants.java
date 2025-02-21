@@ -46,7 +46,7 @@ public class SuperStructureConstants {
   public static final double CLIMBRIGHT_TOP_POS = 75 + CLIMBRIGHT_ZERO_POS;
   public static final double CLIMBRIGHT_SIM_OFFSET = 63 + CLIMBRIGHT_ZERO_POS;
 
-  public static final double ELEVATORLEFTj_kP = 0.006;
+  public static final double ELEVATORLEFT_kP = 0.006;
   public static final double ELEVATORLEFT_kI = 0; // .0025
   public static final double ELEVATORLEFT_kD = 0; // .001
   public static final double ELEVATORLEFT_kg = 0.2;
@@ -54,7 +54,14 @@ public class SuperStructureConstants {
   public static final double ELEVATORLEFT_ZERO_POS = 0.39;
   public static final double ELEVATORLEFT_TOP_POS = 75 + ELEVATORLEFT_ZERO_POS;
   public static final double ELEVATORLEFT_SIM_OFFSET = 63 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_L0_POS = 0 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_L1_POS = 20 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_L2_POS = 40 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_L3_POS = 60 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_L4_POS = 80 + ELEVATORLEFT_ZERO_POS;
+  public static final double ELEVATORLEFT_HF_POS = 30 + ELEVATORLEFT_ZERO_POS;
 
+  /*
   public static final double ELEVATORRIGHT_kP = 0.006;
   public static final double ELEVATORRIGHT_kI = 0; // .0025
   public static final double ELEVATORRIGHT_kD = 0; // .001
@@ -63,6 +70,7 @@ public class SuperStructureConstants {
   public static final double ELEVATORRIGHT_ZERO_POS = 0.39;
   public static final double ELEVATORRIGHT_TOP_POS = 75 + ELEVATORRIGHT_ZERO_POS;
   public static final double ELEVATORRIGHT_SIM_OFFSET = 63 + ELEVATORRIGHT_ZERO_POS;
+  */
 
   public static final double INTAKE_PIVOT_kP = 0.006;
   public static final double INTAKE_PIVOT_kI = 0; // .0025
