@@ -259,7 +259,7 @@ public class RobotContainer {
       checkAutonomousSelection(false);
     }
   */
-/*   public void checkAllaince() {
+   public void checkAllaince() {
     // TODO: check the optional return instead of just .get()
     if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
       currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
@@ -267,7 +267,7 @@ public class RobotContainer {
       System.out.println("changed alliance");
       // checkAutonomousSelection(true);
     }
-  } */
+  } 
 
 
 
