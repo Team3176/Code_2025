@@ -22,15 +22,15 @@ public class Superstructure {
   }
 
   public Command testVoltPos() {
-    return arm.runPosition(2);
+    return arm.runPosition(()->2);
   }
 
   public Command testVoltVel() {
-    return arm.runVelocity(1);
+    return arm.runVelocity(()->1);
   }
 
   public Command testRevVoltVel() {
-    return arm.runVelocity(-1);
+    return arm.runVelocity(()->-1);
   }
 
   public Command testElevator() {

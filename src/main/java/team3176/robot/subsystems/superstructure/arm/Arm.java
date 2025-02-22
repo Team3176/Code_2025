@@ -4,6 +4,9 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.Logger;
 import team3176.robot.Constants;
 import team3176.robot.Constants.Mode;
@@ -73,12 +76,12 @@ public class Arm extends SubsystemBase {
 
   // TODO: might need to deploy the Arm during a spit but maybe not
 
-  public Command runPosition(double position) {
-    return this.run(() -> io.setPivotVoltagePos(position));
+  public Command runPosition(DoubleSupplier position) {
+    return this.run(() -> io.setPivotVoltagePos(position.getAsDouble()));
   }
 
-  public Command runVelocity(double volts) {
-    return this.runEnd(() -> io.setRollerVolts(volts), () -> io.setRollerVolts(0));
+  public Command runVelocity(DoubleSupplier volts) {
+    return this.runEnd(() -> io.setRollerVolts(volts.getAsDouble()), () -> io.setRollerVolts(0));
   }
 
   @Override
