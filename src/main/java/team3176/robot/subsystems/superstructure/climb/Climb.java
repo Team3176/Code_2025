@@ -28,11 +28,11 @@ public class Climb extends SubsystemBase {
     leftPIDController.setTolerance(1.0);
   }
 
-  public Command stopLeft() {
+  public Command stopClimb() {
     return this.runOnce(() -> io.setLeftVoltage(0.0));
   }
 
-  private void leftGoToPosition(double position) {
+  private void climbGoToPosition(double position) {
     if (position > SuperStructureConstants.CLIMBLEFT_TOP_POS) {
       position = SuperStructureConstants.CLIMBLEFT_TOP_POS;
     }
@@ -42,19 +42,16 @@ public class Climb extends SubsystemBase {
     io.setLeftPIDPosition(position);
   }
 
-  public Command setLeftPosition(DoubleSupplier position) {
+  public Command setClimbPosition(DoubleSupplier position) {
     return this.runEnd(
         () -> {
-          leftGoToPosition((position.getAsDouble()));
+          climbGoToPosition((position.getAsDouble()));
         },
         () -> io.setLeftVoltage(0.0));
   }
 
-  public Command setAmpPosition() {
-    return goToPosition(() -> AmpClimbHeight.get());
-  }
 
-  public Command moveLeftPosition(DoubleSupplier delta) {
+  public Command moveClimbPosition(DoubleSupplier delta) {
     return this.runEnd(
         () -> {
           io.setLeftVoltage((5 * delta.getAsDouble()));
@@ -66,7 +63,7 @@ public class Climb extends SubsystemBase {
   public Command goToPosition(DoubleSupplier position) {
     return this.runEnd(
             () -> {
-              leftGoToPosition(position.getAsDouble());
+              climbGoToPosition(position.getAsDouble());
             },
             () -> {
               io.setLeftVoltage(0.0);
