@@ -67,28 +67,17 @@ public class Arm extends SubsystemBase {
         });
   }
 
-  public Command retractPivot() {
-    return this.runOnce(() -> this.pivotSetpoint = 0.0);
-  }
-
-  public Command spinArm() {
-    return this.runEnd(() -> io.setRollerVolts(rollerVolts.get()), () -> io.setRollerVolts(0));
-  }
-
   public Command stopRollers() {
     return this.runOnce(() -> io.setRollerVolts(0));
   }
 
   // TODO: might need to deploy the Arm during a spit but maybe not
-  public Command spit() {
-    return this.runEnd(() -> io.setRollerVolts(-1.5), () -> io.setRollerVolts(0));
+
+  public Command runPosition(double position) {
+    return this.run(() -> io.setPivotVoltagePos(position));
   }
 
-  public Command testVoltage() {
-    return this.run(() -> io.setPivotVoltagePos(5));
-  }
-
-  public Command testVoltVelocity(double volts) {
+  public Command runVelocity(double volts) {
     return this.runEnd(() -> io.setRollerVolts(volts), () -> io.setRollerVolts(0));
   }
 

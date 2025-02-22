@@ -45,8 +45,8 @@ public class Hardwaremap {
   // public static final int elevatorLeaderLimitSwitch_DIO = 5;
   // public static final int elevatorFollowerLimitSwitch_DIO = 6;
   public static final int climbLimitSwitch_DIO = 9;
-  public static final int elevatorLBLimitSwitch_DIO = 9;
-  public static final int elevatorRBLimitSwitch_DIO = 0; // 1;
+  public static final int elevatorBotLimitSwitch_DIO = 9;
+  public static final int elevatorTopLimitSwitch_DIO = 0; // 1;
   // public static final int armRollerLinebreak_DIO = 5;
   // public static final int armPivotLinebreak_DIO = 4;
   //public static final int armUpperLimitSwitch_DIO = 7;
