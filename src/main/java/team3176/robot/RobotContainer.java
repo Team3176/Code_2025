@@ -42,15 +42,13 @@ public class RobotContainer {
   // is this why we don't have a compressor? private final Compressor m_Compressor
   private Drivetrain drivetrain;
   private LEDSubsystem leds;
-  //  private Superstructure superstructure;
+  private Superstructure superstructure;
   private PhotonVisionSystem vision;
   private Visualization visualization;
   private LoggedDashboardChooser<Command> autonChooser;
   private Command choosenAutonomousCommand = new WaitCommand(1.0);
   private Alliance currentAlliance = Alliance.Blue;
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < 20);
-  private Trigger shooterOverride;
-  private Trigger ampOverride;
   //  private Trigger intakeOverride;
   private Trigger visionOverride;
   private LEDS ledsRio;
@@ -59,7 +57,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
-    // superstructure = Superstructure.getInstance();
+    superstructure = Superstructure.getInstance();
     drivetrain = Drivetrain.getInstance();
 
     // leds = LEDSubsystem.getInstance();
@@ -105,9 +103,6 @@ public class RobotContainer {
     /*
      * overrides
      */
-    shooterOverride = controller.switchBox.button(1);
-    ampOverride = controller.switchBox.button(2);
-    // intakeOverride = controller.switchBox.button(3);
     visionOverride = controller.switchBox.button(4);
     /*
      * Translation Stick
@@ -127,18 +122,7 @@ public class RobotContainer {
                     () -> controller.getSpin() * 1.5)
                 .withName("boost drive"));
 
-    /*
-        controller
-        .transStick
-        .button(4)
-        .whileTrue(
-            drivetrain
-                .chaseNoteTeleo(
-                    () -> controller.getForward(),
-                    () -> controller.getStrafe(),
-                    () -> controller.getSpin())
-                .alongWith(superstructure.intakeNote()));
-    */
+    
     controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
     controller
         .transStick
@@ -156,19 +140,15 @@ public class RobotContainer {
     /*
      * Operator
      */
-    /*
-    controller
-        .operator
-        .rightBumper()
-        .whileTrue(superstructure.moveClimbRightPosition(() -> controller.operator.getRightY()))
-        .onFalse(superstructure.stopClimbRight());
-        */
-    // controller.operator.povDown().onTrue(superstructure.intakeNote());
 
-    controller
-        .switchBox
-        .button(5)
-        .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE));
+    controller.operator.a().onTrue(superstructure.testVoltPos());
+    controller.operator.b().whileTrue(superstructure.testVoltVel());
+    controller.operator.x().onTrue(superstructure.testElevator());
+    controller.operator.y().whileTrue(superstructure.testClimb());
+
+    /*
+     * Switch Box
+     */
 
     controller
         .switchBox

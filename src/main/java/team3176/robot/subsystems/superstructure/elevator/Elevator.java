@@ -26,9 +26,6 @@ public class Elevator extends SubsystemBase {
   private TunablePID leftPIDController = new TunablePID("climbLeft", 1, 0, 0);
   private TunablePID rightPIDController = new TunablePID("climbRight", 1, 0, 0);
   private LoggedTunableNumber LeftClimbHeight = new LoggedTunableNumber("climbLeftHeight", 0);
-  private LoggedTunableNumber RightClimbHeight = new LoggedTunableNumber("climbRightHeight", 0);
-  private LoggedTunableNumber LeftRightClimbHeight =
-      new LoggedTunableNumber("climbLeftRightHeight", 0);
   private LoggedTunableNumber AmpClimbHeight = new LoggedTunableNumber("climb/climbAmpHeight", 60);
   private int LogSkipCounter;
 
@@ -60,20 +57,12 @@ public class Elevator extends SubsystemBase {
     return this.runOnce(() -> io.setLeftVoltage(0.0));
   }
 
-  //  public Command stopRight() {
-  // return this.runOnce(() -> io.setRightVoltage(0.0));
-  // }
-
-  public Command stopLeftRight(int i) {
-    return this.runOnce(
-        () -> {
-          io.setLeftVoltage(0.0);
-          // io.setRightVoltage(0.0);
-        });
-  }
-
   public double getLeftPosition() {
     return inputs.leftPosition;
+  }
+
+  public double getRightPosition() {
+    return inputs.rightPosition;
   }
 
   public boolean getTopLimitswitch() {
@@ -84,30 +73,8 @@ public class Elevator extends SubsystemBase {
     return inputs.isbotLimitswitch;
   }
 
-  public double getRightPosition() {
-    return inputs.rightPosition;
-  }
-  /*
-  public Command leftGoToPosition(double position) {
-    return this.runEnd(
-        () -> {
-          io.setLeft(pid.calculate(getLeftPosition(), position));
-          System.out.println(position);
-        },
-        io::stopLeft);
-  }
-  */
-
-  
 
   private void leftGoToPosition(double position) {
-
-    //if (position > SuperStructureConstants.ELEVATORLEFT_L4_POS) {
-    //  position = SuperStructureConstants.ELEVATORLEFT_L4_POS;
-   // }
-    //if (position < 0.0) {
-      //position = 0.0;
-   // }
     io.setLeftPIDPosition(position);
   }
 
@@ -125,15 +92,6 @@ public class Elevator extends SubsystemBase {
 
   }
   }
-
-  // private void rightGoToPosition(double position) {
-  // if (position > SuperStructureConstants.CLIMBRIGHT_TOP_POS) {
-  // position = SuperStructureConstants.CLIMBRIGHT_TOP_POS;
-  // } else if (position < 0.0) {
-  // position = 0.0;
-  // }
-  // io.setRightPIDPosition(position);
-  // }
 
   public Command setLeftPosition(DoubleSupplier targetElevatorPosInRobotUnits) {
     System.out.println("setleftpos:" + targetElevatorPosInRobotUnits.getAsDouble());
@@ -154,26 +112,6 @@ public class Elevator extends SubsystemBase {
 
   }
 
-  // public Command setRightPosition(DoubleSupplier position) {
-  // return this.runEnd(
-  //  () -> {
-  //  rightGoToPosition((position.getAsDouble()));
-  //  },
-  // () -> io.setRightVoltage(0.0));
-  // }
-
-  public Command setAmpPosition() {
-    return goToPosition(() -> AmpClimbHeight.get());
-  }
-
-  // public Command moveRightPosition(DoubleSupplier delta) {
-  // return this.runEnd(
-  //  () -> {
-  //  io.setRightVoltage((5 * delta.getAsDouble()));
-  // },
-  // () -> io.setRightVoltage(0.0));
-  // }
-
   public Command moveLeftPosition(DoubleSupplier delta) {
     return this.runEnd(
         () -> {
@@ -182,53 +120,14 @@ public class Elevator extends SubsystemBase {
         () -> io.setLeftVoltage(0.0));
   }
 
-  public Command moveLeftRightPositionManual(DoubleSupplier deltaLeft) {
-    return this.runEnd(
-        () -> {
-          //        io.setRightVoltage(5 * deltaRight.getAsDouble());
-          io.setLeftVoltage(5 * deltaLeft.getAsDouble());
-        },
-        () -> {
-          //      io.setRightVoltage(0.0);
-          io.setLeftVoltage(0.0);
-        });
-  }
-
-  public Command moveLeftRightPosition0(double LX_Pos) {
-    return this.runEnd(
-        () -> {
-          //        io.setRightVoltage(5 * deltaRight.getAsDouble());
-          io.setLeftVoltage(5 * LX_Pos);
-        },
-        () -> {
-          //      io.setRightVoltage(0.0);
-          io.setLeftVoltage(0);
-        });
-  }
-
-  public Command moveLeftRightPositionTorque(double desiredrotation) {
-    return this.runEnd(
-        () -> {
-          //        io.setRightVoltage(5 * deltaRight.getAsDouble());
-          System.out.println("moveleftrightPT Working");
-          io.setLeftPositionTorque(5 * desiredrotation);
-        },
-        () -> {
-          //      io.setRightVoltage(0.0);
-          io.setLeftPositionTorque(0);
-        });
-  }
-
   /** Given a double supplier run the PID until we reach the setpoint then end */
   public Command goToPosition(DoubleSupplier position) {
     return this.runEnd(
             () -> {
               leftGoToPosition(position.getAsDouble());
-              // rightGoToPosition(position.getAsDouble());
             },
             () -> {
               io.setLeftVoltage(0.0);
-              // io.setRightVoltage(0.0);
             })
         .until(() -> leftPIDController.atSetpoint() && rightPIDController.atSetpoint());
   }
@@ -237,22 +136,10 @@ public class Elevator extends SubsystemBase {
     return goToPosition(() -> 0.0);
   }
 
-  /*   public Command rightGoToPosition(double position) {
-    return this.runEnd(
-        () -> {
-          io.setRight(pid.calculate(getRightPosition(), position));
-        },
-        io::stopRight);
-  } */
-
   @Override
   public void periodic() {
     io.updateInputs(inputs);
-    // if (> 0) {
-    // if(inputs.istopLimitswitch){
-    // io.setLeftVoltage(0);
-    // }
-    // }
+
     LogSkipCounter += 1;
 
     if (LogSkipCounter >= 20) {
@@ -262,9 +149,6 @@ public class Elevator extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
     pid.checkParemeterUpdate();
-
-
-
   }
 
   public static Elevator getInstance() {
@@ -273,25 +157,9 @@ public class Elevator extends SubsystemBase {
         instance = new Elevator(new ElevatorIOTalon() {});
         System.out.println("Elevator instance created for Mode.REAL");
       } else {
-        //instance = new Elevator(new ElevatorIOSim() {});
         System.out.println("Elevator instance created for Mode.SIM");
       }
     }
     return instance;
-  }
-
-  public Command moveLeftPosition(invalid i, invalid j) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'moveLeftPosition'");
-  }
-
-  public Command moveLeftPosition(int i) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'moveLeftPosition'");
-  }
-
-  public Command moveLeftRightPosition(Object deltaLeft, Object deltaRight) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'moveLeftRightPosition'");
   }
 }

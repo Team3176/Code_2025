@@ -7,31 +7,38 @@ import team3176.robot.FieldConstants;
 import team3176.robot.subsystems.drivetrain.Drivetrain;
 import team3176.robot.subsystems.superstructure.climb.Climb;
 import team3176.robot.subsystems.superstructure.arm.Arm;
+import team3176.robot.subsystems.superstructure.elevator.Elevator;
 
 public class Superstructure {
   private static Superstructure instance;
   private Climb climb;
-  public Arm arm;
+  private Arm arm;
+  private Elevator elevator;
 
   public Superstructure() {
     climb = Climb.getInstance();
     arm = Arm.getInstance();
-  }
-
-  public Command grabCoral() {
-    return arm.spinArm();
+    elevator = Elevator.getInstance();
   }
 
   public Command testVoltPos() {
-    return arm.testVoltage();
+    return arm.runPosition(()->2);
   }
 
   public Command testVoltVel() {
-    return arm.testVoltVelocity(1);
+    return arm.runVelocity(()->1);
   }
 
   public Command testRevVoltVel() {
-    return arm.testVoltVelocity(-1);
+    return arm.runVelocity(()->-1);
+  }
+
+  public Command testElevator() {
+    return elevator.goToPosition(()->2);
+  }
+
+  public Command testClimb() {
+    return climb.moveClimbPosition(() -> 1);
   }
 
   /* 
