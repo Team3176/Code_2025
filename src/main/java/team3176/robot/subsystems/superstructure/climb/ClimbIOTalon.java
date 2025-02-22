@@ -28,7 +28,6 @@ public class ClimbIOTalon implements ClimbIO {
   TalonFX climbLeft;
   PositionVoltage voltPosition;
   NeutralOut brake;
-  DigitalInput climbLBLimitswitch;
   TalonFXConfiguration configsLeft;
   private final StatusSignal<Angle> leftPosition;
   private final StatusSignal<Double> leftError;
@@ -39,7 +38,6 @@ public class ClimbIOTalon implements ClimbIO {
     configsLeft = new TalonFXConfiguration();
     brake = new NeutralOut();
     voltPosition = new PositionVoltage(0);
-    climbLBLimitswitch = new DigitalInput(Hardwaremap.climbLimitSwitch_DIO);
     climbLeft = new TalonFX(Hardwaremap.climb_CID, Hardwaremap.climb_CBN);
     // config setting
     configsLeft.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
@@ -70,7 +68,6 @@ public class ClimbIOTalon implements ClimbIO {
   @Override
   public void updateInputs(ClimbIOInputs inputs) {
     BaseStatusSignal.refreshAll(leftPosition, leftError, leftAmps, leftVolts);
-    inputs.isLeftLimitswitch = (!climbLBLimitswitch.get());
     inputs.leftPosition = leftPosition.getValueAsDouble();
     inputs.leftError = leftError.getValue();
     inputs.leftAmpsStator = leftAmps.getValueAsDouble();

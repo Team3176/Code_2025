@@ -9,17 +9,12 @@ public class Hardwaremap {
    * Superstructer CIDs & CBNs
    */
   public static final int conveyor = 3;
-  public static final int shooterWheelLeft_CID = 50;
-  public static final int shooterWheelRight_CID = 6;
   public static final int shooterTransfer_CID = 5;
   public static final int shooterPivot_CID = 8;
-  public static final int armRoller_CID = 28;
   public static final int indexerRoller_CID = 9;
-  /*
-  public static final int LaserCanarmSide_CID = 49;
-  public static final int LaserCanShooterSide_CID = 48;
-  */
+  public static final int armRoller_CID = 28;  
   public static final int armPivot_CID = 29;
+  //public static final int armPivot_CanCoderID = 
   public static final int indexerPivot_CID = 4;
   public static final int climb_CID = 8;
   public static final int elevatorLeft_CID = 60;
@@ -44,7 +39,7 @@ public class Hardwaremap {
 
   // public static final int elevatorLeaderLimitSwitch_DIO = 5;
   // public static final int elevatorFollowerLimitSwitch_DIO = 6;
-  public static final int climbLimitSwitch_DIO = 9;
+  //public static final int climbLimitSwitch_DIO = 9;
   public static final int elevatorBotLimitSwitch_DIO = 9;
   public static final int elevatorTopLimitSwitch_DIO = 0; // 1;
   // public static final int armRollerLinebreak_DIO = 5;
