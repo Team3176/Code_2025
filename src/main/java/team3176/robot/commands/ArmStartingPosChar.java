@@ -30,9 +30,11 @@ public class ArmStartingPosChar extends Command {
     while (Currentposition != position) {
         if (Currentposition < position) {
             arm.testVoltVelocity(0.01);
+            this.Currentposition = Currentposition;
         }
         else {
             arm.testVoltVelocity(-0.01);
+            this.Currentposition = Currentposition;
         }
     }
     arm.testVoltVelocity(0);

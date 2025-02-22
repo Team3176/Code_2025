@@ -66,14 +66,14 @@ public class ArmIOTalon implements ArmIO {
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
-    // rollerLinebreak = new DigitalInput(Hardwaremap.intakeRollerLinebreak_DIO);
-    // pivotLinebreak = new DigitalInput(Hardwaremap.intakePivotLinebreak_DIO);
+    // rollerLinebreak = new DigitalInput(Hardwaremap.armRollerLinebreak_DIO);
+    // pivotLinebreak = new DigitalInput(Hardwaremap.armPivotLinebreak_DIO);
 
-    upperLimitSwitch = new DigitalInput(Hardwaremap.intakeUpperLimitSwitch_DIO);
-    lowerLimitSwitch = new DigitalInput(Hardwaremap.intakeLowerLimitSwitch_DIO);
+    //upperLimitSwitch = new DigitalInput(Hardwaremap.armUpperLimitSwitch_DIO);
+    //lowerLimitSwitch = new DigitalInput(Hardwaremap.armLowerLimitSwitch_DIO);
 
-    rollerController = new TalonFX(Hardwaremap.intakeRoller_CID, Hardwaremap.intakeRoller_CBN);
-    pivotController = new TalonFX(Hardwaremap.intakePivot_CID, Hardwaremap.intakePivot_CBN);
+    rollerController = new TalonFX(Hardwaremap.armRoller_CID, Hardwaremap.armRoller_CBN);
+    pivotController = new TalonFX(Hardwaremap.armPivot_CID, Hardwaremap.armPivot_CBN);
 
     // config setting
     // rollerConfigs.CurrentLimits.StatorCurrentLimit = 50;
