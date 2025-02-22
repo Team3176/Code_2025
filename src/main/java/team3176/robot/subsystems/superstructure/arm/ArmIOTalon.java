@@ -160,9 +160,6 @@ public class ArmIOTalon implements ArmIO {
     // inputs.isRollerLinebreak = (!rollerLinebreak.get());
     // inputs.isPivotLinebreak = (!pivotLinebreak.get());
 
-    inputs.upperLimitSwitch = (!upperLimitSwitch.get());
-    inputs.lowerLimitSwitch = !lowerLimitSwitch.get();
-
     inputs.pivotAppliedVolts = pivotAppliedVolts.getValueAsDouble();
     inputs.pivotAmpsStator = pivotCurrentAmpsStator.getValueAsDouble();
     inputs.pivotAmpsSupply = pivotCurrentAmpsSupply.getValueAsDouble();
@@ -177,10 +174,6 @@ public class ArmIOTalon implements ArmIO {
     inputs.rollerVelocityRadPerSec = Units.rotationsToRadians(rollerVelocity.getValueAsDouble());
   }
 
-  /*   @Override
-  public Boolean getRollerLinebreak() {
-    return
-  } */
 
   @Override
   public void setRollerVolts(double volts) {
