@@ -50,8 +50,6 @@ public class ArmIOTalon implements ArmIO {
   
   DigitalInput rollerLinebreak;
   DigitalInput pivotLinebreak;
-  DigitalInput upperLimitSwitch;
-  DigitalInput lowerLimitSwitch;
 
   private final StatusSignal<Voltage> pivotAppliedVolts;
   private final StatusSignal<Current> pivotCurrentAmpsStator;
@@ -72,6 +70,11 @@ public class ArmIOTalon implements ArmIO {
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
 
+    // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
+    // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
+
+    // rollerLinebreak = new DigitalInput(Hardwaremap.armRollerLinebreak_DIO);
+    // pivotLinebreak = new DigitalInput(Hardwaremap.armPivotLinebreak_DIO);
     rollerController = new TalonFX(Hardwaremap.armRoller_CID, Hardwaremap.armRoller_CBN);
     pivotController = new TalonFX(Hardwaremap.armPivot_CID, Hardwaremap.armPivot_CBN);
 
