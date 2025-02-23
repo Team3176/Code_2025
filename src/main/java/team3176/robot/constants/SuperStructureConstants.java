@@ -12,7 +12,9 @@ public class SuperStructureConstants {
   public static final double CLIMB_kg = 0.2;
   public static final double CLIMB_TOLERANCE = 3;
   public static final double CLIMB_ZERO_POS = 0;
-  public static final double CLIMB_TOP_POS = 170 + CLIMB_ZERO_POS;
+  public static final double CLIMB_MAXRETRACT_POS = CLIMB_ZERO_POS - 20;
+  public static final double CLIMB_DEPLOY_POS = 160 + CLIMB_ZERO_POS;
+  public static final double CLIMB_MAXDEPLOY_POS = 200 + CLIMB_ZERO_POS;
   public static final double CLIMB_SIM_OFFSET = 63 + CLIMB_ZERO_POS;
 
   public static final double ARM_OUTPUT_POWER = 1;

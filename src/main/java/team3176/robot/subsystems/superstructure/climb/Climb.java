@@ -32,8 +32,8 @@ public class Climb extends SubsystemBase {
   }
 
   private void climbGoToPosition(double position) {
-    if (position > SuperStructureConstants.CLIMB_TOP_POS) {
-      position = SuperStructureConstants.CLIMB_TOP_POS;
+    if (position > SuperStructureConstants.CLIMB_MAXDEPLOY_POS) {
+      position = SuperStructureConstants.CLIMB_MAXDEPLOY_POS;
     }
     if (position < 0.0) {
       position = 0.0;
