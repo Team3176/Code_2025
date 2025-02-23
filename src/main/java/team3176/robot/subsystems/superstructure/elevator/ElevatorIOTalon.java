@@ -63,10 +63,10 @@ public class ElevatorIOTalon implements ElevatorIO {
 
     //TODO set max height
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-        SuperStructureConstants.ELEVATORLEFT_TOP_POS;
+        SuperStructureConstants.ELEVATORLEADER_TOP_POS;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
-        SuperStructureConstants.ELEVATORLEFT_ZERO_POS;
+        SuperStructureConstants.ELEVATORLEADER_ZERO_POS;
     configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
 

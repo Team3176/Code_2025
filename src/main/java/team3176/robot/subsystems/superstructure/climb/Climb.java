@@ -28,17 +28,17 @@ public class Climb extends SubsystemBase {
   }
 
   public Command stopClimb() {
-    return this.runOnce(() -> io.setLeftVoltage(0.0));
+    return this.runOnce(() -> io.setVoltage(0.0));
   }
 
   private void climbGoToPosition(double position) {
-    if (position > SuperStructureConstants.CLIMBLEFT_TOP_POS) {
-      position = SuperStructureConstants.CLIMBLEFT_TOP_POS;
+    if (position > SuperStructureConstants.CLIMB_TOP_POS) {
+      position = SuperStructureConstants.CLIMB_TOP_POS;
     }
     if (position < 0.0) {
       position = 0.0;
     }
-    io.setLeftPIDPosition(position);
+    io.setPIDPosition(position);
   }
 
   public Command setClimbPosition(DoubleSupplier position) {
@@ -46,16 +46,16 @@ public class Climb extends SubsystemBase {
         () -> {
           climbGoToPosition((position.getAsDouble()));
         },
-        () -> io.setLeftVoltage(0.0));
+        () -> io.setVoltage(0.0));
   }
 
 //This is the command Faith was call to move Climb
   public Command moveClimbPosition(DoubleSupplier delta) {
     return this.runEnd(
         () -> {
-          io.setLeftVoltage((12 * delta.getAsDouble()));
+          io.setVoltage((12 * delta.getAsDouble()));
         },
-        () -> io.setLeftVoltage(0.0));
+        () -> io.setVoltage(0.0));
   }
 
   /** Given a double supplier run the PID until we reach the setpoint then end */
@@ -65,7 +65,7 @@ public class Climb extends SubsystemBase {
               climbGoToPosition(position.getAsDouble());
             },
             () -> {
-              io.setLeftVoltage(0.0);
+              io.setVoltage(0.0);
             })
         .until(() -> leftPIDController.atSetpoint());
   }

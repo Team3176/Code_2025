@@ -84,10 +84,10 @@ public class Elevator extends SubsystemBase {
   
 
   private void leftHeight(double height) {
-    if (height == SuperStructureConstants.ELEVATORLEFT_L1_POS) {
+    if (height == SuperStructureConstants.ELEVATORLEADER_L1_POS) {
       getTopLimitswitch();
     }
-    if (height == SuperStructureConstants.ELEVATORLEFT_L0_POS) {
+    if (height == SuperStructureConstants.ELEVATORLEADER_L0_POS) {
       getBotLimitswitch();
 
   }

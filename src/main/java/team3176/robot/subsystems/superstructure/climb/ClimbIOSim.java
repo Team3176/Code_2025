@@ -27,7 +27,7 @@ public class ClimbIOSim implements ClimbIO {
   @Override
   public void updateInputs(ClimbIOInputs inputs) {
     elevatorSim.update(Constants.LOOP_PERIODIC_SECS);
-    inputs.leftPosition = elevatorSim.getPositionMeters();
+    inputs.Position = elevatorSim.getPositionMeters();
     // inputs.VelocityRadPerSec = elevatorSim.getVelocityMetersPerSecond();
     // inputs.AppliedVolts = appliedVolts;
     // inputs.CurrentAmps = new double[] {elevatorSim.getCurrentDrawAmps()};
@@ -36,7 +36,7 @@ public class ClimbIOSim implements ClimbIO {
   }
 
   @Override
-  public void setLeft(double voltage) {
+  public void set(double voltage) {
     appliedVolts = voltage;
     appliedVolts = MathUtil.clamp(appliedVolts, -12, 12);
     elevatorSim.setInputVoltage(appliedVolts);
