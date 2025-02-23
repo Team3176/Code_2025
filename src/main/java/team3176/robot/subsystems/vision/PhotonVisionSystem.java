@@ -82,7 +82,8 @@ public class PhotonVisionSystem extends SubsystemBase {
     aprilCameras.add(new LoggedAprilPhotonCam("camera2", Robot2camera2));
     aprilCameras.add(new LoggedAprilPhotonCam("camera3", Robot2camera3));
     try {
-      field = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
+      //field = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
+      field = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark); 
       field.setOrigin(OriginPosition.kBlueAllianceWallRightSide);
     } catch (Exception e) {
       System.out.println("woops can't load the field");
