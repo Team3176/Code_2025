@@ -14,7 +14,7 @@ public class Hardwaremap {
   public static final int indexerRoller_CID = 9;
   public static final int armRoller_CID = 28;  
   public static final int armPivot_CID = 29;
-  //public static final int armPivot_CanCoderID = 
+  public static final int armCancoder_CID = 28;
   public static final int indexerPivot_CID = 4;
   public static final int climb_CID = 8;
   public static final int elevatorLeft_CID = 60;
@@ -63,14 +63,14 @@ public class Hardwaremap {
       Constants.getRobot() == RobotType.ROBOT_2025C ? "canivore" : "rio";
   public static final String SWERVEPOD_CBN = SWERVEPOD_CTRE_CBN;
   public static final SwervePodHardwareID POD001 =
-      new SwervePodHardwareID(1, 10, SWERVEPOD_CBN, 11, SWERVEPOD_CBN, 12, SWERVEPOD_CBN, -38.6, false);
+      new SwervePodHardwareID(1, 10, SWERVEPOD_CBN, 11, SWERVEPOD_CBN, 12, SWERVEPOD_CBN, -38.6, true);
   public static final SwervePodHardwareID POD002 =
-      new SwervePodHardwareID(2, 20, SWERVEPOD_CBN, 21, SWERVEPOD_CBN, 22, SWERVEPOD_CBN, 56.25, false);
+      new SwervePodHardwareID(2, 20, SWERVEPOD_CBN, 21, SWERVEPOD_CBN, 22, SWERVEPOD_CBN, 56.25, true);
   public static final SwervePodHardwareID POD003 =
-      new SwervePodHardwareID(3, 30, SWERVEPOD_CBN, 31, SWERVEPOD_CBN, 32, SWERVEPOD_CBN, 130.14, true);
+      new SwervePodHardwareID(3, 30, SWERVEPOD_CBN, 31, SWERVEPOD_CBN, 32, SWERVEPOD_CBN, -149.678, true);
   public static final SwervePodHardwareID POD004 =
       new SwervePodHardwareID(
-          4, 40, SWERVEPOD_CBN, 41, SWERVEPOD_CBN, 42, SWERVEPOD_CBN, 108.95, true);
+          4, 40, SWERVEPOD_CBN, 41, SWERVEPOD_CBN, 42, SWERVEPOD_CBN, -168.135, false);
   public static final SwervePodHardwareID POD005 =
       new SwervePodHardwareID(5, 13, SWERVEPOD_CBN, 14, SWERVEPOD_CBN, 15, SWERVEPOD_CBN, 103.525, false);
 
@@ -78,8 +78,8 @@ public class Hardwaremap {
 
   public static final SwervePodHardwareID FR = POD001;
   public static final SwervePodHardwareID FL = POD002;
-  public static final SwervePodHardwareID BL = POD003;
-  public static final SwervePodHardwareID BR = POD004;
+  public static final SwervePodHardwareID BL = POD004;
+  public static final SwervePodHardwareID BR = POD003;
 
   public static final int STEER_FR_CID = 11;
   public static final int STEER_FL_CID = 21;

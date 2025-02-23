@@ -20,6 +20,7 @@ public class Arm extends SubsystemBase {
   private final ArmIO io;
   private final ArmIOInputsAutoLogged inputs = new ArmIOInputsAutoLogged();
   private final LoggedTunableNumber rollerVolts;
+  private final LoggedTunableNumber pivotTuneSetPoint;
   private final TunablePID pivotPID;
   private Timer deployTime = new Timer();
   private double pivotSetpoint;
@@ -42,6 +43,7 @@ public class Arm extends SubsystemBase {
     this.io = io;
     this.pivotPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
     this.rollerVolts = new LoggedTunableNumber("Arm/rollerVolts", 7.0);
+    this.pivotTuneSetPoint = new LoggedTunableNumber("Arm/pivotSetpoint", 0);
   }
 
   private void runPivot(double volts) {
@@ -80,8 +82,12 @@ public class Arm extends SubsystemBase {
     return this.run(() -> io.setPivotVoltagePos(position.getAsDouble()));
   }
 
+  public Command runPositionVoltageManual(DoubleSupplier position) {
+    return this.runEnd(() -> io.setPivotVolts(12* position.getAsDouble()), () -> io.setPivotVolts(0.0));
+  }
+
   public Command runVelocity(DoubleSupplier volts) {
-    return this.runEnd(() -> io.setRollerVolts(volts.getAsDouble()), () -> io.setRollerVolts(0));
+    return this.runEnd(() -> io.setRollerVolts(12* volts.getAsDouble()), () -> io.setRollerVolts(0));
   }
 
   @Override
@@ -89,6 +95,10 @@ public class Arm extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.processInputs("Arm", inputs);
     Logger.recordOutput("Arm/state", pivotState);
+    if (this.pivotTuneSetPoint.hasChanged(hashCode())){
+
+
+    }
     double pivot_pos = inputs.pivotPosition - pivot_offset;
     if (!ishomed && pivotSetpoint > 1.0) {
       pivot_pos = -3.0;

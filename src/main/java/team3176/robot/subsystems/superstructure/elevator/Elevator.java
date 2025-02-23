@@ -132,6 +132,17 @@ public class Elevator extends SubsystemBase {
         .until(() -> leftPIDController.atSetpoint() && rightPIDController.atSetpoint());
   }
 
+  public Command goToPositionManual(DoubleSupplier position) {
+    return this.runEnd(
+       () -> {
+        io.setLeftVoltage(6* position.getAsDouble());
+      },
+      () -> {
+        io.setLeftVoltage(0.0);
+      });
+  }
+  
+
   public Command stow() {
     return goToPosition(() -> 0.0);
   }

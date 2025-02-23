@@ -15,6 +15,7 @@ public interface ArmIO {
   @AutoLog
   public static class ArmIOInputs {
     public double pivotPosition = 0.0;
+    public double pivotAbsolutePositionDegrees = 0.0;
     public double pivotVelocityRadPerSec = 0.0;
     public double pivotAppliedVolts = 0.0;
     public double pivotAmpsStator = 0.0;

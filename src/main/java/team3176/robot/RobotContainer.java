@@ -142,10 +142,12 @@ public class RobotContainer {
      */
 
     controller.operator.a().onTrue(superstructure.testVoltPos());
+    controller.operator.rightTrigger(.90).whileTrue(superstructure.testVoltPosManual(() -> controller.operator.getRightY()));
+    controller.operator.leftTrigger(.90).whileTrue(superstructure.testVoltVelManual(() -> controller.operator.getLeftY()));
     controller.operator.b().whileTrue(superstructure.testVoltVel());
     controller.operator.x().onTrue(superstructure.testElevator());
-    controller.operator.y().whileTrue(superstructure.testClimb());
-
+    controller.operator.leftBumper().whileTrue(superstructure.testClimb(() -> controller.operator.getLeftY()));
+    controller.operator.rightBumper().whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
     /*
      * Switch Box
      */

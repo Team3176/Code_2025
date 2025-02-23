@@ -49,11 +49,11 @@ public class Climb extends SubsystemBase {
         () -> io.setLeftVoltage(0.0));
   }
 
-
+//This is the command Faith was call to move Climb
   public Command moveClimbPosition(DoubleSupplier delta) {
     return this.runEnd(
         () -> {
-          io.setLeftVoltage((5 * delta.getAsDouble()));
+          io.setLeftVoltage((12 * delta.getAsDouble()));
         },
         () -> io.setLeftVoltage(0.0));
   }

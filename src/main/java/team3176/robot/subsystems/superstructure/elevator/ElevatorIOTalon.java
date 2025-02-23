@@ -33,10 +33,10 @@ public class ElevatorIOTalon implements ElevatorIO {
   NeutralOut brake;
   DigitalInput elevatortoplimitswitch, elevatorbotLimitswitch;
   TalonFXConfiguration configsLeft, configsRight;
-  private final StatusSignal<Angle> leftPosition;
-  private final StatusSignal<Double> leftError;
-  private final StatusSignal<Voltage> leftVolts;
-  private final StatusSignal<Current> leftAmps;
+  private final StatusSignal<Angle> leftPosition, rightPosition;
+  private final StatusSignal<Double> leftError, rightError;
+  private final StatusSignal<Voltage> leftVolts, rightVolts;
+  private final StatusSignal<Current> leftAmps, rightAmps;
 
   private final PositionVoltage m_PositionTorque = new PositionVoltage(0).withSlot(0);
 
@@ -73,21 +73,29 @@ public class ElevatorIOTalon implements ElevatorIO {
     TalonUtils.applyTalonFxConfigs(elevatorLeftLeader, configsLeft);
 
     leftPosition = elevatorLeftLeader.getPosition();
+    rightPosition = elevatorRightFollower.getPosition();
 
     leftError = elevatorLeftLeader.getClosedLoopError();
+    rightError = elevatorRightFollower.getClosedLoopError();
 
     leftAmps = elevatorLeftLeader.getStatorCurrent();
+    rightAmps = elevatorRightFollower.getStatorCurrent();
 
     leftVolts = elevatorLeftLeader.getMotorVoltage();
+    rightVolts = elevatorRightFollower.getMotorVoltage();
 
     elevatorRightFollower.setPosition(0);
     elevatorLeftLeader.setPosition(0.0);
     BaseStatusSignal.setUpdateFrequencyForAll(
         50,
         leftPosition,
+        rightPosition,
         leftError,
+        rightError,
         leftAmps,
-        leftVolts);
+        rightAmps,
+        leftVolts,
+        rightVolts);
     elevatorLeftLeader.optimizeBusUtilization();
     elevatorRightFollower.optimizeBusUtilization();
   }
@@ -96,9 +104,13 @@ public class ElevatorIOTalon implements ElevatorIO {
   public void updateInputs(ElevatorIOInputs inputs) {
     BaseStatusSignal.refreshAll(
         leftPosition,
+        rightPosition,
         leftError,
+        rightError,
         leftAmps,
-        leftVolts);
+        rightAmps,
+        leftVolts,
+        rightVolts);
     inputs.istopLimitswitch = (!elevatortoplimitswitch.get());
     inputs.isbotLimitswitch = (!elevatorbotLimitswitch.get());
     inputs.leftPosition = leftPosition.getValueAsDouble();

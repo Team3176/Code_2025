@@ -7,17 +7,23 @@
 
 package team3176.robot.subsystems.superstructure.arm;
 
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -34,12 +40,14 @@ public class ArmIOTalon implements ArmIO {
 
   private TalonFX rollerController;
   private TalonFX pivotController;
+  private CANcoder armPivotEncoder;
   VelocityVoltage voltVelocity;
   VoltageOut rollerVolts = new VoltageOut(0.0);
   VoltageOut pivotVolts = new VoltageOut(0.0);
   PositionVoltage voltPosition = new PositionVoltage(0);
   private SparkClosedLoopController pivotPID;
-
+  private Rotation2d encoderOffset; 
+  
   DigitalInput rollerLinebreak;
   DigitalInput pivotLinebreak;
   DigitalInput upperLimitSwitch;
@@ -50,6 +58,7 @@ public class ArmIOTalon implements ArmIO {
   private final StatusSignal<Current> pivotCurrentAmpsSupply;
   private final StatusSignal<AngularVelocity> pivotVelocity;
   private final StatusSignal<Angle> pivotPosition;
+  private final StatusSignal<Angle> pivotAbsolutePosition;
   private final StatusSignal<Temperature> pivotTemp;
 
   private final StatusSignal<Voltage> rollerAppliedVolts;
@@ -63,26 +72,18 @@ public class ArmIOTalon implements ArmIO {
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
 
-    // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
-    // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
-
-    // rollerLinebreak = new DigitalInput(Hardwaremap.armRollerLinebreak_DIO);
-    // pivotLinebreak = new DigitalInput(Hardwaremap.armPivotLinebreak_DIO);
-
-    //upperLimitSwitch = new DigitalInput(Hardwaremap.armUpperLimitSwitch_DIO);
-    //lowerLimitSwitch = new DigitalInput(Hardwaremap.armLowerLimitSwitch_DIO);
-
     rollerController = new TalonFX(Hardwaremap.armRoller_CID, Hardwaremap.armRoller_CBN);
     pivotController = new TalonFX(Hardwaremap.armPivot_CID, Hardwaremap.armPivot_CBN);
 
-    // config setting
-    // rollerConfigs.CurrentLimits.StatorCurrentLimit = 50;
-    // rollerConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+    armPivotEncoder = new CANcoder(Hardwaremap.armCancoder_CID, Hardwaremap.armPivot_CBN);
+    //private Rotation2d offset; 
 
-    // pivot configs
+    var pivotEncoderConfig = new CANcoderConfiguration();
+    encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.ARM_ENCODER_OFFSET);
+    pivotEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
+    ;
 
-    // pivotConfigs.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
-    // pivotConfigs.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
+    armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
     pivotConfigs.Slot0.kP = 60; // An error of 1 rotation results in 2.4 V output
     pivotConfigs.Slot0.kI = 0; // No output for integrated error
@@ -91,6 +92,8 @@ public class ArmIOTalon implements ArmIO {
     pivotConfigs.Voltage.PeakForwardVoltage = 8;
     pivotConfigs.Voltage.PeakReverseVoltage = -10;
     pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    pivotConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.armCancoder_CID;
+    pivotConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     pivotConfigs.Feedback.SensorToMechanismRatio = 20.0;
 
     pivotConfigs.CurrentLimits.SupplyCurrentLimit = 60;
@@ -113,6 +116,7 @@ public class ArmIOTalon implements ArmIO {
     pivotCurrentAmpsSupply = pivotController.getSupplyCurrent();
     pivotVelocity = pivotController.getVelocity();
     pivotPosition = pivotController.getPosition();
+    pivotAbsolutePosition = armPivotEncoder.getAbsolutePosition();
     pivotTemp = pivotController.getDeviceTemp();
 
     rollerAppliedVolts = rollerController.getMotorVoltage();
@@ -140,6 +144,8 @@ public class ArmIOTalon implements ArmIO {
     rollerController.optimizeBusUtilization();
     pivotController.optimizeBusUtilization();
   }
+
+
   /** Updates the set of loggable inputs. */
   @Override
   public void updateInputs(ArmIOInputs inputs) {
@@ -149,7 +155,8 @@ public class ArmIOTalon implements ArmIO {
         pivotVelocity,
         pivotPosition,
         pivotTemp,
-        pivotCurrentAmpsSupply);
+        pivotCurrentAmpsSupply
+        );
     BaseStatusSignal.refreshAll(
         rollerAppliedVolts,
         rollerVelocity,
@@ -171,9 +178,15 @@ public class ArmIOTalon implements ArmIO {
     inputs.rollerAmpsStator = rollerCurrentAmpsStator.getValueAsDouble();
     inputs.rollerAmpsSupply = rollerCurrentAmpsSupply.getValueAsDouble();
     inputs.rollerTempCelcius = rollerTemp.getValueAsDouble();
-    inputs.rollerVelocityRadPerSec = Units.rotationsToRadians(rollerVelocity.getValueAsDouble());
+    inputs.rollerVelocityRadPerSec = Units.rotationsToRadians(rollerVelocity.getValueAsDouble());    
+    inputs.pivotAbsolutePositionDegrees =
+        MathUtil.inputModulus(
+            Rotation2d.fromRotations(armPivotEncoder.getAbsolutePosition().getValueAsDouble())
+                .minus(encoderOffset)
+                .getDegrees(),
+            -180,
+            180);
   }
-
 
   @Override
   public void setRollerVolts(double volts) {
