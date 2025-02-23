@@ -29,14 +29,6 @@ public class PhotonVisionSystem extends SubsystemBase {
    *
    * cameras have the convention similar reporting position in the camera frame with +x being the axis through the lense and +y to the left, z up
    */
-  public static final Transform3d Robot2camera2 =
-      new Transform3d(
-          new Translation3d(
-              Units.inchesToMeters(-10), Units.inchesToMeters(8), Units.inchesToMeters(10)),
-          new Rotation3d(
-              Units.degreesToRadians(2.5),
-              Units.degreesToRadians(-31),
-              Units.degreesToRadians(-180 + 18)));
   public static final Transform3d Robot2camera1 =
       new Transform3d(
           new Translation3d(
@@ -45,12 +37,22 @@ public class PhotonVisionSystem extends SubsystemBase {
               Units.degreesToRadians(0),
               Units.degreesToRadians(-30),
               Units.degreesToRadians(-180 - 18)));
+  public static final Transform3d Robot2camera2 =
+      new Transform3d(
+          new Translation3d(
+              Units.inchesToMeters(-10), Units.inchesToMeters(8), Units.inchesToMeters(10)),
+          new Rotation3d(
+              Units.degreesToRadians(2.5),
+              Units.degreesToRadians(-31),
+              Units.degreesToRadians(-180 + 18)));
   public static final Transform3d Robot2camera3 =
       new Transform3d(
           new Translation3d(
               Units.inchesToMeters(12), Units.inchesToMeters(10), Units.inchesToMeters(10.5)),
           new Rotation3d(
-              Units.degreesToRadians(0), Units.degreesToRadians(-20), Units.degreesToRadians(0)));
+              Units.degreesToRadians(0),
+              Units.degreesToRadians(-20),
+              Units.degreesToRadians(0)));
   public static final Transform3d Robot2camera4 =
       new Transform3d(
           new Translation3d(
@@ -81,6 +83,8 @@ public class PhotonVisionSystem extends SubsystemBase {
     aprilCameras.add(new LoggedAprilPhotonCam("camera1", Robot2camera1));
     aprilCameras.add(new LoggedAprilPhotonCam("camera2", Robot2camera2));
     aprilCameras.add(new LoggedAprilPhotonCam("camera3", Robot2camera3));
+    aprilCameras.add(new LoggedAprilPhotonCam("camera4", Robot2camera4));
+   
     try {
       //field = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
       field = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark); 
