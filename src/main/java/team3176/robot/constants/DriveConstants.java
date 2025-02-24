@@ -13,7 +13,8 @@ public class DriveConstants {
   public String CANCODER_CBN;
   public double OFFSET;
 
-  public static double SWERVEPOD_AZIMUTH_REDUCTION = (150.0 / 7.0);
+  public static double SWERVEPOD_AZIMUTH_REDUCTION = 12.8;
+  //public static double SWERVEPOD_AZIMUTH_REDUCTION = (150.0 / 7.0);
   public static double SWERVEPOD_AZIMUTH_CURRENTLIMIT = 80;
   public static boolean SWERVEPOD_AZIMUTH_INVERTED = true;
   public static boolean SWERVEPOD_ENCODER_INVERTED = false;

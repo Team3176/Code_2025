@@ -61,7 +61,11 @@ import team3176.robot.util.swerve.SwerveSetpointGenerator;
 
 public class Drivetrain extends SubsystemBase {
 
-  public static final double MAX_WHEEL_SPEED = 1.2;  //4.2
+  // Kraken X60 w/ FOC FreeSpeed(RPM): 5800, 
+  //            Drivetrain Free Speed ft/s ::  L1:12.4, L2:15, L3: 16.5, L4: 19.7
+  // Kraken X60 w/o FOC FreeSpeed(RPM): 6000, 
+  //            Drivetrain Free Speed ft/s ::  L1:12.9, L2:15.5, L3: 17.1, L4: 20.4
+  public static final double MAX_WHEEL_SPEED = 1.2;  //4.2  
   public static final double LENGTH =
       switch (Constants.getRobot()) {
         case ROBOT_2025C -> Units.inchesToMeters(23);
