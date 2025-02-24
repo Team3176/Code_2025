@@ -122,6 +122,7 @@ public class SwervePodIOTalon implements SwervePodIO {
 
     var turnTalonFXConfig = new TalonFXConfiguration();
     turnTalonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    turnTalonFXConfig.ClosedLoopGeneral.ContinuousWrap = true;
     turnTalonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent =
         DriveConstants.SWERVEPOD_AZIMUTH_CURRENTLIMIT;
     turnTalonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent =
@@ -136,6 +137,7 @@ public class SwervePodIOTalon implements SwervePodIO {
     turnTalonFXConfig.Feedback.FeedbackRemoteSensorID = id.CANCODER_CID;
     turnTalonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     turnTalonFXConfig.Feedback.RotorToSensorRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
+    //turnTalonFXConfig.Feedback.SensorToMechanismRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
 
     turnTalonFXConfig.Slot0.kP = 300;
     turnTalonFXConfig.Slot0.kD = 60;
