@@ -128,6 +128,7 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    io.updateLaserCanMeasurement();
     io.updateInputs(inputs);
     Logger.processInputs("Arm", inputs);
     Logger.recordOutput("Arm/state", pivotState);
@@ -150,10 +151,6 @@ public class Arm extends SubsystemBase {
     Logger.recordOutput("Arm/offsetPos", pivot_pos);
     // runPivot(commandVolts);
     pivotPID.checkParemeterUpdate();
-    if (inputs.lowerLimitSwitch && !ishomed) {
-      ishomed = true;
-      pivot_offset = inputs.pivotPosition - DEPLOY_POS;
-    }
     lastRollerSpeed = inputs.rollerVelocityRadPerSec;
   }
 }

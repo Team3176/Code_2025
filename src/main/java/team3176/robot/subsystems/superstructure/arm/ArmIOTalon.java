@@ -34,6 +34,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import team3176.robot.constants.Hardwaremap;
 import team3176.robot.constants.SuperStructureConstants;
 import team3176.robot.util.TalonUtils;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.ConfigurationFailedException;
 
 /** Template hardware interface for a closed loop subsystem. */
 public class ArmIOTalon implements ArmIO {
@@ -64,12 +66,25 @@ public class ArmIOTalon implements ArmIO {
   private final StatusSignal<Current> rollerCurrentAmpsSupply;
   private final StatusSignal<AngularVelocity> rollerVelocity;
   private final StatusSignal<Temperature> rollerTemp;
+  private LaserCan lc;
+  private LaserCan.Measurement measurement;
+  private boolean hasCoral = false;
+  private double coralDistance = 100; 
+  
 
   public ArmIOTalon() {
 
     TalonFXConfiguration rollerConfigs = new TalonFXConfiguration();
     TalonFXConfiguration pivotConfigs = new TalonFXConfiguration();
-
+    lc = new LaserCan(Hardwaremap.laserCan_CID);
+    // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
+    try {
+      lc.setRangingMode(LaserCan.RangingMode.SHORT);
+      lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+      lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+    } catch (ConfigurationFailedException e) {
+      System.out.println("Configuration failed! " + e);
+    }
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
@@ -81,12 +96,14 @@ public class ArmIOTalon implements ArmIO {
     armPivotEncoder = new CANcoder(Hardwaremap.armCancoder_CID, Hardwaremap.armPivot_CBN);
     //private Rotation2d offset; 
 
+    // Position w/ rollers touching back of Falcon at boot = 0.22
+    // Position w/ rollers nearly touching the gears on front at boot = 1.2
     var pivotEncoderConfig = new CANcoderConfiguration();
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.ARM_ENCODER_OFFSET);
-    pivotEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
+    //pivotEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
     ;
 
-    armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
+    //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
     pivotConfigs.Slot0.kP = 60; // An error of 1 rotation results in 2.4 V output
     pivotConfigs.Slot0.kI = 0; // No output for integrated error
@@ -189,6 +206,29 @@ public class ArmIOTalon implements ArmIO {
                 .getDegrees(),
             -180,
             180);
+    inputs.coralLaserCan = this.hasCoral;
+    inputs.coralLaserCanDist = coralDistance;
+  }
+
+  @Override
+  public void updateLaserCanMeasurement() {
+     this.measurement = lc.getMeasurement();
+     this.coralDistance = this.measurement.distance_mm;
+    
+    if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+      if (this.measurement.distance_mm <= SuperStructureConstants.CORAL_DISTANCE) {
+        hasCoral = true;
+      } else {
+        hasCoral = false;
+      
+      }
+    /* 
+    } else {
+      System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
+      // You can still use distance_mm in here, if you're ok tolerating a clamped value or an unreliable measurement.
+    */
+    }
+    
   }
 
   @Override

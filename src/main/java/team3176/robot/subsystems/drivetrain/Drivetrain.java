@@ -61,7 +61,7 @@ import team3176.robot.util.swerve.SwerveSetpointGenerator;
 
 public class Drivetrain extends SubsystemBase {
 
-  public static final double MAX_WHEEL_SPEED = 4.2;
+  public static final double MAX_WHEEL_SPEED = 1.2;  //4.2
   public static final double LENGTH =
       switch (Constants.getRobot()) {
         case ROBOT_2025C -> Units.inchesToMeters(23);

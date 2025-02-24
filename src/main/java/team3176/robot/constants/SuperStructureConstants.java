@@ -28,6 +28,7 @@ public class SuperStructureConstants {
   public static final double ARM_TOP_POS = 75 + ARM_ZERO_POS;
   public static final double ARM_SIM_OFFSET = 63 + ARM_ZERO_POS;
   public static final double ARM_ENCODER_OFFSET = 0;
+  public static final double CORAL_DISTANCE = 20;
 
   public static final double ELEVATORLEADERj_kP = 0.006;
   public static final double ELEVATORLEADER_kP = 0.006;
