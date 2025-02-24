@@ -28,6 +28,7 @@ public class Arm extends SubsystemBase {
   private double pivot_offset = 0;
   private boolean ishomed = false;
   private double lastRollerSpeed = 0.0;
+  private double pivotHome = 0.2;
 
   private enum pivotStates {
     DEPLOY,
@@ -44,6 +45,7 @@ public class Arm extends SubsystemBase {
     this.pivotPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
     this.rollerVolts = new LoggedTunableNumber("Arm/rollerVolts", 7.0);
     this.pivotTuneSetPoint = new LoggedTunableNumber("Arm/pivotSetpoint", 0);
+    this.pivotHome = inputs.pivotPosition;
   }
 
   private void runPivot(double volts) {
@@ -73,21 +75,55 @@ public class Arm extends SubsystemBase {
   }
 
   public Command stopRollers() {
-    return this.runOnce(() -> io.setRollerVolts(0));
+    return this.runOnce(() -> {setRollerVolts(0.0);});
   }
+
+  public Command arm2Home() {
+    return this.runOnce(
+      () -> {
+       setPivotVoltagePos(pivotHome); 
+      }); 
+    }
 
   // TODO: might need to deploy the Arm during a spit but maybe not
 
   public Command runPosition(DoubleSupplier position) {
-    return this.run(() -> io.setPivotVoltagePos(position.getAsDouble()));
+    return this.run(
+      () -> { 
+        setPivotVoltagePos(position.getAsDouble());
+      });
   }
 
   public Command runPositionVoltageManual(DoubleSupplier position) {
-    return this.runEnd(() -> io.setPivotVolts(12* position.getAsDouble()), () -> io.setPivotVolts(0.0));
+    return this.runEnd(
+      () -> {
+        setPivotVolts(position.getAsDouble());
+      }, 
+      () -> {
+        setPivotVolts(0.0);
+      });
   }
 
   public Command runVelocity(DoubleSupplier volts) {
-    return this.runEnd(() -> io.setRollerVolts(12* volts.getAsDouble()), () -> io.setRollerVolts(0));
+    return this.runEnd(
+      () -> {
+        setRollerVolts(volts.getAsDouble());
+      }, 
+      () -> { 
+        setRollerVolts(0); 
+      });
+  }
+
+  private void setRollerVolts(double volts) {
+    io.setRollerVolts(12 * volts);
+  }
+
+  private void setPivotVolts(double volts) {
+    io.setPivotVolts(volts);
+  }
+
+  private void setPivotVoltagePos(double position) {
+    io.setPivotVoltagePos(position);
   }
 
   @Override

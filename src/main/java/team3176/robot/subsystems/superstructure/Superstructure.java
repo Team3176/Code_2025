@@ -9,6 +9,7 @@ import team3176.robot.subsystems.superstructure.climb.Climb;
 import team3176.robot.subsystems.superstructure.arm.Arm;
 import team3176.robot.subsystems.superstructure.elevator.Elevator;
 import team3176.robot.util.LoggedTunableNumber;
+import team3176.robot.constants.SuperStructureConstants;
 
 public class Superstructure {
   private static Superstructure instance;
@@ -16,6 +17,8 @@ public class Superstructure {
   private Arm arm;
   private Elevator elevator;
   private final LoggedTunableNumber pivotTuneSetPoint, velTuneSetPoint, elevTunePositionSetPoint, climbTunePositionSetPoint;
+  private final LoggedTunableNumber L1ElvSetpoint, L2ElvSetpoint, L3ElvSetpoint, L4ElvSetpoint;
+  private final LoggedTunableNumber HumanLoadElvSetpoint;
 
   public Superstructure() {
     climb = Climb.getInstance();
@@ -25,25 +28,34 @@ public class Superstructure {
     this.velTuneSetPoint = new LoggedTunableNumber("Arm/velSetpoint", 0);
     this.elevTunePositionSetPoint = new LoggedTunableNumber("Elevator/posSetpoint", 0);
     this.climbTunePositionSetPoint = new LoggedTunableNumber("climb/posSetpoint", 0);
+    this.HumanLoadElvSetpoint = new LoggedTunableNumber("Elevator/L1setpoint", 0);
+    this.L1ElvSetpoint = new LoggedTunableNumber("Elevator/L1setpoint", 25);
+    this.L2ElvSetpoint = new LoggedTunableNumber("Elevator/L2setpoint", 50);
+    this.L3ElvSetpoint = new LoggedTunableNumber("Elevator/L3setpoint", 75);
+    this.L4ElvSetpoint = new LoggedTunableNumber("Elevator/L4setpoint", 107);
   }
 
-  public Command testVoltPos() {
+  public Command armVoltPos() {
     return arm.runPosition(()->this.pivotTuneSetPoint.get());
   }
 
-  public Command testVoltPosManual(DoubleSupplier voltage) {
+  public Command arm2Home() {
+    return arm.arm2Home();
+  }
+
+  public Command armVoltPosManual(DoubleSupplier voltage) {
     return arm.runPosition(()->this.pivotTuneSetPoint.get());
   }
 
-  public Command testVoltVel() {
+  public Command armVoltVel() {
     return arm.runVelocity(()-> this.velTuneSetPoint.get());
   }
 
-  public Command testVoltVelManual(DoubleSupplier voltage) {
-    return arm.runVelocity(voltage);
+  public Command armVoltVelManual(DoubleSupplier voltage) {
+    return arm.runVelocity(() -> voltage.getAsDouble());
   }
 
-  public Command testRevVoltVel() {
+  public Command armRevVoltVel() {
     return arm.runVelocity(()->-1 * this.velTuneSetPoint.get());
   }
 
@@ -52,12 +64,20 @@ public class Superstructure {
   }
   
   public Command testElevatorManual(DoubleSupplier voltage) {
-    return elevator.goToPositionManual(voltage);
+    return elevator.goToPositionManual(() -> voltage.getAsDouble());
+  }
+
+  public Command goToL0() {
+    return elevator.goToL0();
   }
 
 
-  public Command testClimb(DoubleSupplier climbPosition) {
-    return climb.moveClimbPosition(climbPosition);
+  public Command testClimb() {
+    return climb.moveClimbPosition(() -> this.climbTunePositionSetPoint.get());
+  }
+
+  public Command testClimbManual(DoubleSupplier climbPosition) {
+    return climb.moveClimbPosition(() -> climbPosition.getAsDouble());
     //return climb.moveClimbPosition(() -> this.climbTunePositionSetPoint.get());
   }
 

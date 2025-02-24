@@ -1,5 +1,6 @@
 package team3176.robot.subsystems.superstructure.elevator;
 
+import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.DoubleSupplier;
@@ -8,6 +9,7 @@ import team3176.robot.Constants;
 import team3176.robot.Constants.Mode;
 import team3176.robot.Constants.RobotType;
 import team3176.robot.constants.*;
+import team3176.robot.subsystems.superstructure.Superstructure;
 import team3176.robot.util.LoggedTunableNumber;
 // import team3176.robot.subsystems.superstructure.ClimbIOInputsAutoLogged;
 import team3176.robot.util.TunablePID;
@@ -27,7 +29,16 @@ public class Elevator extends SubsystemBase {
   private TunablePID rightPIDController = new TunablePID("climbRight", 1, 0, 0);
   private LoggedTunableNumber LeftClimbHeight = new LoggedTunableNumber("climbLeftHeight", 0);
   private LoggedTunableNumber AmpClimbHeight = new LoggedTunableNumber("climb/climbAmpHeight", 60);
+  private LoggedTunableNumber HumanLoadTuneElvSetpoint = new LoggedTunableNumber("Elevator/L0setpoint", 0);
+  private LoggedTunableNumber L1TuneElvSetpoint = new LoggedTunableNumber("Elevator/L1setpoint", 25);
+  private LoggedTunableNumber L2TuneElvSetpoint = new LoggedTunableNumber("Elevator/L2setpoint", 50);
+  private LoggedTunableNumber L3TuneElvSetpoint = new LoggedTunableNumber("Elevator/L3setpoint", 75);
+  private LoggedTunableNumber L4TuneElvSetpoint = new LoggedTunableNumber("Elevator/L3setpoint", 107);
   private int LogSkipCounter;
+  private double desiredSetpoint;
+  private double HumanLoadElvSetpoint, L1ElvSetpoint, L2ElvSetpoint, L3ElvSetpoint, L4ElvSetpoint;
+
+  
 
   private Elevator(ElevatorIO io) {
     this.io = io;
@@ -51,6 +62,13 @@ public class Elevator extends SubsystemBase {
     }
 
     LogSkipCounter = 0;
+
+    this.desiredSetpoint = SuperStructureConstants.ELEVATORLEADER_L0_POS; 
+    HumanLoadElvSetpoint = SuperStructureConstants.ELEVATORLEADER_L0_POS;
+    L1ElvSetpoint = SuperStructureConstants.ELEVATORLEADER_L0_POS;
+    L2ElvSetpoint = SuperStructureConstants.ELEVATORLEADER_L2_POS;
+    L3ElvSetpoint = SuperStructureConstants.ELEVATORLEADER_L3_POS;
+    L4ElvSetpoint = SuperStructureConstants.ELEVATORLEADER_L4_POS;
   }
 
   public Command stopLeft() {
@@ -90,7 +108,7 @@ public class Elevator extends SubsystemBase {
     if (height == SuperStructureConstants.ELEVATORLEADER_L0_POS) {
       getBotLimitswitch();
 
-  }
+    }
   }
 
   public Command setLeftPosition(DoubleSupplier targetElevatorPosInRobotUnits) {
@@ -141,7 +159,32 @@ public class Elevator extends SubsystemBase {
         io.setLeftVoltage(0.0);
       });
   }
+
+  public Command goToL0() {
+    return runOnce(() -> setDesiredSetpoint(SuperStructureConstants.ELEVATORLEADER_L0_POS));
+  }
+
+  public Command goToL1() {
+    return runOnce(() -> setDesiredSetpoint(SuperStructureConstants.ELEVATORLEADER_L1_POS));
+  }
   
+  public Command goToL2() {
+    return runOnce(() -> setDesiredSetpoint(SuperStructureConstants.ELEVATORLEADER_L2_POS));
+  }
+
+  public Command goToL3() {
+    return runOnce(() -> setDesiredSetpoint(SuperStructureConstants.ELEVATORLEADER_L3_POS));
+  }
+
+  public Command goToL4() {
+    return runOnce(() -> setDesiredSetpoint(SuperStructureConstants.ELEVATORLEADER_L4_POS));
+  }
+
+
+  public void setDesiredSetpoint(double setpoint) {
+    this.desiredSetpoint = setpoint;
+  }
+
 
   public Command stow() {
     return goToPosition(() -> 0.0);
@@ -150,6 +193,22 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
+
+    if (HumanLoadTuneElvSetpoint.hasChanged(hashCode())) {
+      HumanLoadElvSetpoint = HumanLoadTuneElvSetpoint.get();
+    }
+    if (L1TuneElvSetpoint.hasChanged(hashCode())) {
+      L1ElvSetpoint = L1TuneElvSetpoint.get();
+    }
+    if (L2TuneElvSetpoint.hasChanged(hashCode())) {
+      L2ElvSetpoint = L2TuneElvSetpoint.get();
+    }
+    if (L3TuneElvSetpoint.hasChanged(hashCode())) {
+      L2ElvSetpoint = L2TuneElvSetpoint.get();
+    }
+    if (L4TuneElvSetpoint.hasChanged(hashCode())) {
+      L4ElvSetpoint = L4TuneElvSetpoint.get();
+    }
 
     LogSkipCounter += 1;
 

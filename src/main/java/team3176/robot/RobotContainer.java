@@ -141,12 +141,12 @@ public class RobotContainer {
      * Operator
      */
 
-    controller.operator.a().onTrue(superstructure.testVoltPos());
-    controller.operator.rightTrigger(.90).whileTrue(superstructure.testVoltPosManual(() -> controller.operator.getRightY()));
-    controller.operator.leftTrigger(.90).whileTrue(superstructure.testVoltVelManual(() -> controller.operator.getLeftY()));
-    controller.operator.b().whileTrue(superstructure.testVoltVel());
-    controller.operator.x().onTrue(superstructure.testElevator());
-    controller.operator.leftBumper().whileTrue(superstructure.testClimb(() -> controller.operator.getLeftY()));
+    controller.operator.a().onTrue(superstructure.armVoltPos()).onFalse(superstructure.arm2Home());
+    controller.operator.rightTrigger(.90).whileTrue(superstructure.armVoltPosManual(() -> controller.operator.getRightY()));
+    controller.operator.leftTrigger(.90).whileTrue(superstructure.armVoltVelManual(() -> controller.operator.getLeftY()));
+    controller.operator.b().whileTrue(superstructure.armVoltVel());
+    controller.operator.x().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
+    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> controller.operator.getLeftY()));
     controller.operator.rightBumper().whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
     /*
      * Switch Box

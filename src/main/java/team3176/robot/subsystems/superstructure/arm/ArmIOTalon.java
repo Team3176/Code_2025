@@ -97,22 +97,22 @@ public class ArmIOTalon implements ArmIO {
     pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     pivotConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.armCancoder_CID;
     pivotConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    pivotConfigs.Feedback.SensorToMechanismRatio = 20.0;
+    pivotConfigs.Feedback.SensorToMechanismRatio = 1.0;
 
     pivotConfigs.CurrentLimits.SupplyCurrentLimit = 60;
     pivotConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-        2;
-    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+        1.2;
+    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
     pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
-        -2;
+        0.2;
     pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true; 
 
     TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
     TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
-    pivotController.setPosition(0, 0);
+    //pivotController.setPosition(0, 0);
 
     pivotAppliedVolts = pivotController.getMotorVoltage();
     pivotCurrentAmpsStator = pivotController.getStatorCurrent();

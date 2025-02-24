@@ -28,7 +28,14 @@ public class Climb extends SubsystemBase {
   }
 
   public Command stopClimb() {
-    return this.runOnce(() -> io.setVoltage(0.0));
+    return this.runOnce(
+      () -> { 
+        setVoltage(0.0);
+      });
+  }
+
+  private void setVoltage(double voltage) {
+    io.setVoltage(0.0);
   }
 
   private void climbGoToPosition(double position) {
