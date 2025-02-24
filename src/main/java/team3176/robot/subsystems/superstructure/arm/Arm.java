@@ -79,11 +79,11 @@ public class Arm extends SubsystemBase {
   // TODO: might need to deploy the Arm during a spit but maybe not
 
   public Command runPosition(DoubleSupplier position) {
-    return this.run(() -> io.setPivotVoltagePos(position.getAsDouble()));
+    return this.runOnce(() -> io.setPivotVoltagePos(position.getAsDouble()));
   }
 
   public Command runPositionVoltageManual(DoubleSupplier position) {
-    return this.runEnd(() -> io.setPivotVolts(12* position.getAsDouble()), () -> io.setPivotVolts(0.0));
+    return this.runEnd(() -> io.setPivotVolts(.01* position.getAsDouble()), () -> io.setPivotVolts(0.0));
   }
 
   public Command runVelocity(DoubleSupplier volts) {
@@ -92,6 +92,7 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    io.updateLaserCanMeasurement();
     io.updateInputs(inputs);
     Logger.processInputs("Arm", inputs);
     Logger.recordOutput("Arm/state", pivotState);
@@ -114,10 +115,6 @@ public class Arm extends SubsystemBase {
     Logger.recordOutput("Arm/offsetPos", pivot_pos);
     // runPivot(commandVolts);
     pivotPID.checkParemeterUpdate();
-    if (inputs.lowerLimitSwitch && !ishomed) {
-      ishomed = true;
-      pivot_offset = inputs.pivotPosition - DEPLOY_POS;
-    }
     lastRollerSpeed = inputs.rollerVelocityRadPerSec;
   }
 }

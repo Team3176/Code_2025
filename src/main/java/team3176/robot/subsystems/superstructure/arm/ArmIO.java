@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 // Copyright (c) FIRST and other WPILib contributors.
@@ -28,10 +28,11 @@ public interface ArmIO {
     public double rollerAmpsSupply = 0.0;
     public double rollerTempCelcius = 0.0;
 
-    public boolean coralLaserCAN = false;
-    public boolean isPivotLinebreak = false;
-    public boolean upperLimitSwitch = false;
-    public boolean lowerLimitSwitch = false;
+    public boolean coralLaserCan = false;
+    public double coralLaserCanDist = 100;
+    public boolean ispivotlinebreak = false;
+    public boolean upperlimitswitch = false;
+    public boolean lowerlimitswitch = false;
 
     // constructor if needed for some inputs
     ArmIOInputs() {}
@@ -41,6 +42,8 @@ public interface ArmIO {
 
   /** Updates the set of loggable inputs. */
   public default void updateInputs(ArmIOInputs inputs) {}
+
+  public default void updateLaserCanMeasurement() {}
 
   public default void setRollerVolts(double volts) {}
 

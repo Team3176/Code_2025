@@ -73,7 +73,7 @@ public class Elevator extends SubsystemBase {
     return inputs.isbotLimitswitch;
   }
 
-
+//Positions for Elevator scoreing L1: ?, L2:50, L3:75, L4: 107
   private void leftGoToPosition(double position) {
     io.setLeftPIDPosition(position);
   }

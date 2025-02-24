@@ -32,7 +32,7 @@ public class Superstructure {
   }
 
   public Command testVoltPosManual(DoubleSupplier voltage) {
-    return arm.runPosition(()->this.pivotTuneSetPoint.get());
+    return arm.runPosition(voltage);
   }
 
   public Command testVoltVel() {
