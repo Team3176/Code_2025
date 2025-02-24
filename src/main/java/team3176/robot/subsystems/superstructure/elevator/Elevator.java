@@ -212,10 +212,13 @@ public class Elevator extends SubsystemBase {
 
     LogSkipCounter += 1;
 
+    /* 
     if (LogSkipCounter >= 20) {
       System.out.println(inputs.leftPosition);
       LogSkipCounter = 0;
     }
+    */
+
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
     pid.checkParemeterUpdate();
