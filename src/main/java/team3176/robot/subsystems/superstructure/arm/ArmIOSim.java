@@ -39,7 +39,7 @@ public class ArmIOSim implements ArmIO {
   public void updateInputs(ArmIOInputs inputs) {
     pivotSim.update(Constants.LOOP_PERIODIC_SECS);
     rollerSim.update(Constants.LOOP_PERIODIC_SECS);
-    inputs.pivotPosition = Units.radiansToDegrees(pivotSim.getAngleRads()) + 90;
+    inputs.pivotPositionDeg = Units.radiansToDegrees(pivotSim.getAngleRads()) + 90;
     inputs.pivotVelocityRadPerSec = pivotSim.getVelocityRadPerSec();
     inputs.pivotAppliedVolts = appliedVolts;
     inputs.pivotAmpsStator = pivotSim.getCurrentDrawAmps();

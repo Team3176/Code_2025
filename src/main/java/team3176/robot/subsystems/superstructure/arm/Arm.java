@@ -45,7 +45,7 @@ public class Arm extends SubsystemBase {
     this.pivotPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
     this.rollerVolts = new LoggedTunableNumber("Arm/rollerVolts", 7.0);
     this.pivotTuneSetPoint = new LoggedTunableNumber("Arm/pivotSetpoint", 0);
-    this.pivotHome = inputs.pivotPosition;
+    this.pivotHome = inputs.pivotPositionRot;
   }
 
   private void runPivot(double volts) {
@@ -136,7 +136,7 @@ public class Arm extends SubsystemBase {
 
 
     }
-    double pivot_pos = inputs.pivotPosition - pivot_offset;
+    double pivot_pos = inputs.pivotPositionRot - pivot_offset;
     if (!ishomed && pivotSetpoint > 1.0) {
       pivot_pos = -3.0;
     }
