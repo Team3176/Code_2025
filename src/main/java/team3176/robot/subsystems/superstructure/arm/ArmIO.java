@@ -14,7 +14,8 @@ public interface ArmIO {
   /** Contains all of the input data received from hardware. */
   @AutoLog
   public static class ArmIOInputs {
-    public double pivotPosition = 0.0;
+    public double pivotPositionDeg = 0.0;
+    public double pivotPositionRot = 0.0;
     public double pivotAbsolutePositionDegrees = 0.0;
     public double pivotVelocityRadPerSec = 0.0;
     public double pivotAppliedVolts = 0.0;

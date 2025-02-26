@@ -137,7 +137,7 @@ public class SwervePodIOTalon implements SwervePodIO {
     turnTalonFXConfig.Feedback.FeedbackRemoteSensorID = id.CANCODER_CID;
     turnTalonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     turnTalonFXConfig.Feedback.RotorToSensorRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
-    //turnTalonFXConfig.Feedback.SensorToMechanismRatio = DriveConstants.SWERVEPOD_AZIMUTH_REDUCTION;
+    turnTalonFXConfig.Feedback.SensorToMechanismRatio = (1.0);
 
     turnTalonFXConfig.Slot0.kP = 300;
     turnTalonFXConfig.Slot0.kD = 60;

@@ -191,7 +191,8 @@ public class ArmIOTalon implements ArmIO {
     inputs.pivotAmpsStator = pivotCurrentAmpsStator.getValueAsDouble();
     inputs.pivotAmpsSupply = pivotCurrentAmpsSupply.getValueAsDouble();
     inputs.pivotTempCelcius = pivotTemp.getValueAsDouble();
-    inputs.pivotPosition = Units.rotationsToRadians(pivotPosition.getValueAsDouble());
+    inputs.pivotPositionDeg = Units.rotationsToDegrees(pivotPosition.getValueAsDouble());
+    inputs.pivotPositionRot = pivotPosition.getValueAsDouble();
     inputs.pivotVelocityRadPerSec = Units.rotationsToRadians(pivotVelocity.getValueAsDouble());
 
     inputs.rollerAppliedVolts = rollerAppliedVolts.getValueAsDouble();
