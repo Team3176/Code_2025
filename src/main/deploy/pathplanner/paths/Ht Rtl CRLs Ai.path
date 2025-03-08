@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.32,
+        "y": 7.1
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.828785211267605,
+        "y": 5.158802816901408
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.8146126760563375,
+        "y": 5.158802816901408
+      },
+      "prevControl": {
+        "x": 3.629627657707351,
+        "y": 5.326971015400486
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": true
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -59.03624346792653
+  },
+  "reversed": false,
+  "folder": "Layton",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -53.46573524631278
+  },
+  "useDefaultConstraints": true
+}

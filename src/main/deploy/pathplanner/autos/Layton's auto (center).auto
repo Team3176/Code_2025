@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bt Rtr CRLs Ai"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rtr Ht As CRLi"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ht Rtl CRLs Ai"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "a1",
+  "choreoAuto": false
+}
