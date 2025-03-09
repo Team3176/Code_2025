@@ -88,7 +88,16 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Dashboard inputs
-  //private final LoggedDashboardChooser<Command> autoChooser;
+  private final LoggedDashboardChooser<Command> autonChooser;
+  private Command choosenAutonomousCommand = new WaitCommand(1.0);
+  private Alliance currentAlliance = Alliance.Blue;
+  //private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < 20);
+  //private Trigger hasNote = new Trigger(() -> Conveyor.getInstance().hasNote());
+  //private Trigger shooterOverride;
+  //private Trigger ampOverride;
+  //private Trigger intakeOverride;
+  //private Trigger visionOverride;
+  //private LEDS ledsRio;
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -159,6 +168,13 @@ public class RobotContainer {
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     */
+
+    autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
+    //autonChooser.addOption("Drive Forward", NamedCommands.driveForward(drive));
+    SmartDashboard.putData("Auton Mode", autonChooser.getSendableChooser());
+
+    
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -379,4 +395,49 @@ public class RobotContainer {
   } else { return null; }
   }
 */
+
+public void checkAutonomousSelection(Boolean force) {
+    if (autonChooser.get() != null
+        && (!choosenAutonomousCommand.equals(autonChooser.get()) || force)) {
+      Long start = System.nanoTime();
+      choosenAutonomousCommand = autonChooser.get();
+      try {
+        choosenAutonomousCommand = autonChooser.get();
+      } catch (Exception e) {
+        System.out.println("[ERROR] could not find" + autonChooser.get().getName());
+        System.out.println(e.toString());
+      }
+
+      Long totalTime = System.nanoTime() - start;
+      System.out.println(
+          "Autonomous Selected: ["
+              + autonChooser.get().getName()
+              + "] generated in "
+              + (totalTime / 1000000.0)
+              + "ms");
+    }
+  }
+
+public void checkAutonomousSelection() {
+    checkAutonomousSelection(false);
+  }
+
+  public void checkAllaince() {
+    // TODO: check the optional return instead of just .get()
+    if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
+      currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
+      // Updated any things that need to change
+      System.out.println("changed alliance");
+      checkAutonomousSelection(true);
+    }
+  }
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand() {
+    return autonChooser.get();
+  }
 }
