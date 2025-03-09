@@ -55,6 +55,8 @@ public class Hardwaremap {
 
   public static final int blinkin_pwm_port = 9;
 
+  public static final int tof_id = 0;
+
   /*
   
    */

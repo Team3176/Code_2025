@@ -148,6 +148,7 @@ public class RobotContainer {
     controller.operator.x().onTrue(superstructure.testElevator());
     controller.operator.leftBumper().whileTrue(superstructure.testClimb(() -> controller.operator.getLeftY()));
     controller.operator.rightBumper().whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
+    controller.operator.y().onTrue(vis)
     /*
      * Switch Box
      */
