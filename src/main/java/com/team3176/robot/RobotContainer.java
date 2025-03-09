@@ -99,7 +99,7 @@ public class RobotContainer {
   public RobotContainer() { 
 
       //autoChooser = AutoBuilder.buildAutoChooser("Tests");
-       // SmartDashboard.putData("Auto Mode", autoChooser);
+      //SmartDashboard.putData("Auto Mode", autoChooser);
 /* 
     switch (BaseConstants.getMode()) {
       case REAL:
@@ -353,7 +353,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+/*  public Command getAutonomousCommand() {
    // return autoChooser.get();
     //return autoChooser.getSelected();
     //return null;
@@ -378,5 +378,5 @@ public class RobotContainer {
               .withRotationalRate(0 * MaxAngularRate)));   
   } else { return null; }
   }
-
+*/
 }
