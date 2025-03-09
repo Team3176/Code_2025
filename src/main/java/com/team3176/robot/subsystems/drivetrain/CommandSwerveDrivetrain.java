@@ -4,6 +4,8 @@ import static edu.wpi.first.units.Units.*;
 
 import java.util.function.Supplier;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
@@ -28,6 +30,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
+import com.team3176.robot.LimelightHelpers.PoseEstimate;
+import com.team3176.robot.generated.TunerConstants;
 import com.team3176.robot.generated.TunerConstants.TunerSwerveDrivetrain;
 
 /**
@@ -53,6 +57,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private final SwerveRequest.SysIdSwerveTranslation m_translationCharacterization = new SwerveRequest.SysIdSwerveTranslation();
     private final SwerveRequest.SysIdSwerveSteerGains m_steerCharacterization = new SwerveRequest.SysIdSwerveSteerGains();
     private final SwerveRequest.SysIdSwerveRotation m_rotationCharacterization = new SwerveRequest.SysIdSwerveRotation();
+
+    private static CommandSwerveDrivetrain instance;
 
     /* SysId routine for characterizing translation. This is used to find PID gains for the drive motors. */
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
@@ -115,6 +121,14 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
     /* The SysId routine to test */
     private SysIdRoutine m_sysIdRoutineToApply = m_sysIdRoutineTranslation;
+
+
+    public static CommandSwerveDrivetrain getInstance() {
+        if (instance == null) {
+            instance = TunerConstants.createDrivetrain();
+        }
+        return instance;
+    }
 
     /**
      * Constructs a CTRE SwerveDrivetrain using the specified constants.
@@ -290,6 +304,11 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             updateSimState(deltaTime, RobotController.getBatteryVoltage());
         });
         m_simNotifier.startPeriodic(kSimLoopPeriod);
+    }
+
+    @AutoLogOutput
+    public Pose2d getPose() {
+        return getState().Pose;
     }
 
     /**

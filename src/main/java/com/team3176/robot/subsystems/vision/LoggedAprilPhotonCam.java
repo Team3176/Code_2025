@@ -29,6 +29,7 @@ import org.photonvision.targeting.TargetCorner;
 import com.team3176.robot.constants.BaseConstants;
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.subsystems.drivetrain.Drivetrain;
+import com.team3176.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 import com.team3176.robot.util.TunableTransform3d;
 
 public class LoggedAprilPhotonCam {
@@ -105,7 +106,7 @@ public class LoggedAprilPhotonCam {
     robot2CameraTune.checkParemeterUpdate();
 
     if (results.hasTargets()) {
-      Pose3d current3d = new Pose3d(Drivetrain.getInstance().getPose());
+      Pose3d current3d = new Pose3d(CommandSwerveDrivetrain.getInstance().getPose());
 
       estimates.clear();
       ArrayList<Double> x = new ArrayList<Double>();
@@ -156,7 +157,7 @@ public class LoggedAprilPhotonCam {
   public void LogCameraPose() {
     Logger.recordOutput(
         "photonvision/" + name + "/cameraPose",
-        new Pose3d(Drivetrain.getInstance().getPose()).transformBy(robot2Camera));
+        new Pose3d(CommandSwerveDrivetrain.getInstance().getPose()).transformBy(robot2Camera));
   }
 
   public void filterAndAddVisionPose(EstimatedRobotPose p) {
@@ -178,7 +179,7 @@ public class LoggedAprilPhotonCam {
       if (p.targetsUsed.size() == 1) {
         if (Math.abs(p.estimatedPose.getZ()) > 1.0
             || p.estimatedPose
-                    .minus(new Pose3d(Drivetrain.getInstance().getPose()))
+                    .minus(new Pose3d(CommandSwerveDrivetrain.getInstance().getPose()))
                     .getTranslation()
                     .getNorm()
                 > 1.0
@@ -189,7 +190,7 @@ public class LoggedAprilPhotonCam {
     }
     // TODO: Remember to fix me for camera2
     if (!name.equals("camera2")) {
-      Drivetrain.getInstance().addVisionMeasurement(p.estimatedPose, p.timestampSeconds, cov);
+      CommandSwerveDrivetrain.getInstance().addVisionMeasurement(p.estimatedPose.toPose2d(), p.timestampSeconds, cov);
     }
   }
 

@@ -12,6 +12,7 @@ import org.photonvision.simulation.PhotonCameraSim;
 import org.photonvision.simulation.SimCameraProperties;
 import org.photonvision.simulation.VisionSystemSim;
 import com.team3176.robot.subsystems.drivetrain.Drivetrain;
+import com.team3176.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 
 public class SimPhotonVision extends SubsystemBase {
   // Simulated Vision System.
@@ -46,8 +47,8 @@ public class SimPhotonVision extends SubsystemBase {
   @Override
   public void periodic() {
 
-    Pose2d currentPose = Drivetrain.getInstance().getSimNoNoisePose();
-    simVision.update(currentPose);
+    //Pose2d currentPose = CommandSwerveDrivetrain.getInstance().getSimNoNoisePose();
+    //simVision.update(currentPose);
   }
 
   public static SimCameraProperties arducam_720() {
