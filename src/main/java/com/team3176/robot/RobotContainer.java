@@ -34,7 +34,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  */
 public class RobotContainer {
   // Subsystems
-  private final Drive drive;
+  private final Drive drive = Drive.getInstance();
 
   // Controller
   // private final CommandXboxController controller = new CommandXboxController(0);
@@ -48,13 +48,13 @@ public class RobotContainer {
     // switch (Constants.currentMode) {
     // case REAL:
     // Real robot, instantiate hardware IO implementations
-    drive =
-        new Drive(
-            new GyroIOPigeon2(),
-            new ModuleIOTalonFX(TunerConstants.FrontLeft),
-            new ModuleIOTalonFX(TunerConstants.FrontRight),
-            new ModuleIOTalonFX(TunerConstants.BackLeft),
-            new ModuleIOTalonFX(TunerConstants.BackRight));
+    //drive =
+    //    new Drive(
+    //        new GyroIOPigeon2(),
+    //        new ModuleIOTalonFX(TunerConstants.FrontLeft),
+    //        new ModuleIOTalonFX(TunerConstants.FrontRight),
+    //        new ModuleIOTalonFX(TunerConstants.BackLeft),
+    //        new ModuleIOTalonFX(TunerConstants.BackRight));
     // break;
 
     /*    case SIM:
