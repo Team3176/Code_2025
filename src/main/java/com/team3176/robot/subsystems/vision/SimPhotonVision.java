@@ -11,8 +11,7 @@ import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.simulation.PhotonCameraSim;
 import org.photonvision.simulation.SimCameraProperties;
 import org.photonvision.simulation.VisionSystemSim;
-import com.team3176.robot.subsystems.drivetrain.Drivetrain;
-import com.team3176.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
+import com.team3176.robot.subsystems.drivetrain.Drive;
 
 public class SimPhotonVision extends SubsystemBase {
   // Simulated Vision System.
