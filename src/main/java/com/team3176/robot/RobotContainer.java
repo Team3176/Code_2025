@@ -14,9 +14,15 @@
 package com.team3176.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import com.team3176.robot.commands.DriveCommands;
 import com.team3176.robot.generated.TunerConstants;
@@ -24,6 +30,8 @@ import com.team3176.robot.subsystems.controller.Controller;
 import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
+import com.team3176.robot.subsystems.superstructure.Superstructure;
+
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -40,6 +48,10 @@ public class RobotContainer {
   // private final CommandXboxController controller = new CommandXboxController(0);
   private final Controller controller = Controller.getInstance();
 
+  // Superstructure
+  private final Superstructure superstructure = Superstructure.getInstance();
+
+  
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
 
@@ -117,8 +129,10 @@ public class RobotContainer {
             drive,
             () -> controller.getForward(),
             () -> controller.getStrafe(),
-            () -> controller.getSpin()));
-
+            () -> controller.getSpin()
+        )
+    );
+    
     // Lock to 0° when A button is held
     /*controller
         .a()
@@ -128,13 +142,40 @@ public class RobotContainer {
                 () -> -controller.getLeftY(),
                 () -> -controller.getLeftX(),
                 () -> new Rotation2d()));
+    */
+
+    //BOOST ME BABY *2
+    controller.rotStick.button(1).
+        whileTrue(
+            DriveCommands.joystickDrive(
+                drive,
+                () -> controller.getForward(),
+                () -> controller.getStrafe(),
+                () -> controller.getSpin()
+            )
+        );
+    
+   //RobotCentric ME BABY 
+    controller.rotStick.button(3).
+        whileTrue(
+            DriveCommands.joystickDrive(
+                drive,
+                () -> -controller.getForward(),
+                () -> -controller.getStrafe(),
+                () -> controller.getSpin(),
+                () -> true
+            )
+        );
+
+
+
 
     // Switch to X pattern when X button is pressed
-    controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
-
+    controller.transStick.button(4).whileTrue(Commands.runOnce(drive::stopWithX, drive));
+    
     // Reset gyro to 0° when B button is pressed
     controller
-        .b()
+        .rotStick.button(8)
         .onTrue(
             Commands.runOnce(
                     () ->
@@ -142,7 +183,46 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
-    */
+
+
+    // Shoot
+    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
+
+
+    // ***** OPERATOR CONTROLLER *****
+
+    // Climb buttons
+    // Max retraction position = ~+70 // Starting configuration = 0 to -5 // Max extension = ~-150
+    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
+    controller.transStick.button(16).and(controller.transStick.button(15)).whileTrue(superstructure.transStickClimbExtend());
+    controller.transStick.button(16).and(controller.transStick.button(14)).whileTrue(superstructure.transStickClimbRetract());
+     
+    // Scoring Positions (States)
+    controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
+    controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
+    controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
+    controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());  
+    //controller.operator.pov(270).onTrue(superstructure.goToA1()); 
+    //controller.operator.pov(0).onTrue(superstructure.goToA2()); 
+    //controller.operator.pov(90).onTrue(superstructure.goToA3()); 
+    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    controller.transStick.button(11).onTrue(superstructure.goToL0());   
+    
+    // Scoring Position (Manual)
+    controller.operator.rightTrigger(.90).whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
+    
+    // Human Load Positions and Rollers
+    //controller.operator.rightBumper().onTrue(superstructure.goToHumanLoad()); //.onFalse(superstructure.goToL0());
+    controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
+
+    
+    
+      
+    //controller.operator.a().onTrue(superstructure.armVoltPos()).onFalse(superstructure.arm2Home());
+    //controller.operator.rightTrigger(.90).whileTrue(superstructure.armVoltPosManual(() -> controller.operator.getRightY()));
+    //controller.operator.leftBumper().whileTrue(superstructure.armVoltVelManual(() -> controller.operator.getLeftY())).onFalse(superstructure.stopRollers());
+    //controller.operator.b().whileTrue(superstructure.armVoltVel());
+    //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
   }
 
   /**

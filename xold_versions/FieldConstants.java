@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.util.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import com.team3176.robot.constants.BaseConstants;
 
 /**
  * Contains various field dimensions and useful reference points. All units are in meters and poses
@@ -192,7 +193,7 @@ public class FieldConstants {
     FIELD_BORDER("2025-field-border");
 
     AprilTagLayoutType(String name) {
-      if (Constants.disableHAL) {
+      if (BaseConstants.disableHAL) {
         layout = null;
       } else {
         try {
@@ -230,7 +231,7 @@ public class FieldConstants {
   @RequiredArgsConstructor
   public enum FieldType {
     ANDYMARK("andymark"),
-    WELDED("welded");
+    WELDED("-welded");
 
     @Getter private final String jsonFolder;
   }

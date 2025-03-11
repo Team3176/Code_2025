@@ -33,6 +33,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -62,6 +63,12 @@ public class DriveCommands {
         .transformBy(new Transform2d(linearMagnitude, 0.0, new Rotation2d()))
         .getTranslation();
   }
+
+  public static double getOmegaFromJoysticks(double driverOmega) {
+    double omega = MathUtil.applyDeadband(driverOmega, DEADBAND);
+    return omega * omega * Math.signum(omega);
+  }
+  
 
   /**
    * Field relative drive command using two joysticks (controlling linear and angular velocities).
@@ -98,6 +105,40 @@ public class DriveCommands {
                   isFlipped
                       ? drive.getRotation().plus(new Rotation2d(Math.PI))
                       : drive.getRotation()));
+        },
+        drive);
+  }
+
+  public static Command joystickDrive(
+      Drive drive,
+      DoubleSupplier xSupplier,
+      DoubleSupplier ySupplier,
+      DoubleSupplier omegaSupplier,
+      BooleanSupplier robotRelative) {
+    return Commands.run(
+        () -> {
+          // Get linear velocity
+          Translation2d linearVelocity =
+              getLinearVelocityFromJoysticks(xSupplier.getAsDouble(), ySupplier.getAsDouble());
+
+          // Calculate angular velocity
+          double omega = getOmegaFromJoysticks(omegaSupplier.getAsDouble());
+
+          ChassisSpeeds speeds =
+              new ChassisSpeeds(
+                  linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
+                  linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
+                  omega * drive.getMaxAngularSpeedRadPerSec());
+
+          drive.runVelocity(
+              robotRelative.getAsBoolean()
+                  ? speeds
+                  : ChassisSpeeds.fromFieldRelativeSpeeds(
+                      speeds,
+                      DriverStation.getAlliance().isPresent()
+                              && DriverStation.getAlliance().get() == Alliance.Red
+                          ? Drive.getInstance().getRotation().plus(new Rotation2d(Math.PI))
+                          : Drive.getInstance().getRotation()));
         },
         drive);
   }
