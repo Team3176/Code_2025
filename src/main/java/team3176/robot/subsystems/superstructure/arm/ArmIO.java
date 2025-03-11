@@ -37,7 +37,7 @@ public interface ArmIO {
     ArmIOInputs() {}
   }
 
-  /*   public default Boolean getRollerLinebreak() {} */
+   
 
   /** Updates the set of loggable inputs. */
   public default void updateInputs(ArmIOInputs inputs) {}

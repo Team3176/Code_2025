@@ -11,7 +11,7 @@ import team3176.robot.subsystems.drivetrain.Drivetrain;
 import team3176.robot.subsystems.superstructure.climb.Climb;
 import team3176.robot.subsystems.superstructure.arm.Arm;
 import team3176.robot.subsystems.superstructure.elevator.Elevator;
-import team3176.robot.subsystems.superstructure.tof.timeofflight;
+import team3176.robot.subsystems.superstructure.tof.TimeOfFlightIOFusion;
 import team3176.robot.util.LoggedTunableNumber;
 
 public class Superstructure {
@@ -19,14 +19,14 @@ public class Superstructure {
   private Climb climb;
   private Arm arm;
   private Elevator elevator;
-  private TimeOfFlight tof;
+  private TimeOfFlightIOFusion tof;
   private final LoggedTunableNumber pivotTuneSetPoint, velTuneSetPoint, elevTunePositionSetPoint, climbTunePositionSetPoint;
 
   public Superstructure() {
     climb = Climb.getInstance();
     arm = Arm.getInstance();
     elevator = Elevator.getInstance();
-    tof = timeofflight.getInstance();
+    tof = TimeOfFlightIOFusion.getInstance();
     this.pivotTuneSetPoint = new LoggedTunableNumber("Arm/pivotSetpoint", 0);
     this.velTuneSetPoint = new LoggedTunableNumber("Arm/velSetpoint", 0);
     this.elevTunePositionSetPoint = new LoggedTunableNumber("Elevator/posSetpoint", 0);
@@ -59,10 +59,6 @@ public class Superstructure {
   
   public Command testElevatorManual(DoubleSupplier voltage) {
     return elevator.goToPositionManual(voltage);
-  }
-
-  public Command tofTest(){
-    return tof.getRange();
   }
 
 
