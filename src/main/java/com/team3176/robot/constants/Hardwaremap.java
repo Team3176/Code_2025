@@ -20,6 +20,8 @@ public class Hardwaremap {
   public static final int elevatorLeft_CID = 60;
   public static final int elevatorRight_CID = 61;
   public static int PDH_CID = 1;
+  public static int TOF_LEFT_CID = 24; 
+  public static int TOF_RIGHT_CID = 25; 
 
   public static final String conveyor_CBN = "rio";
   public static final String shooterWheelUpper_CBN = "rio";
