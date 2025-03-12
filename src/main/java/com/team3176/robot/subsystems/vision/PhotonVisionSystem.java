@@ -65,7 +65,7 @@ public class PhotonVisionSystem extends SubsystemBase {
               Units.degreesToRadians(-180 - 20)));
   private ArrayList<LoggedAprilPhotonCam> aprilCameras = new ArrayList<LoggedAprilPhotonCam>();
 
-  private LoggedNotePhotonCam notecam;
+//  private LoggedNotePhotonCam notecam;
   List<Pose3d> visionTargets = new ArrayList<>();
 
   AprilTagFieldLayout field;
@@ -73,13 +73,13 @@ public class PhotonVisionSystem extends SubsystemBase {
   private SimPhotonVision simInstance;
   EstimatedRobotPose currentEstimate;
 
-  public double noteYaw;
-  public double notePitch;
-  public boolean seeNote;
+  //public double noteYaw;
+  //public double notePitch;
+  //public boolean seeNote;
 
   private PhotonVisionSystem() {
 
-    notecam = new LoggedNotePhotonCam();
+    //notecam = new LoggedNotePhotonCam();
     aprilCameras.add(new LoggedAprilPhotonCam("camera1", Robot2camera1));
     aprilCameras.add(new LoggedAprilPhotonCam("camera2", Robot2camera2));
     aprilCameras.add(new LoggedAprilPhotonCam("camera3", Robot2camera3));
@@ -106,10 +106,10 @@ public class PhotonVisionSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    notecam.periodic();
-    noteYaw = notecam.noteYaw;
-    notePitch = notecam.notePitch;
-    seeNote = notecam.seeNote;
+    //notecam.periodic();
+    //noteYaw = notecam.noteYaw;
+    //notePitch = notecam.notePitch;
+    //seeNote = notecam.seeNote;
 
     visionTargets.clear();
     // Drivetrain.getInstance().visionPose3d = cameras.get(0).getPoseEstimates().get(0)

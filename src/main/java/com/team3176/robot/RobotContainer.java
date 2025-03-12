@@ -31,6 +31,7 @@ import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
+import com.team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -44,12 +45,13 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive = Drive.getInstance();
 
+  private final PhotonVisionSystem vision = PhotonVisionSystem.getInstance();
   // Controller
   // private final CommandXboxController controller = new CommandXboxController(0);
   private final Controller controller = Controller.getInstance();
 
   // Superstructure
-  private final Superstructure superstructure = Superstructure.getInstance();
+//  private final Superstructure superstructure = Superstructure.getInstance();
 
   
   // Dashboard inputs
@@ -186,34 +188,34 @@ public class RobotContainer {
 
 
     // Shoot
-    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
+//    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
 
 
     // ***** OPERATOR CONTROLLER *****
 
     // Climb buttons
     // Max retraction position = ~+70 // Starting configuration = 0 to -5 // Max extension = ~-150
-    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
-    controller.transStick.button(16).and(controller.transStick.button(15)).whileTrue(superstructure.transStickClimbExtend());
-    controller.transStick.button(16).and(controller.transStick.button(14)).whileTrue(superstructure.transStickClimbRetract());
+//    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
+//    controller.transStick.button(16).and(controller.transStick.button(15)).whileTrue(superstructure.transStickClimbExtend());
+//    controller.transStick.button(16).and(controller.transStick.button(14)).whileTrue(superstructure.transStickClimbRetract());
      
     // Scoring Positions (States)
-    controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
-    controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
-    controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
-    controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());  
+//    controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
+//    controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
+//    controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
+//    controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());  
     //controller.operator.pov(270).onTrue(superstructure.goToA1()); 
     //controller.operator.pov(0).onTrue(superstructure.goToA2()); 
     //controller.operator.pov(90).onTrue(superstructure.goToA3()); 
-    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
-    controller.transStick.button(11).onTrue(superstructure.goToL0());   
+ //   controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+ //   controller.transStick.button(11).onTrue(superstructure.goToL0());   
     
     // Scoring Position (Manual)
-    controller.operator.rightTrigger(.90).whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
+//    controller.operator.rightTrigger(.90).whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
     
     // Human Load Positions and Rollers
     //controller.operator.rightBumper().onTrue(superstructure.goToHumanLoad()); //.onFalse(superstructure.goToL0());
-    controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
+ //   controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
 
     
     
