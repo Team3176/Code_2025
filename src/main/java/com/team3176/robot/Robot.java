@@ -24,7 +24,7 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import com.team3176.robot.Constants.RobotType;
-import com.team3176.robot.subsystems.leds.LEDS;
+//import com.team3176.robot.subsystems.leds.LEDS;
 import au.grapplerobotics.CanBridge;
 
 
@@ -169,10 +169,10 @@ public class Robot extends LoggedRobot {
     if (DriverStation.isEnabled()) {
       disabledTimer.reset();
     }
-    if (RobotController.getBatteryVoltage() <= lowBatteryVoltage
-        && disabledTimer.hasElapsed(lowBatteryDisabledTime)) {
-      LEDS.getInstance().lowBatteryAlert = true;
-    }
+   // if (RobotController.getBatteryVoltage() <= lowBatteryVoltage
+   //     && disabledTimer.hasElapsed(lowBatteryDisabledTime)) {
+   //   LEDS.getInstance().lowBatteryAlert = true;
+   // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

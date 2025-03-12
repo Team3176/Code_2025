@@ -16,16 +16,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import com.team3176.robot.commands.WheelRadiusCharacterization;
-import com.team3176.robot.commands.WheelRadiusCharacterization.Direction;
 import com.team3176.robot.constants.Hardwaremap;
-import com.team3176.robot.subsystems.Visualization;
 import com.team3176.robot.subsystems.controller.Controller;
-import com.team3176.robot.subsystems.drivetrain.Drivetrain;
-import com.team3176.robot.subsystems.leds.LEDS;
-import com.team3176.robot.subsystems.leds.LEDSubsystem;
 import com.team3176.robot.subsystems.superstructure.*;
-import com.team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,58 +33,29 @@ public class RobotContainer {
   private PowerDistribution pdh;
 
   // is this why we don't have a compressor? private final Compressor m_Compressor
-  private Drivetrain drivetrain;
-  private LEDSubsystem leds;
   private Superstructure superstructure;
-  private PhotonVisionSystem vision;
-  private Visualization visualization;
   private LoggedDashboardChooser<Command> autonChooser;
   private Command choosenAutonomousCommand = new WaitCommand(1.0);
   private Alliance currentAlliance = Alliance.Blue;
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < 20);
   //  private Trigger intakeOverride;
   private Trigger visionOverride;
-  private LEDS ledsRio;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     controller = Controller.getInstance();
     superstructure = Superstructure.getInstance();
-    drivetrain = Drivetrain.getInstance();
+
+
 
     // leds = LEDSubsystem.getInstance();
-    ledsRio = LEDS.getInstance();
-    endMatchAlert.onTrue(ledsRio.EndgameAlert());
 
     // superstructure = Superstructure.getInstance();
-    visualization = new Visualization();
-    if (Constants.VISION_CONNECTED) {
-      vision = PhotonVisionSystem.getInstance();
-    }
 
     pdh = new PowerDistribution(Hardwaremap.PDH_CID, ModuleType.kRev);
 
         ///drivetraiN.swerveDefenseCommand();
-
-        drivetrain.setDefaultCommand(
-          drivetrain
-            .swerveDriveJoysticks(
-                () -> controller.getForward(),
-                () -> controller.getStrafe(),
-                () -> controller.getSpin())
-            .withName("default drive"));
-
-    ledsRio.setDefaultCommand(ledsRio.DefaultLED());
-    // These all need to be sped up
-    NamedCommands.registerCommand("shoot", new WaitCommand(1.0));
-    // NamedCommands.registerCommand(
-    //     "shoot",
-    //     superstructure
-    //         .aimClose()
-    //         .alongWith(new WaitCommand(0.5).andThen(superstructure.shoot().withTimeout(0.3)))
-    //         .withTimeout(0.8)
-    //         .withName("shooting"));
 
     autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
 
@@ -103,61 +67,7 @@ public class RobotContainer {
     /*
      * overrides
      */
-    visionOverride = controller.switchBox.button(4);
-    /*
-     * Translation Stick
-     */
-    /*     controller
-    .transStick
-    .button(1)
-    .whileTrue(new WheelRadiusCharacterization(drivetrain, Direction.CLOCKWISE)); */
-    controller
-        .transStick
-        .button(1)
-        .whileTrue(
-            drivetrain
-                .swerveDriveJoysticks(
-                    () -> controller.getForward(),
-                    () -> controller.getStrafe(),
-                    () -> controller.getSpin() * 1.5)
-                .withName("boost drive"));
 
-    
-    controller.transStick.button(5).onTrue(drivetrain.resetPoseToVisionCommand());
-    controller
-        .transStick
-        .button(10)
-        .whileTrue(drivetrain.swerveDefenseCommand().withName("swerveDefense"));
-
-    /*
-     *  Rotation Stick
-     */
-    controller
-        .rotStick
-        .button(8)
-        .whileTrue(new InstantCommand(drivetrain::resetFieldOrientation, drivetrain));
-
-    /*
-     * Operator
-     */
-
-    controller.operator.a().onTrue(superstructure.testVoltPos());
-    controller.operator.rightTrigger(.90).whileTrue(superstructure.testVoltPosManual(() -> controller.operator.getRightY()));
-    controller.operator.leftTrigger(.90).whileTrue(superstructure.testVoltVelManual(() -> controller.operator.getLeftY()));
-    controller.operator.b().whileTrue(superstructure.testVoltVel());
-    controller.operator.x().onTrue(superstructure.testElevator());
-    controller.operator.leftBumper().whileTrue(superstructure.testClimb(() -> controller.operator.getLeftY()));
-    controller.operator.rightBumper().whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
-    //controller.operator.y().onTrue(vis)
-    /*
-     * Switch Box
-     */
-
-    controller
-        .switchBox
-        .button(4)
-        .onTrue(drivetrain.setVisionOverride(true))
-        .onFalse(drivetrain.setVisionOverride(false));
   }
 
   public void clearCanFaults() {
