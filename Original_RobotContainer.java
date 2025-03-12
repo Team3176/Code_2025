@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package team3176.robot;
+package com.team3176.robot;
 
 // import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import team3176.robot.constants.Hardwaremap;
-import team3176.robot.subsystems.Visualization;
-import team3176.robot.subsystems.controller.Controller;
-import team3176.robot.subsystems.leds.LEDS;
-import team3176.robot.subsystems.leds.LEDSubsystem;
-import team3176.robot.subsystems.superstructure.*;
-import team3176.robot.subsystems.vision.PhotonVisionSystem;
+import com.team3176.robot.constants.Hardwaremap;
+import com.team3176.robot.subsystems.Visualization;
+import com.team3176.robot.subsystems.controller.Controller;
+import com.team3176.robot.subsystems.leds.LEDS;
+import com.team3176.robot.subsystems.leds.LEDSubsystem;
+import com.team3176.robot.subsystems.superstructure.*;
+import com.team3176.robot.subsystems.vision.PhotonVisionSystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
