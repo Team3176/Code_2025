@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 import com.playingwithfusion.TimeOfFlight;
 
 import com.team3176.robot.FieldConstants;
+import com.team3176.robot.subsystems.superstructure.tof.TimeOfFlightIOFusion;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.tof.TimeOfFlightSystem;
 import com.team3176.robot.util.LoggedTunableNumber;
@@ -14,9 +15,18 @@ public class Superstructure {
   private static Superstructure instance;
   private TimeOfFlightSystem tof;
 
+
+
   public Superstructure() {
     tof = TimeOfFlightSystem.getInstance();
+    
   }
+
+  public Command ReturnLeftTof() {
+    return (tof.getTofLeftRange());};
+  
+  public Command ReturnRightTof() {
+    return (tof.getTofRightRange());};
 
   public static Superstructure getInstance() {
     if (instance == null) {

@@ -17,6 +17,19 @@ public class TimeOfFlightSystem extends SubsystemBase{
     TOF_right = new TimeOfFlightIOFusion(Hardwaremap.TOF_RIGHT_CID);
   }
 
+  
+  
+  public Command getTofLeftRange() {
+    return this.runOnce (() -> {TOF_left.getRangeRaw();});
+  }
+  public Command getTofRightRange() {
+    return this.runOnce (() -> {TOF_right.getRangeRaw();});
+  }
+
+  
+
+
+
 
   public static TimeOfFlightSystem getInstance() {
     if (instance == null) {

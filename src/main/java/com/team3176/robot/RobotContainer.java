@@ -68,6 +68,9 @@ public class RobotContainer {
      * overrides
      */
 
+     controller.operator.a().onTrue((superstructure.ReturnLeftTof()));
+     controller.operator.b().onTrue((superstructure.ReturnRightTof()));
+
   }
 
   public void clearCanFaults() {

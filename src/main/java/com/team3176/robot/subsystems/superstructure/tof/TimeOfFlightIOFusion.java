@@ -25,6 +25,8 @@ public class TimeOfFlightIOFusion {
   }
 
   public double getRangeRaw() {
+    
+    System.out.println("Tof getRangeRaw = "+ TOF.getRange());
     return TOF.getRange() - 30.0;
   }
 
