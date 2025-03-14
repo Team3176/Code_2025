@@ -29,6 +29,7 @@ public class SuperStructureConstants {
   public static final double ARM_SIM_OFFSET = 63 + ARM_ZERO_POS;
   public static final double ARM_ENCODER_OFFSET = 0;
   public static final double CORAL_DISTANCE = 20;
+
   public static final double ARM_HF_POS = 0.80;
   public static final double ARM_L0_POS = 0.16;
   public static final double ARM_L1_POS = 0.34;
@@ -36,11 +37,30 @@ public class SuperStructureConstants {
   public static final double ARM_L3_POS = 0.14;
   public static final double ARM_L4_POS = 0.075;
   public static final double ARM_HF_VOLTS = -6;
+
   public static final double ARM_L0_SHOOTINGVOLTS = 12;
   public static final double ARM_L1_SHOOTINGVOLTS = 12;
   public static final double ARM_L2_SHOOTINGVOLTS = 6;
   public static final double ARM_L3_SHOOTINGVOLTS = 5;
   public static final double ARM_L4_SHOOTINGVOLTS = 6;
+
+  // pivot/algae/coral speed constants; most likely will change 
+  public static final double A1_POS = 0.34;
+  public static final double A2_POS = 0.16;
+  public static final double A3_POS = 0.14;
+  public static final double A4_POS = 0.075;
+
+  public static final double PIVOT_A1_INTAKEVOLTS = -6; // put algae in processor 
+  public static final double PIVOT_A2_INTAKEVOLTS = 6;   // Get algae from reef at L2
+  public static final double PIVOT_A3_INTAKEVOLTS = 6;   // Get algae from reef at L3
+  public static final double PIVOT_A4_SPITVOLTS = 6;   // put algae in barge 
+
+  public static final double ARM_ROLLER__C1_SLOWSPITVOLTS = 6;  // spit coral at a slow speed 
+  public static final double ARM_ROLER_C2_FASTSPITVOLTS= 12;   // spit coral at a fast speed
+
+
+
+
 
   public static final double ELEVATORLEADERj_kP = 0.006;
   public static final double ELEVATORLEADER_kP = 0.006;

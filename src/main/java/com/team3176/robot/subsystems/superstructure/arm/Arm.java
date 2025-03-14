@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.DoubleSupplier;
 
 import org.littletonrobotics.junction.Logger;
-import com.team3176.robot.constants.BaseConstants;
+
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.constants.BaseConstants.RobotType;
 import com.team3176.robot.constants.*;
@@ -21,14 +21,14 @@ public class Arm extends SubsystemBase {
   private final ArmIO io;
   private final ArmIOInputsAutoLogged inputs = new ArmIOInputsAutoLogged();
   private final LoggedTunableNumber pivotTuneSetPoint;
-  private final LoggedTunableNumber HumanLoadTuneSetpoint, L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint;
+  private final LoggedTunableNumber HumanLoadTuneSetpoint, L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint, A1TuneSetpoint;
   private final TunablePID pivotPID;
   private Timer deployTime = new Timer();
   private double pivotSetpoint;
   private double pivot_offset = 0;
   private boolean ishomed = false;
   private double pivotHome = SuperStructureConstants.ARM_L0_POS;
-  private double HumanLoadSetpoint, L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint;
+  private double HumanLoadSetpoint, L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint, A1Setpoint, A2Setpoint, A3Setpoint, A4Setpoint;
   public enum POS {
     HF,
     L0,
@@ -60,6 +60,9 @@ public class Arm extends SubsystemBase {
     this.L2TuneSetpoint = new LoggedTunableNumber("Arm/L2Setpoint", SuperStructureConstants.ARM_L2_POS);
     this.L3TuneSetpoint = new LoggedTunableNumber("Arm/L3Setpoint", SuperStructureConstants.ARM_L3_POS);
     this.L4TuneSetpoint = new LoggedTunableNumber("Arm/L4Setpoint", SuperStructureConstants.ARM_L4_POS);
+
+    this.A1Setpoint = new LoggedTunableNumber("Arm/A1Setpoint", SuperStructureConstants.A1_POS);
+
     this.pivotHome = inputs.pivotPositionRot;
 
 
@@ -69,6 +72,20 @@ public class Arm extends SubsystemBase {
     L2Setpoint = SuperStructureConstants.ARM_L2_POS;
     L3Setpoint = SuperStructureConstants.ARM_L3_POS;
     L4Setpoint = SuperStructureConstants.ARM_L4_POS;
+
+    A1Setpoint = SuperStructureConstants.A1_POS;
+    A2Setpoint = SuperStructureConstants.A2_POS;
+    A3Setpoint = SuperStructureConstants.A3_POS;
+    A4Setpoint = SuperStructureConstants.A4_POS;
+
+
+
+
+
+
+
+
+
   }
 
   public Command setPosTrack(POS pos){
