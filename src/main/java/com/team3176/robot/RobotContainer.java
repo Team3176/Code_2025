@@ -34,8 +34,7 @@ public class RobotContainer {
 
   // is this why we don't have a compressor? private final Compressor m_Compressor
   private Superstructure superstructure;
-  private LoggedDashboardChooser<Command> autonChooser;
-  private Command choosenAutonomousCommand = new WaitCommand(1.0);
+
   private Alliance currentAlliance = Alliance.Blue;
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < 20);
   //  private Trigger intakeOverride;
@@ -57,9 +56,7 @@ public class RobotContainer {
 
         ///drivetraiN.swerveDefenseCommand();
 
-    autonChooser = new LoggedDashboardChooser<>("autonChoice", AutoBuilder.buildAutoChooser());
-
-    SmartDashboard.putData("Auton Choice", autonChooser.getSendableChooser());
+    
     configureBindings();
   }
 
@@ -81,48 +78,5 @@ public class RobotContainer {
     pdh.getStickyFaults();
   }
 
-  public void checkAutonomousSelection(Boolean force) {
-    if (autonChooser.get() != null
-        && (!choosenAutonomousCommand.equals(autonChooser.get()) || force)) {
-      Long start = System.nanoTime();
-      choosenAutonomousCommand = autonChooser.get();
-      try {
-        choosenAutonomousCommand = autonChooser.get();
-      } catch (Exception e) {
-        System.out.println("[ERROR] could not find" + autonChooser.get().getName());
-        System.out.println(e.toString());
-      }
-
-      Long totalTime = System.nanoTime() - start;
-      System.out.println(
-          "Autonomous Selected: ["
-              + autonChooser.get().getName()
-              + "] generated in "
-              + (totalTime / 1000000.0)
-              + "ms");
-    }
-  }
-
-  public void checkAutonomousSelection() {
-    checkAutonomousSelection(false);
-  }
-
-  public void checkAllaince() {
-    // TODO: check the optional return instead of just .get()
-    if (DriverStation.getAlliance().orElse(Alliance.Blue) != currentAlliance) {
-      currentAlliance = DriverStation.getAlliance().orElse(Alliance.Blue);
-      // Updated any things that need to change
-      System.out.println("changed alliance");
-      checkAutonomousSelection(true);
-    }
-  }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return autonChooser.get();
-  }
+  
 }
