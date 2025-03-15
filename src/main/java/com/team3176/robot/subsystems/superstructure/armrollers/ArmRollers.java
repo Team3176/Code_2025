@@ -23,9 +23,9 @@ public class ArmRollers extends SubsystemBase {
   private final ArmRollersIO io;
   private final ArmRollersIOInputsAutoLogged inputs = new ArmRollersIOInputsAutoLogged();
   private final LoggedTunableNumber rollerVolts;
-  private final LoggedTunableNumber HumanLoadTuneVolts, L0TuneShootingVolts, L1TuneShootingVolts, L2TuneShootingVolts, L3TuneShootingVolts, L4TuneShootingVolts; 
+  private final LoggedTunableNumber A_PROCESSORTuneVolts, A_INTAKETuneVolts, A_BARGETuneVolts, C_INTAKETuneVolts, C_SSPITTuneVolts, C_FSPITTuneVolts, C_L0TuneVolts, C_L1TuneVolts, C_L2TuneVolts, C_L3TuneVolts, C_L4TuneVolts; 
   private Timer deployTime = new Timer();
-  private double HumanLoadVolts, L0ShootingVolts, L1ShootingVolts, L2ShootingVolts, L3ShootingVolts, L4ShootingVolts; 
+  private double A_PROCESSORVolts, A_BARGEVolts, A_INTAKEVolts, C_INTAKEVolts, C_SSPITVolts, C_FSPITVolts, C_L0Volts, C_L1Volts, C_L2Volts, C_L3Volts, C_L4Volts; 
   public enum POS {
     HF,
     L0,
@@ -42,21 +42,29 @@ public class ArmRollers extends SubsystemBase {
   private ArmRollers(ArmRollersIO io) {
     this.io = io;
     this.rollerVolts = new LoggedTunableNumber("Arm/rollerVolts", 7.0);
-    this.HumanLoadTuneVolts = new LoggedTunableNumber("Arm/HumanLoadVolts", SuperStructureConstants.ARM_HF_VOLTS);
-    this.L0TuneShootingVolts = new LoggedTunableNumber("Arm/L0Volts", SuperStructureConstants.ARM_L0_SHOOTINGVOLTS);
-    this.L1TuneShootingVolts = new LoggedTunableNumber("Arm/L1Volts", SuperStructureConstants.ARM_L1_SHOOTINGVOLTS);
-    this.L2TuneShootingVolts = new LoggedTunableNumber("Arm/L2Volts", SuperStructureConstants.ARM_L2_SHOOTINGVOLTS);
-    this.L3TuneShootingVolts = new LoggedTunableNumber("Arm/L3Volts", SuperStructureConstants.ARM_L3_SHOOTINGVOLTS);
-    this.L4TuneShootingVolts = new LoggedTunableNumber("Arm/L4Volts", SuperStructureConstants.ARM_L4_SHOOTINGVOLTS);
+    this.A_PROCESSORTuneVolts = new LoggedTunableNumber("Arm/AProcessorVolts", SuperStructureConstants.ARM_A_PROCESSORVOLTS);
+    this.A_INTAKETuneVolts = new LoggedTunableNumber("Arm/AIntakeVolts", SuperStructureConstants.ARM_A_INTAKEVOLTS);
+    this.A_BARGETuneVolts = new LoggedTunableNumber("Arm/ABargeVolts", SuperStructureConstants.ARM_A_BARGEVOLTS);
+    this.C_FSPITTuneVolts = new LoggedTunableNumber("Arm/CFastSpitVolts", SuperStructureConstants.ARM_C_FASTSPITVOLTS);
+    this.C_INTAKETuneVolts = new LoggedTunableNumber("Arm/CIntakeVolts", SuperStructureConstants.ARM_C_INTAKEVOLTS);
+    this.C_SSPITTuneVolts = new LoggedTunableNumber("Arm/CSlowSPitVolts", SuperStructureConstants.ARM_C_SLOWSPITVOLTS);
+    this.C_L0TuneVolts = new LoggedTunableNumber("Arm/L0Volts", SuperStructureConstants.ARM_C_L0);
+    this.C_L1TuneVolts = new LoggedTunableNumber("Arm/L1Volts", SuperStructureConstants.ARM_C_L1);
+    this.C_L2TuneVolts = new LoggedTunableNumber("Arm/L2Volts", SuperStructureConstants.ARM_C_L2);
+    this.C_L3TuneVolts = new LoggedTunableNumber("Arm/L3Volts", SuperStructureConstants.ARM_C_L3);
+    this.C_L4TuneVolts = new LoggedTunableNumber("Arm/L4Volts", SuperStructureConstants.ARM_C_L4);
 
-
-    HumanLoadVolts = SuperStructureConstants.ARM_HF_VOLTS;
-    L0ShootingVolts = SuperStructureConstants.ARM_L0_SHOOTINGVOLTS;
-    L1ShootingVolts = SuperStructureConstants.ARM_L1_SHOOTINGVOLTS;
-    L2ShootingVolts = SuperStructureConstants.ARM_L2_SHOOTINGVOLTS;
-    L3ShootingVolts = SuperStructureConstants.ARM_L3_SHOOTINGVOLTS;
-    L4ShootingVolts = SuperStructureConstants.ARM_L4_SHOOTINGVOLTS;
-    
+    A_PROCESSORVolts = SuperStructureConstants.ARM_A_PROCESSORVOLTS;
+    A_INTAKEVolts = SuperStructureConstants.ARM_A_INTAKEVOLTS;
+    A_BARGEVolts = SuperStructureConstants.ARM_A_BARGEVOLTS;
+    C_FSPITVolts = SuperStructureConstants.ARM_C_FASTSPITVOLTS;
+    C_INTAKEVolts = SuperStructureConstants.ARM_C_INTAKEVOLTS;
+    C_SSPITVolts = SuperStructureConstants.ARM_C_SLOWSPITVOLTS;
+    C_L0Volts = SuperStructureConstants.ARM_C_L0;
+    C_L1Volts = SuperStructureConstants.ARM_C_L1;
+    C_L2Volts = SuperStructureConstants.ARM_C_L2;
+    C_L3Volts = SuperStructureConstants.ARM_C_L3;
+    C_L4Volts = SuperStructureConstants.ARM_C_L4;
   }
 
   public Command setPosTrack(POS pos){
@@ -108,19 +116,19 @@ public class ArmRollers extends SubsystemBase {
   private void runShoot() {
     switch (currentPosTrack) {
       case L0:
-        setRollerVolts(12);
+        setRollerVolts(SuperStructureConstants.ARM_C_L0);
         break;
       case L1:
-        setRollerVolts(4);
+        setRollerVolts(SuperStructureConstants.ARM_C_L1);
         break;
       case L2:
-        setRollerVolts(4);
+        setRollerVolts(SuperStructureConstants.ARM_C_L2);
         break;
       case L3:
-        setRollerVolts(6);
+        setRollerVolts(SuperStructureConstants.ARM_C_L3);
         break;
       case L4:
-        setRollerVolts(10);
+        setRollerVolts(SuperStructureConstants.ARM_C_L4);
         break;
     }
   }
@@ -166,35 +174,26 @@ public class ArmRollers extends SubsystemBase {
   public void periodic() {
     io.updateLaserCanMeasurement();
     io.updateInputs(inputs);
-    if (HumanLoadTuneVolts.hasChanged(hashCode())) {
-      HumanLoadVolts = HumanLoadTuneVolts.get();
-    }
-    if (L0TuneShootingVolts.hasChanged(hashCode())) {
-      L0ShootingVolts = L0TuneShootingVolts.get();
-    }
-    if (L1TuneShootingVolts.hasChanged(hashCode())) {
-      L1ShootingVolts = L1TuneShootingVolts.get();
-    }
-    if (L2TuneShootingVolts.hasChanged(hashCode())) {
-      L2ShootingVolts = L2TuneShootingVolts.get();
-    }
-    if (L3TuneShootingVolts.hasChanged(hashCode())) {
-      L3ShootingVolts = L3TuneShootingVolts.get();
-    }
-    if (L4TuneShootingVolts.hasChanged(hashCode())) {
-      L4ShootingVolts = L4TuneShootingVolts.get();
-    }
 
-
-
-
-
+    if (C_INTAKETuneVolts.hasChanged(hashCode())) {
+      C_INTAKEVolts = C_INTAKETuneVolts.get();
+    }
+    if (C_L0TuneVolts.hasChanged(hashCode())) {
+      C_L0Volts = C_L0TuneVolts.get();
+    }
+    if (C_L1TuneVolts.hasChanged(hashCode())) {
+      C_L1Volts = C_L1TuneVolts.get();
+    }
+    if (C_L2TuneVolts.hasChanged(hashCode())) {
+      C_L2Volts = C_L2TuneVolts.get();
+    }
+    if (C_L3TuneVolts.hasChanged(hashCode())) {
+      C_L3Volts = C_L3TuneVolts.get();
+    }
+    if (C_L4TuneVolts.hasChanged(hashCode())) {
+      C_L4Volts = C_L4TuneVolts.get();
+    }
 
     Logger.processInputs("Arm", inputs);
-
-
-
-    // runPivot(commandVolts);
-    //lastRollerSpeed = inputs.rollerVelocityRadPerSec;
   }
 }

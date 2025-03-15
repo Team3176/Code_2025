@@ -25,8 +25,8 @@ public class Superstructure {
   private final LoggedTunableNumber pivotTuneSetPoint, velTuneSetPoint, elevTunePositionSetPoint, climbTunePositionSetPoint;
   private final LoggedTunableNumber L1ElvSetpoint, L2ElvSetpoint, L3ElvSetpoint, L4ElvSetpoint;
   private final LoggedTunableNumber HumanLoadElvSetpoint;
-  private final LoggedTunableNumber HumanLoadTuneSetpoint, L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint;
-  private final LoggedTunableNumber HumanLoadTuneVolts, L0TuneShootingVolts, L1TuneShootingVolts, L2TuneShootingVolts, L3TuneShootingVolts, L4TuneShootingVolts;
+  private final LoggedTunableNumber AHOMETuneSetpoint,A1TuneSetpoint, A2TuneSetpoint, A3TuneSetpoint, A4TuneSetpoint;
+  private final LoggedTunableNumber A_PROCESSORTuneVolts, A_INTAKETuneVolts, A_BARGETuneVolts, C_INTAKETuneVolts, C_SSPITTuneVolts, C_FSPITTuneVolts;
 
   public Superstructure() {
     climb = Climb.getInstance();
@@ -35,6 +35,7 @@ public class Superstructure {
     elevator = Elevator.getInstance();
     this.pivotTuneSetPoint = new LoggedTunableNumber("ss/pivotSetpoint", 0);
     this.velTuneSetPoint = new LoggedTunableNumber("ss/velSetpoint", 0);
+
     this.elevTunePositionSetPoint = new LoggedTunableNumber("ss/posSetpoint", 0);
     this.climbTunePositionSetPoint = new LoggedTunableNumber("ss/posSetpoint", 0);
     this.HumanLoadElvSetpoint = new LoggedTunableNumber("ss/ElvL1setpoint", 0);
@@ -42,18 +43,19 @@ public class Superstructure {
     this.L2ElvSetpoint = new LoggedTunableNumber("ss/ElvL2setpoin", SuperStructureConstants.ELEVATORLEADER_L2_POS);
     this.L3ElvSetpoint = new LoggedTunableNumber("ss/ElvL3setpoin", SuperStructureConstants.ELEVATORLEADER_L3_POS);
     this.L4ElvSetpoint = new LoggedTunableNumber("ss/ElvL4setpoint", SuperStructureConstants.ELEVATORLEADER_L4_POS);
-   this.HumanLoadTuneSetpoint = new LoggedTunableNumber("ss/HumanLoadSetpoint", SuperStructureConstants.ARM_HF_POS);
-    this.L0TuneSetpoint = new LoggedTunableNumber("ss/pivL0Setpoint", SuperStructureConstants.ARM_L0_POS);
-    this.L1TuneSetpoint = new LoggedTunableNumber("ss/pivL1Setpoint", SuperStructureConstants.ARM_L1_POS);
-    this.L2TuneSetpoint = new LoggedTunableNumber("ss/pivL2Setpoint", SuperStructureConstants.ARM_L2_POS);
-    this.L3TuneSetpoint = new LoggedTunableNumber("ss/pivL3Setpoint", SuperStructureConstants.ARM_L3_POS);
-    this.L4TuneSetpoint = new LoggedTunableNumber("ss/pivL4Setpoint", SuperStructureConstants.ARM_L4_POS);
-    this.HumanLoadTuneVolts = new LoggedTunableNumber("ss/HumanLoadVolts", -SuperStructureConstants.ARM_L3_SHOOTINGVOLTS);
-    this.L0TuneShootingVolts = new LoggedTunableNumber("ss/L0Volts", SuperStructureConstants.ARM_L0_SHOOTINGVOLTS);
-    this.L1TuneShootingVolts = new LoggedTunableNumber("ss/L1Volts", SuperStructureConstants.ARM_L1_SHOOTINGVOLTS);
-    this.L2TuneShootingVolts = new LoggedTunableNumber("ss/L2Volts", SuperStructureConstants.ARM_L2_SHOOTINGVOLTS);
-    this.L3TuneShootingVolts = new LoggedTunableNumber("ss/L3Volts", SuperStructureConstants.ARM_L3_SHOOTINGVOLTS);
-    this.L4TuneShootingVolts = new LoggedTunableNumber("ss/L4Volts", SuperStructureConstants.ARM_L4_SHOOTINGVOLTS);
+
+    this.AHOMETuneSetpoint = new LoggedTunableNumber("ss/AHomeSetpoint", SuperStructureConstants.ARM_AHOME_POS);
+    this.A1TuneSetpoint = new LoggedTunableNumber("ss/A1Setpoint", SuperStructureConstants.ARM_A1_POS);
+    this.A2TuneSetpoint = new LoggedTunableNumber("ss/A2Setpoint", SuperStructureConstants.ARM_A2_POS);
+    this.A3TuneSetpoint = new LoggedTunableNumber("ss/A3Setpoint", SuperStructureConstants.ARM_A3_POS);
+    this.A4TuneSetpoint = new LoggedTunableNumber("ss/A4Setpoint", SuperStructureConstants.ARM_A4_POS);
+    this.A_PROCESSORTuneVolts = new LoggedTunableNumber("ss/AProcessorVolts", SuperStructureConstants.ARM_A_PROCESSORVOLTS);
+    this.A_INTAKETuneVolts = new LoggedTunableNumber("ss/AIntakeVolts", SuperStructureConstants.ARM_A_INTAKEVOLTS);
+    this.A_BARGETuneVolts = new LoggedTunableNumber("ss/ABargeVolts", SuperStructureConstants.ARM_A_BARGEVOLTS);
+    
+    this.C_FSPITTuneVolts = new LoggedTunableNumber("ss/CFastSpitVolts", SuperStructureConstants.ARM_C_FASTSPITVOLTS);
+    this.C_INTAKETuneVolts = new LoggedTunableNumber("ss/CIntakeVolts", SuperStructureConstants.ARM_C_INTAKEVOLTS);
+    this.C_SSPITTuneVolts = new LoggedTunableNumber("ss/CSlowSPitVolts", SuperStructureConstants.ARM_C_SLOWSPITVOLTS);
   }
 
   public Command armVoltPos() {
@@ -102,32 +104,31 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command goToL0() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L0_POS).andThen(armrollers.setPosTrack(POS.L0)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)).alongWith(armrollers.setPosTrack(POS.L0));
   }
 
   public Command goToL1() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L1_POS).andThen(armrollers.setPosTrack(POS.L1))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS).alongWith(armrollers.setPosTrack(POS.L1)));
   }
 
   public Command goToL2() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L2_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L2_POS).andThen(armrollers.setPosTrack(POS.L2)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L2_POS)).alongWith(armrollers.setPosTrack(POS.L2));
   }
 
   public Command goToL3() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L3_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L3_POS).andThen(armrollers.setPosTrack(POS.L3)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L3_POS)).alongWith(armrollers.setPosTrack(POS.L3));
   }
 
   public Command goToL4() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS)).alongWith(armrollers.setPosTrack(POS.L4));
   }
 
   public Command goToHumanLoad() {
-    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(arm.setPosTrack(POS.HF))));
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(armrollers.setPosTrack(POS.HF)))); }
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(armrollers.setPosTrack(POS.HF))); 
+  }
+
   public Command runRollersIn () {
-    return armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS);
-    //return armrollers.runVelocity(() -> this.HumanLoadTuneVolts.get());
-    //return (arm.runRollersIn(() -> this.HumanLoadTuneVolts.get()));//.until(() -> armrollers.haveCoral());
+    return armrollers.runVelocity(() -> SuperStructureConstants.ARM_C_INTAKEVOLTS);
   }
 
 
@@ -145,18 +146,15 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
 
   public Command testClimbManual(DoubleSupplier climbPosition) {
     return climb.moveClimbPosition(() -> climbPosition.getAsDouble());
-    //return climb.moveClimbPosition(() -> this.climbTunePositionSetPoint.get());
   }
 
 
   public Command transStickClimbExtend() {
     return climb.moveClimbPosition(() -> 1);
-    //return climb.moveClimbPosition(() -> this.climbTunePositionSetPoint.get());
   }
 
   public Command transStickClimbRetract() {
     return climb.moveClimbPosition(() -> -1);
-    //return climb.moveClimbPosition(() -> this.climbTunePositionSetPoint.get());
   }
 
 

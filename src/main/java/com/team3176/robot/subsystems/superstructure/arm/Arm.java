@@ -21,23 +21,22 @@ public class Arm extends SubsystemBase {
   private final ArmIO io;
   private final ArmIOInputsAutoLogged inputs = new ArmIOInputsAutoLogged();
   private final LoggedTunableNumber pivotTuneSetPoint;
-  private final LoggedTunableNumber HumanLoadTuneSetpoint, L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint, A1TuneSetpoint;
+  private final LoggedTunableNumber AHOMETuneSetpoint,A1TuneSetpoint, A2TuneSetpoint, A3TuneSetpoint, A4TuneSetpoint;
   private final TunablePID pivotPID;
   private Timer deployTime = new Timer();
   private double pivotSetpoint;
   private double pivot_offset = 0;
   private boolean ishomed = false;
-  private double pivotHome = SuperStructureConstants.ARM_L0_POS;
-  private double HumanLoadSetpoint, L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint, A1Setpoint, A2Setpoint, A3Setpoint, A4Setpoint;
+  private double pivotHome = SuperStructureConstants.ARM_AHOME_POS;
+  private double AHOMESetpoint, A1Setpoint, A2Setpoint, A3Setpoint, A4Setpoint;
   public enum POS {
-    HF,
-    L0,
-    L1,
-    L2,
-    L3,
-    L4,
+    HOME,
+    A1,
+    A2,
+    A3,
+    A4,
   }
-  public POS currentPosTrack = POS.L0;
+  public POS currentPosTrack = POS.HOME;
 
   private enum pivotStates {
     DEPLOY,
@@ -54,38 +53,20 @@ public class Arm extends SubsystemBase {
     this.io = io;
     this.pivotPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
     this.pivotTuneSetPoint = new LoggedTunableNumber("Arm/pivotSetpoint", 0);
-    this.HumanLoadTuneSetpoint = new LoggedTunableNumber("Arm/HumanLoadSetpoint", SuperStructureConstants.ARM_HF_POS);
-    this.L0TuneSetpoint = new LoggedTunableNumber("Arm/L0Setpoint", SuperStructureConstants.ARM_L0_POS);
-    this.L1TuneSetpoint = new LoggedTunableNumber("Arm/L1Setpoint", SuperStructureConstants.ARM_L1_POS);
-    this.L2TuneSetpoint = new LoggedTunableNumber("Arm/L2Setpoint", SuperStructureConstants.ARM_L2_POS);
-    this.L3TuneSetpoint = new LoggedTunableNumber("Arm/L3Setpoint", SuperStructureConstants.ARM_L3_POS);
-    this.L4TuneSetpoint = new LoggedTunableNumber("Arm/L4Setpoint", SuperStructureConstants.ARM_L4_POS);
 
-    this.A1Setpoint = new LoggedTunableNumber("Arm/A1Setpoint", SuperStructureConstants.A1_POS);
-
+    this.AHOMETuneSetpoint = new LoggedTunableNumber("Arm/AHOMESetpoint", SuperStructureConstants.ARM_AHOME_POS);
+    this.A1TuneSetpoint = new LoggedTunableNumber("Arm/A1Setpoint", SuperStructureConstants.ARM_A1_POS);
+    this.A2TuneSetpoint = new LoggedTunableNumber("Arm/A2Setpoint", SuperStructureConstants.ARM_A2_POS);
+    this.A3TuneSetpoint = new LoggedTunableNumber("Arm/A3Setpoint", SuperStructureConstants.ARM_A3_POS);
+    this.A4TuneSetpoint = new LoggedTunableNumber("Arm/A4Setpoint", SuperStructureConstants.ARM_A4_POS);
+    
     this.pivotHome = inputs.pivotPositionRot;
 
-
-    HumanLoadSetpoint = SuperStructureConstants.ARM_HF_POS;
-    L0Setpoint = SuperStructureConstants.ARM_L0_POS;
-    L1Setpoint = SuperStructureConstants.ARM_L1_POS;
-    L2Setpoint = SuperStructureConstants.ARM_L2_POS;
-    L3Setpoint = SuperStructureConstants.ARM_L3_POS;
-    L4Setpoint = SuperStructureConstants.ARM_L4_POS;
-
-    A1Setpoint = SuperStructureConstants.A1_POS;
-    A2Setpoint = SuperStructureConstants.A2_POS;
-    A3Setpoint = SuperStructureConstants.A3_POS;
-    A4Setpoint = SuperStructureConstants.A4_POS;
-
-
-
-
-
-
-
-
-
+    AHOMESetpoint = SuperStructureConstants.ARM_AHOME_POS;
+    A1Setpoint = SuperStructureConstants.ARM_A1_POS;
+    A2Setpoint = SuperStructureConstants.ARM_A2_POS;
+    A3Setpoint = SuperStructureConstants.ARM_A3_POS;
+    A4Setpoint = SuperStructureConstants.ARM_A4_POS;
   }
 
   public Command setPosTrack(POS pos){
@@ -187,24 +168,7 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     io.updateLaserCanMeasurement();
     io.updateInputs(inputs);
-    if (HumanLoadTuneSetpoint.hasChanged(hashCode())) {
-      HumanLoadSetpoint = HumanLoadTuneSetpoint.get();
-    }
-    if (L0TuneSetpoint.hasChanged(hashCode())) {
-      L0Setpoint = L0TuneSetpoint.get();
-    }
-    if (L1TuneSetpoint.hasChanged(hashCode())) {
-      L1Setpoint = L1TuneSetpoint.get();
-    }
-    if (L2TuneSetpoint.hasChanged(hashCode())) {
-      L2Setpoint = L2TuneSetpoint.get();
-    }
-    if (L3TuneSetpoint.hasChanged(hashCode())) {
-      L3Setpoint = L3TuneSetpoint.get();
-    }
-    if (L4TuneSetpoint.hasChanged(hashCode())) {
-      L4Setpoint = L4TuneSetpoint.get();
-    }
+
 
 
     Logger.processInputs("Arm", inputs);
@@ -213,21 +177,8 @@ public class Arm extends SubsystemBase {
 
 
     }
-   // double pivot_pos = inputs.pivotPositionRot - pivot_offset;
-   // if (!ishomed && pivotSetpoint > 1.0) {
-   //   pivot_pos = -3.0;
-   // }
-   // double commandVolts = pivotPID.calculate(pivot_pos, pivotSetpoint);
-   // if (pivot_pos <= 0.7) {
-   //   commandVolts *= 1.6;
-   // }
-    //commandVolts = MathUtil.clamp(commandVolts, -3.5, 2.0);
 
-    //Logger.recordOutput("Arm/PID_out", commandVolts);
     Logger.recordOutput("Arm/setpoint", this.pivotSetpoint);
-    //Logger.recordOutput("Arm/offsetPos", pivot_pos_offset);
-    // runPivot(commandVolts);
     pivotPID.checkParemeterUpdate();
-    //lastRollerSpeed = inputs.rollerVelocityRadPerSec;
   }
 }
