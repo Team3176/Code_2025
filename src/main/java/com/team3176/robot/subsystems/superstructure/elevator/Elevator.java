@@ -252,6 +252,15 @@ public void setCoast() {
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
     pid.checkParemeterUpdate();
+
+    if (inputs.isbotLimitswitch && inputs.leftVolts < 0) {
+      io.setLeftVoltage(0);
+    }
+
+    if (inputs.istopLimitswitch && inputs.leftVolts >= 0) {
+      io.setLeftVoltage(0);
+    }
+
   }
 
   public static Elevator getInstance() {

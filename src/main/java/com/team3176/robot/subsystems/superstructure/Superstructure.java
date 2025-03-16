@@ -102,23 +102,28 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command goToL0() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L0_POS).andThen(armrollers.setPosTrack(POS.L0)));
+//    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L0_POS).andThen(armrollers.setPosTrack(POS.L0)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS));
   }
 
   public Command goToL1() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L1_POS).andThen(armrollers.setPosTrack(POS.L1))));
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L1_POS).andThen(armrollers.setPosTrack(POS.L1))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS));
   }
 
   public Command goToL2() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L2_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L2_POS).andThen(armrollers.setPosTrack(POS.L2)));
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L2_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L2_POS).andThen(armrollers.setPosTrack(POS.L2)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L2_POS));
   }
 
   public Command goToL3() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L3_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L3_POS).andThen(armrollers.setPosTrack(POS.L3)));
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L3_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L3_POS).andThen(armrollers.setPosTrack(POS.L3)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L3_POS));
   }
 
   public Command goToL4() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS));
   }
 
   public Command goToHumanLoad() {
