@@ -31,7 +31,7 @@ import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
-import com.team3176.robot.subsystems.vision.PhotonVisionSystem;
+import com.team3176.robot.subsystems.vision.Vision;
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -45,7 +45,7 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive = Drive.getInstance();
 
-  private final PhotonVisionSystem vision = PhotonVisionSystem.getInstance();
+  //private final Vision vision = new Vision(); //  Vision.getInstance();
   // Controller
   // private final CommandXboxController controller = new CommandXboxController(0);
   private final Controller controller = Controller.getInstance();
