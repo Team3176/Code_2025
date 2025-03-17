@@ -276,12 +276,13 @@ public class RobotContainer {
     controller.operator.pov(180).onTrue(superstructure.goToL0()); 
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
     // Human Load Positions and Rollers
-    controller.operator.rightBumper().onTrue(superstructure.goToHumanLoad()); //.onFalse(superstructure.goToL0());
+    controller.operator.rightBumper().onTrue(superstructure.grabAlgae()).onFalse(superstructure.squeezeAlgae()); //.onFalse(superstructure.goToL0());
     controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
+    controller.operator.start().onTrue(superstructure.algaeToHome());
 
     // Shoot
     controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
-
+    controller.transStick.button(2).onTrue(superstructure.shootAlgae()).onFalse(superstructure.stopRollers());
     
     
       

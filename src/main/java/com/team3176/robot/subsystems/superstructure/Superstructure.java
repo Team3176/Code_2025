@@ -126,9 +126,16 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS));
   }
 
-  public Command goToHumanLoad() {
+  public Command grabAlgae() {
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(arm.setPosTrack(POS.HF))));
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(armrollers.setPosTrack(POS.HF)))); }
+    return (arm.runPosition(() -> SuperStructureConstants.ARM_GRABALGAE_POS).andThen(armrollers.setPosTrack(POS.HF))); }
+  public Command squeezeAlgae() {
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(arm.setPosTrack(POS.HF))));
+    return (arm.runPosition(() -> SuperStructureConstants.ARM_SQUEEZE_POS).andThen(armrollers.setPosTrack(POS.HF))); }
+  public Command algaeToHome() {
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(arm.setPosTrack(POS.HF))));
+    return (arm.runPosition(() -> SuperStructureConstants.ARM_ALGAEZERO_POS));}
+
   public Command runRollersIn () {
     return armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS);
     //return armrollers.runVelocity(() -> this.HumanLoadTuneVolts.get());
@@ -138,6 +145,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
 
   public Command shoot() {
     return (armrollers.shoot());
+  }
+
+  public Command shootAlgae() {
+    return (armrollers.shootAlgae());
   }
 
   public Command stopRollers() {
