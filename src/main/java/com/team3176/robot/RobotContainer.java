@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -159,6 +161,41 @@ public class RobotContainer {
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     */
+
+    NamedCommands.registerCommand("L0", superstructure.goToL0()
+        .andThen(new WaitCommand(1))
+        .andThen(superstructure.shoot())
+        .withTimeout(1));
+
+    NamedCommands.registerCommand("L1", superstructure.goToL1()
+        .andThen(new WaitCommand(1))
+        .andThen(superstructure.shoot())
+        .withTimeout(1) 
+        .andThen(superstructure.goToL0()));
+
+    NamedCommands.registerCommand("L2", superstructure.goToL2()
+        .andThen(new WaitCommand(1))
+        .andThen(superstructure.shoot())
+        .withTimeout(1) 
+        .andThen(superstructure.goToL0()));
+
+    NamedCommands.registerCommand("L3", superstructure.goToL3()
+        .andThen(new WaitCommand(1))
+        .andThen(superstructure.shoot())
+        .withTimeout(1) 
+        .andThen(superstructure.goToL0()));
+
+    NamedCommands.registerCommand("L4", superstructure.goToL4()
+        .andThen(new WaitCommand(1))
+        .andThen(superstructure.shoot())
+        .withTimeout(1) 
+        .andThen(superstructure.goToL0()));
+
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn());
+
+
+
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -291,16 +328,6 @@ public class RobotContainer {
     //controller.operator.b().whileTrue(superstructure.armVoltVel());
     //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
     controller.operator.rightTrigger(.90).whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
-    
-
-
-
-
-
-
-
-
-
 
 
     /* 
