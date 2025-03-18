@@ -103,6 +103,14 @@ public class Climb extends SubsystemBase {
       }); 
     }
 
+  public Command set2Home() {
+    return this.runOnce(
+      () -> {
+         
+      }); 
+
+  }
+
 
   @Override
   public void periodic() {
