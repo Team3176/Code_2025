@@ -113,26 +113,15 @@ public class ArmRollers extends SubsystemBase {
         setRollerVolts(4);
         break;
       case L2:
-        setRollerVolts(10);
+        setRollerVolts(4);
         break;
       case L3:
-        setRollerVolts(10);
+        setRollerVolts(6);
         break;
       case L4:
         setRollerVolts(10);
         break;
     }
-  }
-
-  public Command shootAlgae() {
-    return this.run(
-      () -> {
-        runAlgaeShoot();
-      });
-  }
-
-  private void runAlgaeShoot() {
-    setRollerVolts(-10);
   }
 
   public Command runRollersIn(DoubleSupplier volts) {

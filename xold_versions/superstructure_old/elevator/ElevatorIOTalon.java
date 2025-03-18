@@ -23,9 +23,6 @@ import com.team3176.robot.constants.Hardwaremap;
 import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.subsystems.superstructure.elevator.ElevatorIO.ElevatorIOInputs;
 import com.team3176.robot.util.TalonUtils;
-import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
-
-
 
 /** Template hardware interface for the Elevator subsystem. */
 public class ElevatorIOTalon implements ElevatorIO {
@@ -44,7 +41,6 @@ public class ElevatorIOTalon implements ElevatorIO {
 
   public ElevatorIOTalon() {
     configsLeft = new TalonFXConfiguration();
-    configsRight = new TalonFXConfiguration();
     brake = new NeutralOut();
     voltPosition = new PositionVoltage(0);
     elevatortoplimitswitch = new DigitalInput(Hardwaremap.elevatorTopLimitSwitch_DIO);
@@ -61,11 +57,8 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     configsLeft.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     configsLeft.TorqueCurrent.withPeakForwardTorqueCurrent(120).withPeakReverseTorqueCurrent(-120);
-    configsLeft.ClosedLoopRamps.withVoltageClosedLoopRampPeriod(0.25);
-    configsRight.ClosedLoopRamps.withVoltageClosedLoopRampPeriod(0.25);
 
-
-    configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
 
     //TODO set max height
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
@@ -74,10 +67,8 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
         SuperStructureConstants.ELEVATORLEADER_ZERO_POS;
     configsLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    configsRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
 
-    TalonUtils.applyTalonFxConfigs(elevatorRightFollower, configsRight);
     TalonUtils.applyTalonFxConfigs(elevatorLeftLeader, configsLeft);
 
     leftPosition = elevatorLeftLeader.getPosition();
@@ -151,8 +142,8 @@ public class ElevatorIOTalon implements ElevatorIO {
     else if(voltage < 0 && elevatorbotLimitswitch.get()){
       elevatorLeftLeader.setVoltage(voltage);
     }
-    else {
-    
+    else{
+
       elevatorLeftLeader.setVoltage(0);
     }
   }

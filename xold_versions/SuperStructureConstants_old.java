@@ -12,9 +12,9 @@ public class SuperStructureConstants {
   public static final double CLIMB_kg = 0.2;
   public static final double CLIMB_TOLERANCE = 3;
   public static final double CLIMB_ZERO_POS = 0;
-  public static final double CLIMB_MAXRETRACT_POS = 0; // CLIMB_ZERO_POS - 20;
+  public static final double CLIMB_MAXRETRACT_POS = 75; // CLIMB_ZERO_POS - 20;
   public static final double CLIMB_DEPLOY_POS = 160 + CLIMB_ZERO_POS;
-  public static final double CLIMB_MAXDEPLOY_POS = -163 + CLIMB_ZERO_POS;
+  public static final double CLIMB_MAXDEPLOY_POS = -200 + CLIMB_ZERO_POS;
   public static final double CLIMB_SIM_OFFSET = 63 + CLIMB_ZERO_POS;
 
   public static final double ARM_OUTPUT_POWER = 1;
@@ -29,21 +29,18 @@ public class SuperStructureConstants {
   public static final double ARM_SIM_OFFSET = 63 + ARM_ZERO_POS;
   public static final double ARM_ENCODER_OFFSET = 0;
   public static final double CORAL_DISTANCE = 20;
-  public static final double ARM_HF_POS = 0.30;
-  public static final double ARM_ALGAEZERO_POS = 0.0;
-  public static final double ARM_GRABALGAE_POS = 0.250;
-  public static final double ARM_SQUEEZE_POS = 0.10;
+  public static final double ARM_HF_POS = 0.80;
   public static final double ARM_L0_POS = 0.16;
   public static final double ARM_L1_POS = 0.34;
   public static final double ARM_L2_POS = 0.16;
   public static final double ARM_L3_POS = 0.14;
   public static final double ARM_L4_POS = 0.075;
-  public static final double ARM_HF_VOLTS = 3;
+  public static final double ARM_HF_VOLTS = -6;
   public static final double ARM_L0_SHOOTINGVOLTS = 12;
   public static final double ARM_L1_SHOOTINGVOLTS = 12;
-  public static final double ARM_L2_SHOOTINGVOLTS = 10;
-  public static final double ARM_L3_SHOOTINGVOLTS = 10;
-  public static final double ARM_L4_SHOOTINGVOLTS = 10;
+  public static final double ARM_L2_SHOOTINGVOLTS = 6;
+  public static final double ARM_L3_SHOOTINGVOLTS = 5;
+  public static final double ARM_L4_SHOOTINGVOLTS = 6;
 
   public static final double ELEVATORLEADERj_kP = 0.006;
   public static final double ELEVATORLEADER_kP = 0.006;
@@ -52,13 +49,13 @@ public class SuperStructureConstants {
   public static final double ELEVATORLEADER_kg = 0.2;
   public static final double ELEVATORLEADER_TOLERANCE = 3;
   public static final double ELEVATORLEADER_ZERO_POS = 0.0;
-  public static final double ELEVATORLEADER_TOP_POS = 110 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_TOP_POS = 75 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_SIM_OFFSET = 62 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_L0_POS = 0 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_L1_POS = 0 + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_L2_POS = 45  + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_L3_POS = 68 + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_L4_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_L2_POS = 33  + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_L3_POS = 58 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_L4_POS = 107 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_HF_POS = 0 + ELEVATORLEADER_ZERO_POS;
 
   /*

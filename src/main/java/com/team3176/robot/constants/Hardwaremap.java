@@ -8,20 +8,19 @@ public class Hardwaremap {
   /*
    * Superstructer CIDs & CBNs
    */
-  public static final int conveyor = 3;
-  public static final int shooterTransfer_CID = 5;
-  public static final int shooterPivot_CID = 8;
   public static final int indexerRoller_CID = 9;
   public static final int armRoller_CID = 28;  
   public static final int armPivot_CID = 29;
-  public static final int armCancoder_CID = 28;
+  public static final int armCancoder_CID = 27;
   public static final int indexerPivot_CID = 4;
-  public static final int climb_CID = 8;
-  public static final int elevatorLeft_CID = 60;
-  public static final int elevatorRight_CID = 61;
+  public static final int climb_CID = 49;
+  public static final int elevatorLeft_CID = 61;
+  public static final int elevatorRight_CID = 60;
   public static int PDH_CID = 1;
   public static int laserCan_CID = 48;
   public static int pigeon_CID = 5;
+  public static int TOF_LEFT_CID = 7;
+  public static int TOF_RIGHT_CID = 8;
 
   public static final String conveyor_CBN = "rio";
   public static final String shooterWheelUpper_CBN = "rio";

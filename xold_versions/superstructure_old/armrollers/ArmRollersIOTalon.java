@@ -51,7 +51,7 @@ public class ArmRollersIOTalon implements ArmRollersIO {
   private final StatusSignal<AngularVelocity> rollerVelocity;
   private final StatusSignal<Temperature> rollerTemp;
   private LaserCan lc;
-  private LaserCan.Measurement measurement = new LaserCan.Measurement(0, 0, 0, false, 0, null);
+  private LaserCan.Measurement measurement;
   public boolean hasCoral = false;
   private double coralDistance = 100; 
   
@@ -75,7 +75,6 @@ public class ArmRollersIOTalon implements ArmRollersIO {
     // pivotLinebreak = new DigitalInput(Hardwaremap.armPivotLinebreak_DIO);
     rollerController = new TalonFX(Hardwaremap.armRoller_CID, Hardwaremap.armRoller_CBN);
 
-    rollerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     TalonUtils.applyTalonFxConfigs(rollerController, rollerConfigs);
 
@@ -85,7 +84,7 @@ public class ArmRollersIOTalon implements ArmRollersIO {
     rollerCurrentAmpsSupply = rollerController.getSupplyCurrent();
     rollerVelocity = rollerController.getVelocity();
     rollerTemp = rollerController.getDeviceTemp();
-    
+
     BaseStatusSignal.setUpdateFrequencyForAll(
         50,
         rollerAppliedVolts,
