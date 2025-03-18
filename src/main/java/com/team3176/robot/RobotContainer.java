@@ -51,7 +51,7 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Superstructure
-//  private final Superstructure superstructure = Superstructure.getInstance();
+  private final Superstructure superstructure = Superstructure.getInstance();
 
   
   // Dashboard inputs
@@ -192,6 +192,39 @@ public class RobotContainer {
 
 
     // ***** OPERATOR CONTROLLER *****
+ // Climb buttons
+    // Max retraction position = -70
+    // Staring configuration = 0 to -5
+    // Max extension = 
+    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
+    controller.transStick.button(16).and(controller.transStick.button(15)).whileTrue(superstructure.transStickClimbExtend());
+    controller.transStick.button(16).and(controller.transStick.button(14)).whileTrue(superstructure.transStickClimbRetract());
+     
+    // Scoring Positions
+    controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
+    controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
+    controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
+    controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());   
+    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    controller.transStick.button(11).onTrue(superstructure.goToL0());   
+    // Human Load Positions and Rollers
+    controller.operator.rightBumper().onTrue(superstructure.grabAlgae()).onFalse(superstructure.squeezeAlgae()); //.onFalse(superstructure.goToL0());
+    controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
+    controller.operator.start().onTrue(superstructure.algaeToHome());
+
+    // Shoot
+    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
+    controller.transStick.button(2).onTrue(superstructure.shootAlgae()).onFalse(superstructure.stopRollers());
+    
+    
+      
+    //controller.operator.a().onTrue(superstructure.armVoltPos()).onFalse(superstructure.arm2Home());
+    //controller.operator.rightTrigger(.90).whileTrue(superstructure.armVoltPosManual(() -> controller.operator.getRightY()));
+    //controller.operator.leftBumper().whileTrue(superstructure.armVoltVelManual(() -> controller.operator.getLeftY())).onFalse(superstructure.stopRollers());
+    //controller.operator.b().whileTrue(superstructure.armVoltVel());
+    //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
+    controller.operator.rightTrigger(.90).whileTrue(superstructure.testElevatorManual(() -> controller.operator.getRightY()));
+    
 
     // Climb buttons
     // Max retraction position = ~+70 // Starting configuration = 0 to -5 // Max extension = ~-150
