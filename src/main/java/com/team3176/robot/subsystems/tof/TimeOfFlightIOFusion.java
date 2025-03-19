@@ -7,12 +7,13 @@ import com.team3176.robot.constants.Hardwaremap;
 
 public class TimeOfFlightIOFusion implements TimeOfFlightIO {
   private static TimeOfFlightSystem instance;
-  TimeOfFlight TOF_left, TOF_right;
+  TimeOfFlight TOF_left, TOF_right, TOF_center;
 
 
   public TimeOfFlightIOFusion() {
     TOF_left = new TimeOfFlight(Hardwaremap.TOF_LEFT_CID);
     TOF_right = new TimeOfFlight(Hardwaremap.TOF_RIGHT_CID);
+    TOF_center = new TimeOfFlight(Hardwaremap.TOF_CENTER_CID);
   }
 
   public void setViewZone_right(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY) {
@@ -23,6 +24,10 @@ public class TimeOfFlightIOFusion implements TimeOfFlightIO {
     TOF_left.setRangeOfInterest(topLeftX, topLeftY, bottomRightX, bottomRightY);
   }
 
+  public void setViewZone_center(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY) {
+    TOF_center.setRangeOfInterest(topLeftX, topLeftY, bottomRightX, bottomRightY);
+  }
+
    public double getRangeInches_right() {
     return Math.round(((getRangeRaw_right())/(25.4))*100.0)/100.0;
   }
@@ -31,14 +36,23 @@ public class TimeOfFlightIOFusion implements TimeOfFlightIO {
     return Math.round(((getRangeRaw_left())/(25.4))*100.0)/100.0;
   }
 
+   public double getRangeInches_center() {
+    return Math.round(((getRangeRaw_center())/(25.4))*100.0)/100.0;
+  }
+
   public double getRangeRaw_right() {
-    System.out.println("Tof getRangeRaw right = "+ TOF_right.getRange());
+    //System.out.println("Tof getRangeRaw right = "+ TOF_right.getRange());
     return TOF_right.getRange() - 30.0;
   }
 
   public double getRangeRaw_left() {
-    System.out.println("Tof getRangeRaw left = "+ TOF_left.getRange());
+    //System.out.println("Tof getRangeRaw left = "+ TOF_left.getRange());
     return TOF_left.getRange() - 30.0;
+  }
+
+  public double getRangeRaw_center() {
+    //System.out.println("Tof getRangeRaw left = "+ TOF_center.getRange());
+    return TOF_center.getRange() - 30.0;
   }
 
   public double getRangeCentimeters_right() {
@@ -49,12 +63,20 @@ public class TimeOfFlightIOFusion implements TimeOfFlightIO {
     return getRangeRaw_left()/10;
   } 
 
+  public double getRangeCentimeters_center() {
+    return getRangeRaw_center()/10;
+  } 
+
   public void close_right() {
     TOF_right.close();
   }
 
   public void close_left() {
     TOF_left.close();
+  }
+
+  public void close_center() {
+    TOF_center.close();
   }
 
   public void setRange_right(String sMode, double sampleTime) {
@@ -78,6 +100,16 @@ public class TimeOfFlightIOFusion implements TimeOfFlightIO {
        TOF_left.setRangingMode(RangingMode.Medium, sampleTime);
     }
   }
+  public void setRange_center(String sMode, double sampleTime) {
+    switch(sMode.toLowerCase()) {
+      case "short":
+       TOF_center.setRangingMode(RangingMode.Short, sampleTime);
+      case "long":
+       TOF_center.setRangingMode(RangingMode.Long, sampleTime);
+      case "medium":
+       TOF_center.setRangingMode(RangingMode.Medium, sampleTime);
+    }
+  }
   @Override
   public void updateInputs(TimeOfFlightIOInputs inputs) {
     inputs.rangeRaw_right = getRangeRaw_right();
@@ -88,6 +120,10 @@ public class TimeOfFlightIOFusion implements TimeOfFlightIO {
     inputs.rangeInches_left = getRangeInches_left();
     inputs.rangeCentimeters_left = getRangeCentimeters_left();
     inputs.rangeMeters_left = getRangeMeters_left();
+    inputs.rangeRaw_center = getRangeRaw_center();
+    inputs.rangeInches_center = getRangeInches_center();
+    inputs.rangeCentimeters_center = getRangeCentimeters_center();
+    inputs.rangeMeters_center = getRangeMeters_center();
   }
 
 }

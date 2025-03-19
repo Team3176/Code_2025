@@ -32,6 +32,10 @@ import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
 import com.team3176.robot.subsystems.vision.Vision;
+import com.team3176.robot.subsystems.vision.VisionIO;
+import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
+import static com.team3176.robot.subsystems.vision.VisionConstants.*;
+import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -52,13 +56,20 @@ public class RobotContainer {
 
   // Superstructure
 private final Superstructure superstructure = Superstructure.getInstance();
-
+private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
+//private final Vision vision;
   
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    //vision = new Vision(drive::addVisionMeasurement,
+    //new VisionIOPhotonVision(camera1Name, robotToCamera1),
+    //new VisionIOPhotonVision(camera2Name, robotToCamera2),
+    //new VisionIOPhotonVision(camera3Name, robotToCamera3),
+    //new VisionIOPhotonVision(camera4Name, robotToCamera4));
     // switch (Constants.currentMode) {
     // case REAL:
     // Real robot, instantiate hardware IO implementations

@@ -19,8 +19,9 @@ public class Hardwaremap {
   public static int PDH_CID = 1;
   public static int laserCan_CID = 48;
   public static int pigeon_CID = 5;
-  public static int TOF_LEFT_CID = 7;
-  public static int TOF_RIGHT_CID = 8;
+  public static int TOF_LEFT_CID = 8;
+  public static int TOF_RIGHT_CID = 7;
+  public static int TOF_CENTER_CID = 9;
 
   public static final String conveyor_CBN = "rio";
   public static final String shooterWheelUpper_CBN = "rio";

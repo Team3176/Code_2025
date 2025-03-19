@@ -6,11 +6,9 @@ import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.team3176.robot.constants.Hardwaremap;
 import com.team3176.robot.subsystems.tof.TimeOfFlightIO.TimeOfFlightIOInputs;
-
+import org.littletonrobotics.junction.Logger;
 
 public class TimeOfFlightSystem extends SubsystemBase{
-  private TimeOfFlightIOFusion TOF_right;
-  private TimeOfFlightIOFusion TOF_left;
   private static TimeOfFlightSystem instance;
   private final TimeOfFlightIO io;
   private final TimeOfFlightIOInputsAutoLogged inputs = new TimeOfFlightIOInputsAutoLogged();
@@ -28,6 +26,9 @@ public class TimeOfFlightSystem extends SubsystemBase{
   public Command getTofRightRange() {
     return this.runOnce (() -> {io.getRangeRaw_right();});
   }
+  public Command getTofCenterRange() {
+    return this.runOnce (() -> {io.getRangeRaw_center();});
+  }
 
   
 
@@ -37,7 +38,6 @@ public class TimeOfFlightSystem extends SubsystemBase{
   public static TimeOfFlightSystem getInstance() {
     if (instance == null) {
       instance = new TimeOfFlightSystem(new TimeOfFlightIOFusion() {});
-      System.out.println("Superstructure instance created.");
     }
     return instance;
   }
@@ -45,6 +45,7 @@ public class TimeOfFlightSystem extends SubsystemBase{
   @Override
   public void periodic() {
     io.updateInputs(inputs);
+    Logger.processInputs("TOF", inputs);
     // This method will be called once per scheduler run
   }
 }
