@@ -36,43 +36,43 @@ public class VisionConstants {
   // (Not used by Limelight, configure in web UI instead)
   public static Transform3d robotToCamera1 =
       new Transform3d(
-        Units.inchesToMeters(-11.5),
+        Units.inchesToMeters(11.5),
+        Units.inchesToMeters(-11.5), 
+        Units.inchesToMeters(7),
+        new Rotation3d(
+            Units.degreesToRadians(0.0), 
+            Units.degreesToRadians(-10), 
+            Units.degreesToRadians(-90))
+    );
+  public static Transform3d robotToCamera2 =
+      new Transform3d(
+        Units.inchesToMeters(11.5),
         Units.inchesToMeters(11.5), 
-        Units.inchesToMeters(-7),
+        Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
             Units.degreesToRadians(-10), 
             Units.degreesToRadians(90))
     );
-  public static Transform3d robotToCamera2 =
-      new Transform3d(
-        Units.inchesToMeters(-11.5),
-        Units.inchesToMeters(-11.5), 
-        Units.inchesToMeters(-7),
-        new Rotation3d(
-            Units.degreesToRadians(0.0), 
-            Units.degreesToRadians(-10), 
-            Units.degreesToRadians(-90))
-    );
   public static Transform3d robotToCamera3 =
       new Transform3d(
-        Units.inchesToMeters(11.5),
-        Units.inchesToMeters(-11.5), 
-        Units.inchesToMeters(-7),
+        Units.inchesToMeters(-11.5),
+        Units.inchesToMeters(11.5), 
+        Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
             Units.degreesToRadians(-10), 
-            Units.degreesToRadians(-90))
+            Units.degreesToRadians(90))
     );
   public static Transform3d robotToCamera4 =
       new Transform3d(
-        Units.inchesToMeters(11.5),
-        Units.inchesToMeters(11.5), 
-        Units.inchesToMeters(-7),
+        Units.inchesToMeters(-11.5),
+        Units.inchesToMeters(-11.5), 
+        Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
             Units.degreesToRadians(-10), 
-            Units.degreesToRadians(135))
+            Units.degreesToRadians(-135))
     );
 
   // Basic filtering thresholds
