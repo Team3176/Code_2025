@@ -17,8 +17,14 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -55,10 +61,15 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Superstructure
-private final Superstructure superstructure = Superstructure.getInstance();
-private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
-//private final Vision vision;
-  
+  private final Superstructure superstructure = Superstructure.getInstance();
+  private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
+  //private final Vision vision;
+
+  private Alliance currentAlliance = Alliance.Blue;
+//  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
+  private Trigger visionOverride; 
+ 
+
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
 
@@ -167,6 +178,13 @@ private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); /
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    ///// SETUP OVERRIDE BOX ////////
+    visionOverride = controller.switchBox.button(4);
+
+
+
+
     // Default command, normal field-relative drive
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
@@ -299,6 +317,10 @@ private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); /
     //controller.operator.leftBumper().whileTrue(superstructure.armVoltVelManual(() -> controller.operator.getLeftY())).onFalse(superstructure.stopRollers());
     //controller.operator.b().whileTrue(superstructure.armVoltVel());
     //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
+
+
+    controller.switchBox.button(4).onTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
+
   }
 
   /**
