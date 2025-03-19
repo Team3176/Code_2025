@@ -60,6 +60,9 @@ public class SuperStructureConstants {
   public static final double ELEVATORLEADER_L3_POS = 68 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_L4_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_HF_POS = 0 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_A1_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_A2_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_A3_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
 
   /*
   public static final double ELEVATORRIGHT_kP = 0.006;

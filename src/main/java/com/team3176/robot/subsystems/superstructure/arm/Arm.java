@@ -29,6 +29,7 @@ public class Arm extends SubsystemBase {
   private boolean ishomed = false;
   private double pivotHome = SuperStructureConstants.ARM_L0_POS;
   private double HumanLoadSetpoint, L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint;
+  private double homePos = 0;
   public enum POS {
     HF,
     L0,
@@ -160,11 +161,27 @@ public class Arm extends SubsystemBase {
   public Command setPivot2Brake() {
     return this.runOnce(
       () -> {
-        setPivotCoast();
+        setPivotBrake();
       }); 
     }
 
+  public Command deployDeAlgea() {
+    return this.runOnce(
+      () -> {
+        deployArmToDeAlgea();
+      }
+    );
+  }
 
+  public void setCurrentHomePos() {
+    this.homePos = inputs.pivotPositionRot;
+  }
+
+  public void deployArmToDeAlgea() {
+    setCurrentHomePos();
+    double deployPos = this.homePos + 70;
+  }
+  
 
   @Override
   public void periodic() {

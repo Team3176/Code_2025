@@ -126,6 +126,21 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS));
   }
 
+  public Command goToA1(){
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A1_POS));
+  }
+
+  public Command goToA2(){
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A2_POS));
+  }
+
+  public Command goToA3(){
+    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A3_POS));
+  }
+
   public Command grabAlgae() {
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(arm.setPosTrack(POS.HF))));
     return (arm.runPosition(() -> SuperStructureConstants.ARM_GRABALGAE_POS).andThen(armrollers.setPosTrack(POS.HF))); }
