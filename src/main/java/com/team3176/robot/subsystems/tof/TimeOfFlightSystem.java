@@ -15,18 +15,19 @@ public class TimeOfFlightSystem extends SubsystemBase{
   private double tof_left, tof_right, tof_center;
   private double tof_left_tolerance, tof_right_tolerance, tof_center_tolerance;
   private double tof_left_setpoint, tof_right_setpoint, tof_center_setpoint;
-
+  private boolean left_aligned = false;
+  private boolean center_aligned = false;
 
   public TimeOfFlightSystem(TimeOfFlightIO io) {
     this.io = io;
     io.updateInputs(inputs);
-    tof_center_tolerance = 30;
-    tof_left_tolerance = 30;
-    tof_right_tolerance = 30;
+    tof_center_tolerance = 10;
+    tof_left_tolerance = 10;
+    tof_right_tolerance = 10;
     
-    tof_center_setpoint = 550;
-    tof_left_setpoint = 127;
-    tof_right_setpoint = 300;
+    tof_center_setpoint = 540;
+    tof_left_setpoint = 120;
+    tof_right_setpoint = 209;
   }
 
   
@@ -41,7 +42,13 @@ public class TimeOfFlightSystem extends SubsystemBase{
     return this.runOnce (() -> {io.getRangeRaw_center();});
   }
 
-  
+  public boolean isAlignedLeft(){
+    return this.left_aligned;
+  } 
+
+  public boolean isAlignedCenter(){
+    return this.center_aligned;
+  } 
 
 
 
@@ -58,5 +65,16 @@ public class TimeOfFlightSystem extends SubsystemBase{
     io.updateInputs(inputs);
     Logger.processInputs("TOF", inputs);
     // This method will be called once per scheduler run
+    if (io.getRangeRaw_left() <= (tof_left_setpoint + tof_left_tolerance) &&  
+       io.getRangeRaw_left() >= (tof_left_setpoint - tof_left_tolerance) &&
+       io.getRangeRaw_center() <= (tof_center_setpoint + tof_center_tolerance) &&
+       io.getRangeRaw_center() >= (tof_center_setpoint - tof_center_tolerance)) {
+        this.left_aligned = true; }
+        else {this.left_aligned = false;}
+    
+   if (io.getRangeRaw_center() <= (tof_center_setpoint + tof_center_tolerance) &&  
+       io.getRangeRaw_center() >= (tof_center_setpoint - tof_center_tolerance)) {
+        this.center_aligned = true; }
+        else {this.center_aligned = false;}
   }
 }
