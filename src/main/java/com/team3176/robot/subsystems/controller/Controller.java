@@ -57,8 +57,10 @@ public class Controller {
    */
   public double getSpin() {
 
-    return ControllerConstants.SPIN_AXIS_INVERSION * rotStick.getX();
+    return ControllerConstants.SPIN_AXIS_INVERSION * ControllerConstants.SPIN_AXIS_SCALER * rotStick.getX();
   }
+
+ 
 
   public double getXboxJoyLeft() {
     // System.out.println("getLeftY = " + operator.getLeftY());

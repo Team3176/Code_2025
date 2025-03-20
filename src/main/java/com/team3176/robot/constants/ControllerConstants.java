@@ -16,4 +16,5 @@ public final class ControllerConstants {
   public static final int FORWARD_AXIS_INVERSION = -1;
   public static final int STRAFE_AXIS_INVERSION = -1;
   public static final int SPIN_AXIS_INVERSION = -1;
+  public static final double SPIN_AXIS_SCALER= 0.5;
 }

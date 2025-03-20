@@ -63,7 +63,7 @@ public class RobotContainer {
   // Superstructure
   private final Superstructure superstructure = Superstructure.getInstance();
   private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
-  //private final Vision vision;
+  private final Vision vision;
 
   private Alliance currentAlliance = Alliance.Blue;
 //  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
@@ -76,11 +76,11 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    //vision = new Vision(drive::addVisionMeasurement,
-    //new VisionIOPhotonVision(camera1Name, robotToCamera1),
-    //new VisionIOPhotonVision(camera2Name, robotToCamera2),
-    //new VisionIOPhotonVision(camera3Name, robotToCamera3),
-    //new VisionIOPhotonVision(camera4Name, robotToCamera4));
+    vision = new Vision(drive::addVisionMeasurement,
+        new VisionIOPhotonVision(camera1Name, robotToCamera1),
+        new VisionIOPhotonVision(camera2Name, robotToCamera2),
+        new VisionIOPhotonVision(camera3Name, robotToCamera3),
+        new VisionIOPhotonVision(camera4Name, robotToCamera4));
     // switch (Constants.currentMode) {
     // case REAL:
     // Real robot, instantiate hardware IO implementations
@@ -211,9 +211,9 @@ public class RobotContainer {
         whileTrue(
             DriveCommands.joystickDrive(
                 drive,
-                () -> controller.getForward(),
-                () -> controller.getStrafe(),
-                () -> controller.getSpin()
+                () -> controller.getForward() *2,
+                () -> controller.getStrafe() *2,
+                () -> controller.getSpin() *2
             )
         );
     
