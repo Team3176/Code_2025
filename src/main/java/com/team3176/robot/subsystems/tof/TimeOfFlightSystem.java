@@ -12,10 +12,21 @@ public class TimeOfFlightSystem extends SubsystemBase{
   private static TimeOfFlightSystem instance;
   private final TimeOfFlightIO io;
   private final TimeOfFlightIOInputsAutoLogged inputs = new TimeOfFlightIOInputsAutoLogged();
+  private double tof_left, tof_right, tof_center;
+  private double tof_left_tolerance, tof_right_tolerance, tof_center_tolerance;
+  private double tof_left_setpoint, tof_right_setpoint, tof_center_setpoint;
+
 
   public TimeOfFlightSystem(TimeOfFlightIO io) {
     this.io = io;
     io.updateInputs(inputs);
+    tof_center_tolerance = 30;
+    tof_left_tolerance = 30;
+    tof_right_tolerance = 30;
+    
+    tof_center_setpoint = 550;
+    tof_left_setpoint = 127;
+    tof_right_setpoint = 300;
   }
 
   

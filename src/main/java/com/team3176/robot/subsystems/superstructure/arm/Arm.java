@@ -179,9 +179,23 @@ public class Arm extends SubsystemBase {
 
   public void deployArmToDeAlgea() {
     setCurrentHomePos();
-    double deployPos = this.homePos + 70;
+    double deployPos = this.homePos + .25;
+    setPivotVoltagePos(deployPos);
   }
   
+  public Command retractDeAlgea() {
+    return this.runOnce(
+      () -> {
+        retractArmToDeAlgea();
+      }
+    );
+  }
+
+  public void retractArmToDeAlgea() {
+    setCurrentHomePos();
+    double deployPos = this.homePos - .10;
+    setPivotVoltagePos(deployPos);
+  }
 
   @Override
   public void periodic() {

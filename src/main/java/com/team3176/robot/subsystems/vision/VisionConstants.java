@@ -41,7 +41,7 @@ public class VisionConstants {
         Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
-            Units.degreesToRadians(-10), 
+            Units.degreesToRadians(-15), 
             Units.degreesToRadians(-90))
     );
   public static Transform3d robotToCamera2 =
@@ -51,7 +51,7 @@ public class VisionConstants {
         Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
-            Units.degreesToRadians(-10), 
+            Units.degreesToRadians(-15), 
             Units.degreesToRadians(90))
     );
   public static Transform3d robotToCamera3 =
@@ -61,7 +61,7 @@ public class VisionConstants {
         Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
-            Units.degreesToRadians(-10), 
+            Units.degreesToRadians(-15), 
             Units.degreesToRadians(90))
     );
   public static Transform3d robotToCamera4 =
@@ -71,7 +71,7 @@ public class VisionConstants {
         Units.inchesToMeters(7),
         new Rotation3d(
             Units.degreesToRadians(0.0), 
-            Units.degreesToRadians(-10), 
+            Units.degreesToRadians(-15), 
             Units.degreesToRadians(-135))
     );
 
