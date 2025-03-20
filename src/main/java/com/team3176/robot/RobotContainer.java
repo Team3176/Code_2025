@@ -293,6 +293,7 @@ public class RobotContainer {
     controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
     controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());   
     controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    controller.operator.rightTrigger(0.8).and(controller.operator.rightStick().onTrue(superstructure.resetElevatorHome()));
     controller.operator.pov(270).onTrue(superstructure.goToA1());
     controller.operator.pov(0).onTrue(superstructure.goToA2());
     controller.operator.pov(90).onTrue(superstructure.goToA3());

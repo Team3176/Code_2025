@@ -68,4 +68,5 @@ public interface ElevatorIO {
   public default void setElevatorVoltge(double voltage) {}
 
   public default void reset() {}
+  public default void resetHome() {}
 }

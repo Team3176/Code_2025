@@ -151,6 +151,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (arm.retractDeAlgea());
   }
 
+   public Command resetElevatorHome() {
+    return elevator.resetHome();
+  }
+
   public Command grabAlgae() {
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_HF_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_HF_POS).andThen(arm.setPosTrack(POS.HF))));
     return (arm.runPosition(() -> SuperStructureConstants.ARM_GRABALGAE_POS).andThen(armrollers.setPosTrack(POS.HF))); }

@@ -173,4 +173,9 @@ public class ElevatorIOTalon implements ElevatorIO {
     }
   }
 
+  public void resetHome() {
+    
+    elevatorLeftLeader.setPosition(0);
+  }
+
 }

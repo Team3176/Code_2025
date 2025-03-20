@@ -217,6 +217,14 @@ public void setCoast() {
       }); 
     }
 
+  public Command resetHome() {
+    return this.runOnce(
+      () -> {
+        io.resetHome();
+      }
+    );
+  }
+
   @Override
   public void periodic() {
     io.updateInputs(inputs);
