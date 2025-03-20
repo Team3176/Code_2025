@@ -229,6 +229,33 @@ public class RobotContainer {
             )
         );
 
+     controller.rotStick.pov(0).whileTrue(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> 0.5,
+            () -> 0.0,
+            () -> 0.0,
+            () -> true
+        )
+    );
+        
+    controller.rotStick.pov(180).whileTrue(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> -0.5,
+            () -> 0.0,
+            () -> 0.0,
+            () -> true
+         )
+    );
+        
+
+        //controller.operator.back().and(controller.rotStick.button(12)).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        //controller.operator.back().and(controller.rotStick.button(13)).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        //controller.operator.back().and(controller.rotStick.button(14)).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        //controller.operator.back().and(controller.rotStick.button(15)).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+
+
 
 
 
@@ -271,9 +298,11 @@ public class RobotContainer {
     controller.operator.pov(90).onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
     // Human Load Positions and Rollers
-    controller.operator.rightBumper().onTrue(superstructure.grabAlgae()).onFalse(superstructure.squeezeAlgae()); //.onFalse(superstructure.goToL0());
+    //controller.operator.rightBumper().onTrue(superstructure.deAlgae()).onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
+    controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
     controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
-    controller.operator.start().onTrue(superstructure.algaeToHome());
+    //controller.operator.start().onTrue(superstructure.algaeToHome());
+    controller.operator.start().onTrue(superstructure.deAlgaeNegative());
 
     // Shoot
     controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
