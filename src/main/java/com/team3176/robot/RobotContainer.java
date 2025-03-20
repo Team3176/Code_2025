@@ -90,7 +90,7 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Dashboard inputs
-  //private final LoggedDashboardChooser<Command> autoChooser;
+  private final LoggedDashboardChooser<Command> autoChooser;
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -162,39 +162,17 @@ public class RobotContainer {
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     */
 
-    NamedCommands.registerCommand("L0", superstructure.goToL0()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1));
 
-    NamedCommands.registerCommand("L1", superstructure.goToL1()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
+    NamedCommands.registerCommand("L4", superstructure.goToL4().withTimeout(1)
+        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.goToL0().withTimeout(1)));
 
-    NamedCommands.registerCommand("L2", superstructure.goToL2()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2.0));
 
-    NamedCommands.registerCommand("L3", superstructure.goToL3()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
+    NamedCommands.registerCommand("prepareIntake", superstructure.goToHumanLoad());
 
-    NamedCommands.registerCommand("L4", superstructure.goToL4()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
-
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn());
-
-
-
+    autoChooser = new LoggedDashboardChooser<>("autochooser", AutoBuilder.buildAutoChooser());
+    SmartDashboard.putData("autochooser", autoChooser.getSendableChooser());
 
     // Configure the button bindings
     configureButtonBindings();
