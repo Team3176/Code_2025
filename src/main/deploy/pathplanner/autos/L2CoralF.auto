@@ -7,7 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "SideToF"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "FToFeed"
           }
         }
       ]
