@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "MiddleToG"
+            "pathName": "SideToF"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 2.0
+            "name": "L2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GToFeed"
+            "pathName": "FToFeed"
           }
         }
       ]
