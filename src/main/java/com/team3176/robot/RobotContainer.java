@@ -232,7 +232,7 @@ public class RobotContainer {
      controller.rotStick.pov(0).whileTrue(
         DriveCommands.joystickDrive(
             drive,
-            () -> 0.5,
+            () -> 0.25,
             () -> 0.0,
             () -> 0.0,
             () -> true
@@ -242,13 +242,40 @@ public class RobotContainer {
     controller.rotStick.pov(180).whileTrue(
         DriveCommands.joystickDrive(
             drive,
-            () -> -0.5,
+            () -> -0.25,
             () -> 0.0,
             () -> 0.0,
             () -> true
          )
     );
         
+    controller.rotStick.pov(270).whileTrue(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> -0.25,
+            () -> 0.0,
+            () -> 0.0,
+            () -> true)
+            .until(() -> tofSystem.isAlignedCenter()
+            //.andThen(() -> drive.stop())
+            
+         )
+    );
+        
+
+    controller.rotStick.pov(90).whileTrue(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> 0.25,
+            () -> 0.0,
+            () -> 0.0,
+            () -> true)
+            .until(() -> tofSystem.isAlignedLeft()
+            //.andThen(() -> drive.stop())
+         )
+    );
+       
+    
 
         //controller.operator.back().and(controller.rotStick.button(12)).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
         //controller.operator.back().and(controller.rotStick.button(13)).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
@@ -298,6 +325,8 @@ public class RobotContainer {
     controller.operator.pov(0).onTrue(superstructure.goToA2());
     controller.operator.pov(90).onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
+    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
+
     // Human Load Positions and Rollers
     //controller.operator.rightBumper().onTrue(superstructure.deAlgae()).onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
     controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
@@ -355,6 +384,12 @@ public class RobotContainer {
     controller.switchBox.button(4).onTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
 
   }
+
+
+  public void getClimbOutaWay() {
+    superstructure.getInstance().getClimbOutaWay();
+  }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

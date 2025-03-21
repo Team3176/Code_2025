@@ -16,6 +16,7 @@ public class SuperStructureConstants {
   public static final double CLIMB_DEPLOY_POS = 160 + CLIMB_ZERO_POS;
   public static final double CLIMB_MAXDEPLOY_POS = -163 + CLIMB_ZERO_POS;
   public static final double CLIMB_SIM_OFFSET = 63 + CLIMB_ZERO_POS;
+  public static final double CLIMB_OUTAWAY_POS = 50;
 
   public static final double ARM_OUTPUT_POWER = 1;
   public static final int ARM_CURRENT_LIMIT_A = 15;
@@ -61,8 +62,8 @@ public class SuperStructureConstants {
   public static final double ELEVATORLEADER_L4_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_HF_POS = 0 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_A1_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_A2_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_A3_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_A2_POS = 25 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_A3_POS = 50.1 + ELEVATORLEADER_ZERO_POS;
 
   /*
   public static final double ELEVATORRIGHT_kP = 0.006;

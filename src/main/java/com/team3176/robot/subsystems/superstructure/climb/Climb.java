@@ -2,6 +2,8 @@ package com.team3176.robot.subsystems.superstructure.climb;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import lombok.experimental.SuperBuilder;
+
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 import com.team3176.robot.constants.BaseConstants;
@@ -111,6 +113,9 @@ public class Climb extends SubsystemBase {
 
   }
 
+  public void getClimbOutaWay() {
+    climbGoToPosition(SuperStructureConstants.CLIMB_OUTAWAY_POS);
+  }
 
   @Override
   public void periodic() {

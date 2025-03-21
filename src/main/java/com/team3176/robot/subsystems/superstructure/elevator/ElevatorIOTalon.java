@@ -24,7 +24,8 @@ import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.subsystems.superstructure.elevator.ElevatorIO.ElevatorIOInputs;
 import com.team3176.robot.util.TalonUtils;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
-
+import com.ctre.phoenix6.configs.FeedbackConfigs;
+import com.ctre.phoenix6.configs.FeedbackConfigs;
 
 
 /** Template hardware interface for the Elevator subsystem. */
@@ -35,6 +36,7 @@ public class ElevatorIOTalon implements ElevatorIO {
   NeutralOut brake;
   DigitalInput elevatortoplimitswitch, elevatorbotLimitswitch;
   TalonFXConfiguration configsLeft, configsRight;
+  FeedbackConfigs fbconfigsLeft, fbconfigsRight;
   private final StatusSignal<Angle> leftPosition, rightPosition;
   private final StatusSignal<Double> leftError, rightError;
   private final StatusSignal<Voltage> leftVolts, rightVolts;
@@ -63,7 +65,6 @@ public class ElevatorIOTalon implements ElevatorIO {
     configsLeft.TorqueCurrent.withPeakForwardTorqueCurrent(120).withPeakReverseTorqueCurrent(-120);
     configsLeft.ClosedLoopRamps.withVoltageClosedLoopRampPeriod(0.25);
     configsRight.ClosedLoopRamps.withVoltageClosedLoopRampPeriod(0.25);
-
 
     configsLeft.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
 
@@ -173,9 +174,13 @@ public class ElevatorIOTalon implements ElevatorIO {
     }
   }
 
-  public void resetHome() {
-    
-    elevatorLeftLeader.setPosition(0);
+  @Override
+  public void setElevatorHomeValue() {
+    fbconfigsLeft = new FeedbackConfigs();
+    fbconfigsRight = new FeedbackConfigs();
+    fbconfigsLeft.FeedbackRotorOffset = 0;
+    fbconfigsRight.FeedbackRotorOffset = 0;
+    elevatorLeftLeader.getConfigurator().apply(fbconfigsLeft);
+    elevatorRightFollower.getConfigurator().apply(fbconfigsRight);
   }
-
 }

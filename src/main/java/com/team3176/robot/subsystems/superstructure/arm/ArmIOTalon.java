@@ -111,10 +111,10 @@ public class ArmIOTalon implements ArmIO {
 
     pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
         1.8;
-    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
         0.2;
-    pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true; 
+    pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
     TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
     //pivotController.setPosition(0, 0);

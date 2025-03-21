@@ -217,13 +217,13 @@ public void setCoast() {
       }); 
     }
 
-  public Command resetHome() {
-    return this.runOnce(
-      () -> {
-        io.resetHome();
-      }
-    );
-  }
+    public Command setElevatorHomeValue() {
+      return this.runOnce(
+        () -> {
+          io.setElevatorHomeValue();
+        }); 
+
+    }
 
   @Override
   public void periodic() {

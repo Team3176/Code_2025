@@ -214,6 +214,14 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
   */
 
+  public void getClimbOutaWay() {
+    climb.getClimbOutaWay();
+  }
+
+  public Command elevatorSetHome() {
+    return (elevator.setElevatorHomeValue());
+  }
+
   public static Superstructure getInstance() {
     if (instance == null) {
       instance = new Superstructure();
