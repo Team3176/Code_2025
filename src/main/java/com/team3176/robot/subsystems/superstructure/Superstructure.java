@@ -210,6 +210,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
   */
 
+  public void getClimbOutaWay() {
+    climb.getClimbOutaWay();
+  }
+
   public Command elevatorSetHome() {
     return (elevator.setElevatorHomeValue());
   }

@@ -384,6 +384,12 @@ public class RobotContainer {
 
   }
 
+
+  public void getClimbOutaWay() {
+    superstructure.getInstance().getClimbOutaWay();
+  }
+
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
