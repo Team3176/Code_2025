@@ -117,31 +117,26 @@ public class RobotContainer {
       */
     // }
 
-     NamedCommands.registerCommand("L0", superstructure.goToL0()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1));
-
+    NamedCommands.registerCommand("L0", superstructure.goToL0()
+        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .andThen(superstructure.stopRollers())
+        .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L1", superstructure.goToL1()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
-
+        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .andThen(superstructure.stopRollers())
+        .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L2", superstructure.goToL2()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
-
+        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .andThen(superstructure.stopRollers())
+        .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L3", superstructure.goToL3()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
-
-    NamedCommands.registerCommand("L4", superstructure.goToL4().withTimeout(1)
-        .andThen(superstructure.shoot().withTimeout(1))
+        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .andThen(superstructure.stopRollers())
+        .andThen(superstructure.goToL0().withTimeout(1)));
+    // this keeps the elevator up while we shoot and then brings it down
+    NamedCommands.registerCommand("L4", superstructure.goToL4()
+        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(1)));
 
     NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2.0));

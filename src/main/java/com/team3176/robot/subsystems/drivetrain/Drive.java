@@ -49,6 +49,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import com.team3176.robot.Constants;
 import com.team3176.robot.Constants.Mode;
+import com.team3176.robot.constants.BaseConstants;
 import com.team3176.robot.generated.TunerConstants;
 import com.team3176.robot.util.LocalADStarAK;
 import java.util.concurrent.locks.Lock;
@@ -165,13 +166,23 @@ public class Drive extends SubsystemBase {
 
   public static Drive getInstance() {
     if (instance == null) {
-      instance =
+      if (BaseConstants.getMode() == BaseConstants.Mode.REAL) {
+        instance =
         new Drive(
             new GyroIOPigeon2(),
             new ModuleIOTalonFX(TunerConstants.FrontLeft),
             new ModuleIOTalonFX(TunerConstants.FrontRight),
             new ModuleIOTalonFX(TunerConstants.BackLeft),
             new ModuleIOTalonFX(TunerConstants.BackRight));
+      } else {
+        instance = new Drive(
+            new GyroIO() {},
+            new ModuleIOSim(TunerConstants.FrontLeft),
+            new ModuleIOSim(TunerConstants.FrontRight),
+            new ModuleIOSim(TunerConstants.BackLeft),
+            new ModuleIOSim(TunerConstants.BackRight));
+      }
+      
     }
     return instance; 
   }
