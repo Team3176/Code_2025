@@ -152,7 +152,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
    public Command resetElevatorHome() {
-    return elevator.resetHome();
+    return elevator.setElevatorHomeValue();
   }
 
   public Command grabAlgae() {

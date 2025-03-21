@@ -130,7 +130,7 @@ public class Climb extends SubsystemBase {
         instance = new Climb(new ClimbIOTalon() {});
         System.out.println("Climb instance created for Mode.REAL");
       } else {
-        //instance = new Climb(new ClimbIOSim() {});
+        instance = new Climb(new ClimbIOSim());
         System.out.println("Climb instance created for Mode.SIM");
       }
     }

@@ -277,6 +277,7 @@ public void setCoast() {
         instance = new Elevator(new ElevatorIOTalon() {});
         System.out.println("Elevator instance created for Mode.REAL");
       } else {
+        instance = new Elevator(new ElevatorIOSim());
         System.out.println("Elevator instance created for Mode.SIM");
       }
     }

@@ -140,13 +140,11 @@ public class RobotContainer {
         .withTimeout(1) 
         .andThen(superstructure.goToL0()));
 
-    NamedCommands.registerCommand("L4", superstructure.goToL4()
-        .andThen(new WaitCommand(1))
-        .andThen(superstructure.shoot())
-        .withTimeout(1) 
-        .andThen(superstructure.goToL0()));
+    NamedCommands.registerCommand("L4", superstructure.goToL4().withTimeout(1)
+        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.goToL0().withTimeout(1)));
 
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn());
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2.0));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
