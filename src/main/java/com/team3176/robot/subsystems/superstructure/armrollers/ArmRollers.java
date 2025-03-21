@@ -200,7 +200,7 @@ public class ArmRollers extends SubsystemBase {
 
 
 
-    Logger.processInputs("Arm", inputs);
+    Logger.processInputs("ArmRollers", inputs);
 
 
 

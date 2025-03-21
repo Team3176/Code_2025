@@ -118,19 +118,19 @@ public class RobotContainer {
     // }
 
     NamedCommands.registerCommand("L0", superstructure.goToL0().withTimeout(1)
-        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.shoot().withTimeout(1).andThen(superstructure.stopRollers()))
         .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L1", superstructure.goToL1().withTimeout(1)
-        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.shoot().withTimeout(1).andThen(superstructure.stopRollers()))
         .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L2", superstructure.goToL2().withTimeout(1)
-        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.shoot().withTimeout(1).andThen(superstructure.stopRollers()))
         .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L3", superstructure.goToL3().withTimeout(1)
-        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.shoot().withTimeout(1).andThen(superstructure.stopRollers()))
         .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L4", superstructure.goToL4().withTimeout(1)
-        .andThen(superstructure.shoot().withTimeout(1))
+        .andThen(superstructure.shoot().withTimeout(1).andThen(superstructure.stopRollers()))
         .andThen(superstructure.goToL0().withTimeout(1)));
 
     NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2.0));

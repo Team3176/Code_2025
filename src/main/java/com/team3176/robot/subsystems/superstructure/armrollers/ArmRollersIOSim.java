@@ -38,6 +38,14 @@ public class ArmRollersIOSim implements ArmRollersIO {
     inputs.rollerAppliedVolts = appliedVolts;
     inputs.rollerAmpsStator = rollerSim.getCurrentDrawAmps();
     inputs.rollerTempCelcius = 0.0;
+    rollerSim.setInputVoltage(appliedVolts);
+  }
+
+  @Override
+  public void setRollerVolts(double volts) {
+      // TODO Auto-generated method stub
+      appliedVolts = volts;
+      
   }
 
 }

@@ -18,6 +18,7 @@ public class ElevatorIOSim implements ElevatorIO {
 
   private ElevatorSim elevatorSim;
   private double appliedVolts;
+  private double desiredPosition = 0;
 
   public ElevatorIOSim() {
     elevatorSim =
@@ -27,11 +28,12 @@ public class ElevatorIOSim implements ElevatorIO {
   @Override
   public void updateInputs(ElevatorIOInputs inputs) {
     elevatorSim.update(BaseConstants.LOOP_PERIODIC_SECS);
-    inputs.leftPosition = elevatorSim.getPositionMeters();
-    // inputs.VelocityRadPerSec = elevatorSim.getVelocityMetersPerSecond();
-    // inputs.AppliedVolts = appliedVolts;
-    // inputs.CurrentAmps = new double[] {elevatorSim.getCurrentDrawAmps()};
-    // inputs.TempCelcius = new double[] {0.0};
+    // TODO: This needs to match the real gearing and sprocket. Converting from meters to rotations
+    inputs.leftPosition = elevatorSim.getPositionMeters() / 0.0381;
+    double commandVolts = (desiredPosition-inputs.leftPosition) * 2;
+    inputs.leftVolts = commandVolts;
+    
+    elevatorSim.setInputVoltage(commandVolts);
     Logger.recordOutput("Elevator/SimPos", elevatorSim.getPositionMeters());
   }
 
@@ -39,6 +41,10 @@ public class ElevatorIOSim implements ElevatorIO {
   public void setLeft(double voltage) {
     appliedVolts = voltage;
     appliedVolts = MathUtil.clamp(appliedVolts, -12, 12);
-    elevatorSim.setInputVoltage(appliedVolts);
+    
+  }
+  @Override
+  public void setLeftPIDPosition(double rotations) {
+    desiredPosition = rotations;
   }
 }
