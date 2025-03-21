@@ -258,6 +258,7 @@ public class RobotContainer {
             () -> true)
             .until(() -> tofSystem.isAlignedCenter()
             //.andThen(() -> drive.stop())
+            
          )
     );
         
@@ -273,7 +274,9 @@ public class RobotContainer {
             //.andThen(() -> drive.stop())
          )
     );
-        
+       
+    
+
         //controller.operator.back().and(controller.rotStick.button(12)).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
         //controller.operator.back().and(controller.rotStick.button(13)).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         //controller.operator.back().and(controller.rotStick.button(14)).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
@@ -321,6 +324,8 @@ public class RobotContainer {
     controller.operator.pov(0).onTrue(superstructure.goToA2());
     controller.operator.pov(90).onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
+    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
+
     // Human Load Positions and Rollers
     //controller.operator.rightBumper().onTrue(superstructure.deAlgae()).onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
     controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());

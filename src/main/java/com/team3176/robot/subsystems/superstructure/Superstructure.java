@@ -210,6 +210,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
   */
 
+  public Command elevatorSetHome() {
+    return (elevator.setElevatorHomeValue());
+  }
+
   public static Superstructure getInstance() {
     if (instance == null) {
       instance = new Superstructure();

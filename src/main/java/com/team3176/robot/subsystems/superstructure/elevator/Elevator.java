@@ -217,6 +217,14 @@ public void setCoast() {
       }); 
     }
 
+    public Command setElevatorHomeValue() {
+      return this.runOnce(
+        () -> {
+          io.setElevatorHomeValue();
+        }); 
+
+    }
+
   @Override
   public void periodic() {
     io.updateInputs(inputs);
