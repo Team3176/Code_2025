@@ -376,6 +376,7 @@ public class RobotContainer {
 */
 
     controller.switchBox.button(4).onTrue(new InstantCommand(() -> System.out.println("Toggle works!")));
+    controller.operator.back().and(controller.rotStick.button(7).onTrue(new InstantCommand(() -> System.out.println("Toggle works!"))));
 
   }
 
