@@ -53,7 +53,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  */
 public class RobotContainer {
   // Subsystems
-  private final Drive drive = Drive.getInstance();
+  //private final Drive drive = Drive.getInstance();
 
   //private final Vision vision = new Vision(); //  Vision.getInstance();
   // Controller
@@ -61,8 +61,8 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Superstructure
-  private final Superstructure superstructure = Superstructure.getInstance();
-  private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
+  //private final Superstructure superstructure = Superstructure.getInstance();
+  //private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
   //private final Vision vision;
 
   private Alliance currentAlliance = Alliance.Blue;
@@ -71,7 +71,7 @@ public class RobotContainer {
  
 
   // Dashboard inputs
-  private final LoggedDashboardChooser<Command> autoChooser;
+  //private final LoggedDashboardChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -116,7 +116,7 @@ public class RobotContainer {
       break;
       */
     // }
-
+/* 
     NamedCommands.registerCommand("L0", superstructure.goToL0()
         .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
@@ -140,10 +140,10 @@ public class RobotContainer {
         .andThen(superstructure.goToL0().withTimeout(1)));
 
     NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2.0));
-
+    */
     // Set up auto routines
-    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-
+    //autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+    /* 
     // Set up SysId routines
     autoChooser.addOption(
         "Drive Wheel Radius Characterization", DriveCommands.wheelRadiusCharacterization(drive));
@@ -159,7 +159,7 @@ public class RobotContainer {
         "Drive SysId (Dynamic Forward)", drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-
+     */
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -179,14 +179,14 @@ public class RobotContainer {
 
 
     // Default command, normal field-relative drive
-    drive.setDefaultCommand(
-        DriveCommands.joystickDrive(
-            drive,
-            () -> controller.getForward(),
-            () -> controller.getStrafe(),
-            () -> controller.getSpin()
-        )
-    );
+  //  drive.setDefaultCommand(
+  //      DriveCommands.joystickDrive(
+  //          drive,
+  //          () -> controller.getForward(),
+  //          () -> controller.getStrafe(),
+  //          () -> controller.getSpin()
+  //      )
+  //  );
     
     // Lock to 0° when A button is held
     /*controller
@@ -199,6 +199,7 @@ public class RobotContainer {
                 () -> new Rotation2d()));
     */
 
+    /* 
     //BOOST ME BABY *2
     controller.rotStick.button(1).
         whileTrue(
@@ -372,17 +373,17 @@ public class RobotContainer {
     //controller.operator.leftBumper().whileTrue(superstructure.armVoltVelManual(() -> controller.operator.getLeftY())).onFalse(superstructure.stopRollers());
     //controller.operator.b().whileTrue(superstructure.armVoltVel());
     //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
+*/
 
-
-    controller.switchBox.button(4).whileTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
+    controller.switchBox.button(4).onTrue(new InstantCommand(() -> System.out.println("Toggle works!")));
 
   }
 
-
+/* 
   public void getClimbOutaWay() {
     superstructure.getInstance().getClimbOutaWay();
   }
-
+*/
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -390,6 +391,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get();
+    //return autoChooser.get();
+    return null;
   }
 }
