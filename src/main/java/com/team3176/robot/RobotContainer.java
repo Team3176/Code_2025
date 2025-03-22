@@ -374,7 +374,7 @@ public class RobotContainer {
     //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
 
 
-    controller.switchBox.button(4).whileTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
+    controller.switchBox.button(4).onTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
 
   }
 

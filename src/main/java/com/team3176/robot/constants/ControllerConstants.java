@@ -8,7 +8,7 @@ public final class ControllerConstants {
   public static final int ROT_ID = 0;
   public static final int TRANS_ID = 1;
   public static final int OP_ID = 2;
-  public static final int SWITCH_ID = 2;
+  public static final int SWITCH_ID = 3;
   public static final double TRIGGER_THRESHOLD = 0.1;
 
   public static final double SLOW_DRIVE_MULT =
