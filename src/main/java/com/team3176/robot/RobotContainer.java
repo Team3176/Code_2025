@@ -375,7 +375,7 @@ public class RobotContainer {
     //controller.operator.leftBumper().onTrue(superstructure.testElevator()).onFalse(superstructure.goToL0());
 */
 
-    controller.switchBox.button(4).onTrue(new InstantCommand(() -> System.out.println("Toggle works!")));
+    controller.switchBox.button(4).onTrue(new InstantCommand(() -> System.out.println("Switchbox Toggle works!")));
     controller.operator.back().and(controller.rotStick.button(7).onTrue(new InstantCommand(() -> System.out.println("Toggle works!"))));
 
   }
