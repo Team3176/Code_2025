@@ -44,6 +44,7 @@ import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -366,18 +367,25 @@ public class Drive extends SubsystemBase {
   }
 
   public Command setVisionOverride( boolean onoff) {
-    return new InstantCommand( () -> this.visionOverride = onoff);
+    return this.runOnce(() -> { setlocalVisionOverride(onoff);});
   }
+
+  public void setlocalVisionOverride(boolean onoff) {
+    SmartDashboard.putBoolean("VisionOverride", onoff);
+    System.out.println("###########################    VISION OVERRIDE " + onoff + "   #############################################");
+    this.visionOverride = onoff;
+  }
+
 
   /** Adds a new timestamped vision measurement. */
   public void addVisionMeasurement(
       Pose2d visionRobotPoseMeters,
       double timestampSeconds,
       Matrix<N3, N1> visionMeasurementStdDevs) {
-      //if (!this.visionOverride) {
+      if (!this.visionOverride) {
         poseEstimator.addVisionMeasurement(
           visionRobotPoseMeters, timestampSeconds, visionMeasurementStdDevs);
-      //}
+      }
     }
   /** Returns the maximum linear speed in meters per sec. */
   public double getMaxLinearSpeedMetersPerSec() {

@@ -14,7 +14,7 @@ public class SuperStructureConstants {
   public static final double CLIMB_ZERO_POS = 0;
   public static final double CLIMB_MAXRETRACT_POS = 0; // CLIMB_ZERO_POS - 20;
   public static final double CLIMB_DEPLOY_POS = 160 + CLIMB_ZERO_POS;
-  public static final double CLIMB_MAXDEPLOY_POS = -163 + CLIMB_ZERO_POS;
+  public static final double CLIMB_MAXDEPLOY_POS = -196 + CLIMB_ZERO_POS;
   public static final double CLIMB_SIM_OFFSET = 63 + CLIMB_ZERO_POS;
   public static final double CLIMB_OUTAWAY_POS = 50;
 

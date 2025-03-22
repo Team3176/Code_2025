@@ -45,10 +45,10 @@ public class ClimbIOTalon implements ClimbIO {
     configs.Slot0.kI = 0.0; // A change of 1 rotation per second results in 0.1 volts output
     configs.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
     configs.Slot0.kV = 0.0; // A change of 1 rotation per second results in 0.1 volts output
-    configs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+    configs.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
     configs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
         SuperStructureConstants.CLIMB_MAXRETRACT_POS;
-    configs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+    configs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     configs.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
         SuperStructureConstants.CLIMB_MAXDEPLOY_POS;
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
