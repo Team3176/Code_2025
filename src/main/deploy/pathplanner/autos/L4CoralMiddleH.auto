@@ -21,6 +21,12 @@
           "data": {
             "pathName": "HToFeed"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
         }
       ]
     }

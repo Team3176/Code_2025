@@ -150,6 +150,14 @@ public class Arm extends SubsystemBase {
   public void setPivotBrake() {
     io.setPivotBrakeMode(true);
   }
+
+  public void setPivotCurrent() {
+    io.setPivotCurrent(5);
+  }
+
+  public Command setPivotCurrents() {
+    return this.run(() -> {setPivotCurrent();});
+  }
   
   public Command setPivot2Coast() {
     return this.runOnce(

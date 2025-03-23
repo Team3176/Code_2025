@@ -102,12 +102,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command goToL0() {
-//    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L0_POS).andThen(armrollers.setPosTrack(POS.L0)));
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS));
   }
 
   public Command goToL1() {
-    //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L1_POS).andThen(armrollers.setPosTrack(POS.L1))));
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L1_POS));
   }
 
@@ -124,6 +122,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   public Command goToL4() {
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS));
+  }
+
+  public Command holdL1Coral() {
+    return (arm.setPivotCurrents());
   }
 
   public Command goToA1(){
@@ -151,7 +153,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (arm.retractDeAlgea());
   }
 
-   public Command resetElevatorHome() {
+  public Command resetElevatorHome() {
     return elevator.setElevatorHomeValue();
   }
 

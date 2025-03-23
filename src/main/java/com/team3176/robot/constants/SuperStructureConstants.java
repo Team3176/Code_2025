@@ -12,9 +12,9 @@ public class SuperStructureConstants {
   public static final double CLIMB_kg = 0.2;
   public static final double CLIMB_TOLERANCE = 3;
   public static final double CLIMB_ZERO_POS = 0;
-  public static final double CLIMB_MAXRETRACT_POS = 0; // CLIMB_ZERO_POS - 20;
+  public static final double CLIMB_MAXRETRACT_POS = 20; //0; // CLIMB_ZERO_POS - 20;
   public static final double CLIMB_DEPLOY_POS = 160 + CLIMB_ZERO_POS;
-  public static final double CLIMB_MAXDEPLOY_POS = -196 + CLIMB_ZERO_POS;
+  public static final double CLIMB_MAXDEPLOY_POS = -270 + CLIMB_ZERO_POS;
   public static final double CLIMB_SIM_OFFSET = 63 + CLIMB_ZERO_POS;
   public static final double CLIMB_OUTAWAY_POS = 50;
 
@@ -57,8 +57,8 @@ public class SuperStructureConstants {
   public static final double ELEVATORLEADER_SIM_OFFSET = 62 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_L0_POS = 0 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_L1_POS = 0 + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_L2_POS = 45  + ELEVATORLEADER_ZERO_POS;
-  public static final double ELEVATORLEADER_L3_POS = 68 + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_L2_POS = 42  + ELEVATORLEADER_ZERO_POS;
+  public static final double ELEVATORLEADER_L3_POS = 65 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_L4_POS = 105.7 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_HF_POS = 0 + ELEVATORLEADER_ZERO_POS;
   public static final double ELEVATORLEADER_A1_POS = 105.7 + ELEVATORLEADER_ZERO_POS;

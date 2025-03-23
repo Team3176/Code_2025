@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SideToF"
+            "pathName": "MiddleToH"
           }
         },
         {
@@ -19,7 +19,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FToFeed"
+            "pathName": "HToRFeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         }
       ]

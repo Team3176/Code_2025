@@ -53,4 +53,6 @@ public interface ArmIO {
 
   public default void setPivotBrakeMode(boolean enable) {};
 
+  public default void setPivotCurrent(double current) {};
+
 }

@@ -212,7 +212,12 @@ public class ArmIOTalon implements ArmIO {
     pivotController.setControl(voltPosition.withPosition(position + pivot_pos_offset));
   }
 
-   @Override
+  @Override
+  public void setPivotCurrent(double current) {
+    pivotController.setControl(pivotVolts.withOutput(current));
+  }
+
+  @Override
   public void setPivotBrakeMode(boolean enable) {
     if (enable) {
       pivotController.setNeutralMode(NeutralModeValue.Brake);

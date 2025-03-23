@@ -23,11 +23,11 @@ public class TimeOfFlightSystem extends SubsystemBase{
     io.updateInputs(inputs);
     tof_center_tolerance = 10;
     tof_left_tolerance = 10;
-    tof_right_tolerance = 10;
+    tof_right_tolerance = 20;
     
-    tof_center_setpoint = 540;
-    tof_left_setpoint = 120;
-    tof_right_setpoint = 209;
+    tof_center_setpoint = 550;
+    tof_left_setpoint = 100;
+    tof_right_setpoint = 180;
   }
 
   

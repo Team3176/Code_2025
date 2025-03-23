@@ -7,19 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "MiddleToG"
+            "pathName": "LeftToJ"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "L3"
+            "name": "L4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GToFeed"
+            "pathName": "JToFeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         }
       ]

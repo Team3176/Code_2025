@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SideToF"
+            "pathName": "LeftToJ"
           }
         },
         {
@@ -19,7 +19,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FToFeed"
+            "pathName": "JToFeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         }
       ]

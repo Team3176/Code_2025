@@ -21,6 +21,12 @@
           "data": {
             "pathName": "GToFeed"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
         }
       ]
     }

@@ -7,19 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SideToF"
+            "pathName": "RightToE"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "L3"
+            "name": "L4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "FToFeed"
+            "pathName": "EtoFeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         }
       ]

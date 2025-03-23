@@ -37,6 +37,7 @@ import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
+import com.team3176.robot.subsystems.superstructure.arm.Arm;
 import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
@@ -63,7 +64,7 @@ public class RobotContainer {
   // Superstructure
   private final Superstructure superstructure = Superstructure.getInstance();
   private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
-  //private final Vision vision;
+  private final Vision vision;
 
   private Alliance currentAlliance = Alliance.Blue;
 //  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
@@ -76,11 +77,11 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    //vision = new Vision(drive::addVisionMeasurement,
-    //    new VisionIOPhotonVision(camera1Name, robotToCamera1),
-    //    new VisionIOPhotonVision(camera2Name, robotToCamera2),
-    //   new VisionIOPhotonVision(camera3Name, robotToCamera3),
-    //    new VisionIOPhotonVision(camera4Name, robotToCamera4));
+    vision = new Vision(drive::addVisionMeasurement,
+        new VisionIOPhotonVision(camera1Name, robotToCamera1),
+        new VisionIOPhotonVision(camera2Name, robotToCamera2),
+       new VisionIOPhotonVision(camera3Name, robotToCamera3),
+        new VisionIOPhotonVision(camera4Name, robotToCamera4));
     // switch (Constants.currentMode) {
     // case REAL:
     // Real robot, instantiate hardware IO implementations
@@ -117,29 +118,30 @@ public class RobotContainer {
       */
     // }
 
-    NamedCommands.registerCommand("L0", superstructure.goToL0()
-        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+
+/*     NamedCommands.registerCommand("L1", superstructure.goToL1()
+        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
-    NamedCommands.registerCommand("L1", superstructure.goToL1()
-        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
-        .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
+        .andThen(superstructure.goToL0().withTimeout(2.5))); */
     NamedCommands.registerCommand("L2", superstructure.goToL2()
-        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
+        .andThen(superstructure.goToL0().withTimeout(2.5)));
     NamedCommands.registerCommand("L3", superstructure.goToL3()
-        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
+        .andThen(superstructure.goToL0().withTimeout(2.5)));
     // this keeps the elevator up while we shoot and then brings it down
     NamedCommands.registerCommand("L4", superstructure.goToL4()
-        .withDeadline(new WaitCommand(1.0).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
+        .andThen(superstructure.goToL0().withTimeout(2.5)));
 
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2.0));
+/*     NamedCommands.registerCommand("L1", superstructure.goToL1().alongWith(Arm.getInstance().setPivotCurrents())
+        .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
+        .andThen(superstructure.deAlgaeNegative())); 
+ */
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(3.0));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
