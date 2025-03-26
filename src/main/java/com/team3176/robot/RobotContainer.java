@@ -294,7 +294,26 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
-
+    //strafe forward
+    controller.transStick.pov(0).whileTrue(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> 0,
+            () -> 0.25,
+            () -> 0.0,
+            () -> true
+        )
+    );
+    //strafe back
+    controller.transStick.pov(180).whileTrue(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> 0,
+            () -> -0.25,
+            () -> 0.0,
+            () -> true
+        )
+    );        
 
     // Shoot
 //    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
