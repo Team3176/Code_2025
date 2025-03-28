@@ -119,23 +119,22 @@ public class RobotContainer {
     // }
 
 
-/*     NamedCommands.registerCommand("L1", superstructure.goToL1()
-        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
-        .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(2.5))); */
+
     NamedCommands.registerCommand("L2", superstructure.goToL2()
-        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(2.5)));
     NamedCommands.registerCommand("L3", superstructure.goToL3()
-        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(2.5)));
     // this keeps the elevator up while we shoot and then brings it down
     NamedCommands.registerCommand("L4", superstructure.goToL4()
-        .withDeadline(new WaitCommand(2.5).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(2.5)));
+
+    //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
 
 /*     NamedCommands.registerCommand("L1", superstructure.goToL1().alongWith(Arm.getInstance().setPivotCurrents())
         .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
