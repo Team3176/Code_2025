@@ -316,9 +316,12 @@ public class RobotContainer {
     controller.operator.y().onTrue(superstructure.deAlgaePositive());
     controller.operator.b().onTrue(superstructure.testDeAlgae());
 
-    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    
     controller.operator.rightTrigger(0.8).and(controller.operator.rightStick().onTrue(superstructure.resetElevatorHome()));
-    controller.operator.pov(270).onTrue(superstructure.goToA1());
+    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    controller.operator.pov(270)
+        .whileTrue(superstructure.goToA1())
+        .onFalse(superstructure.algaeSqueeze());//.onTrue(superstructure.goToA1());
     controller.operator.pov(0).onTrue(superstructure.goToA2());
     controller.operator.pov(90).onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   

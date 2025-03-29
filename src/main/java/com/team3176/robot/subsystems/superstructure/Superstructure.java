@@ -2,6 +2,8 @@ package com.team3176.robot.subsystems.superstructure;
 
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import java.util.function.DoubleSupplier;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
@@ -130,7 +132,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
 
   public Command goToA1(){
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A1_POS));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A1_POS)
+      .withDeadline(new WaitCommand(1.5)  
+      .andThen(arm.runPosition(() -> 0.5))
+      .alongWith(armrollers.runRollersIn(() -> 2))));
   }
 
   public Command goToA2(){
@@ -141,6 +146,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   public Command goToA3(){
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A3_POS));
+  }
+
+  public Command algaeSqueeze() {
+    return (arm.setPivot2Brake().andThen(arm.runPosition(() -> 0.33)));
   }
 
   public Command deAlgae() {
