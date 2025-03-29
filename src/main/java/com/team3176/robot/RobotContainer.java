@@ -322,6 +322,8 @@ public class RobotContainer {
     controller.operator.pov(270)
         .whileTrue(superstructure.goToA1())
         .onFalse(superstructure.algaeSqueeze());//.onTrue(superstructure.goToA1());
+
+   
     controller.operator.pov(0).onTrue(superstructure.goToA2());
     controller.operator.pov(90).onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
