@@ -324,14 +324,16 @@ public class RobotContainer {
         .onFalse(superstructure.algaeSqueeze());//.onTrue(superstructure.goToA1());
 
    
-    controller.operator.pov(0).whileTrue(superstructure.goToA2()).onFalse(superstructure.algaeSqueeze());
-    controller.operator.pov(90).onTrue(superstructure.goToA3());
+    controller.operator.pov(0)
+        .whileTrue(superstructure.goToA2())
+        .onFalse(superstructure.algaeSqueeze());
+    controller.operator.pov(90).whileTrue(superstructure.deAlgae());//.onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
     controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
     // Human Load Positions and Rollers
     //controller.operator.rightBumper().onTrue(superstructure.deAlgae()).onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
-    controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
+    //controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
     controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
     //controller.operator.start().onTrue(superstructure.algaeToHome());
     controller.operator.start().onTrue(superstructure.deAlgaeNegative());

@@ -148,6 +148,12 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A3_POS));
   }
+
+  public Command deAlgae() {
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A3_POS))
+      .alongWith(arm.runPosition(() -> 0.1))
+      .alongWith(armrollers.shootAlgae());
+  }
   
   public Command endRollers() {
     return (armrollers.stopRollers());
@@ -156,21 +162,16 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   public Command algaeSqueeze() {
     return (arm.setPivot2Brake().andThen(arm.runPosition(() -> 0.23)));
   }
-
+/* 
   public Command deAlgae() {
     return (arm.deployDeAlgea());
   }
   public Command deAlgaePositive() {
     return (arm.deployDeAlgea());
-  }
+  } */
   public Command deAlgaeNegative() {
     return (arm.runPosition(() -> 0).alongWith(armrollers.stopRollers()));
     //return (arm.retractDeAlgea());
-  }
-
-  public Command testDeAlgae() {
-    return (arm.runPosition(() -> .5));
-    //return (arm.incrementalDeAlgae());
   }
 
   public Command resetElevatorHome() {
