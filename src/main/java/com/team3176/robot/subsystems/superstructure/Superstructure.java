@@ -148,6 +148,10 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
     return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A3_POS));
   }
+  
+  public Command endRollers() {
+    return (armrollers.stopRollers());
+  } 
 
   public Command algaeSqueeze() {
     return (arm.setPivot2Brake().andThen(arm.runPosition(() -> 0.23)));

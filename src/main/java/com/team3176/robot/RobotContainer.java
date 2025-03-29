@@ -335,6 +335,8 @@ public class RobotContainer {
     controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
     //controller.operator.start().onTrue(superstructure.algaeToHome());
     controller.operator.start().onTrue(superstructure.deAlgaeNegative());
+    controller.operator.back().onTrue(superstructure.endRollers());
+
 
     // Shoot
     controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
