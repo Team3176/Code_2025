@@ -150,11 +150,13 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (arm.deployDeAlgea());
   }
   public Command deAlgaeNegative() {
-    return (arm.retractDeAlgea());
+    return (arm.runPosition(() -> .05));
+    //return (arm.retractDeAlgea());
   }
 
   public Command testDeAlgae() {
-    return (arm.incrementalDeAlgae());
+    return (arm.runPosition(() -> .5));
+    //return (arm.incrementalDeAlgae());
   }
 
   public Command resetElevatorHome() {

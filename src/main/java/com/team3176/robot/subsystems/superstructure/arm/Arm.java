@@ -215,7 +215,7 @@ public class Arm extends SubsystemBase {
 
   public void deAlgaeIncremental() {
     double currentPos = inputs.pivotPositionRot;
-    currentPos = currentPos - 0.1;
+    currentPos = currentPos + 0.25;
     setPivotVoltagePos(currentPos);
   }
 

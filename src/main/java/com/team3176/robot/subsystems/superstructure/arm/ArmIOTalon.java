@@ -100,7 +100,7 @@ public class ArmIOTalon implements ArmIO {
 
     pivotConfigs.Voltage.PeakForwardVoltage = 8;
     pivotConfigs.Voltage.PeakReverseVoltage = -10;
-    pivotConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    pivotConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     pivotConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.armCancoder_CID;
     pivotConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     pivotConfigs.Feedback.SensorToMechanismRatio = 1.0;
@@ -110,10 +110,10 @@ public class ArmIOTalon implements ArmIO {
     pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
     pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-        1.8;
+        0.6;
     pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
-        0.2;
+        0.0;
     pivotConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
     TalonUtils.applyTalonFxConfigs(pivotController, pivotConfigs);
