@@ -107,7 +107,7 @@ public class ArmIOTalon implements ArmIO {
 
     pivotConfigs.CurrentLimits.SupplyCurrentLimit = 60;
     pivotConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    pivotConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     pivotConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
         0.6;
