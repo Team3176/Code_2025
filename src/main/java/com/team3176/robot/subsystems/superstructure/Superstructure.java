@@ -159,7 +159,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (arm.deployDeAlgea());
   }
   public Command deAlgaeNegative() {
-    return (arm.runPosition(() -> 0));
+    return (arm.runPosition(() -> 0).alongWith(armrollers.stopRollers()));
     //return (arm.retractDeAlgea());
   }
 
