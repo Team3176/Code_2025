@@ -94,12 +94,12 @@ public class ArmIOTalon implements ArmIO {
 
     //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
-    pivotConfigs.Slot0.kP = 60; // An error of 1 rotation results in 2.4 V output
-    pivotConfigs.Slot0.kI = 0; // No output for integrated error
-    pivotConfigs.Slot0.kD = 1; // A velocity of 1 rps results in 0.1 V output
+    pivotConfigs.Slot0.kP = 5; // An error of 1 rotation results in 2.4 V output
+    pivotConfigs.Slot0.kI = 0.1; // No output for integrated error
+    pivotConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
-    pivotConfigs.Voltage.PeakForwardVoltage = 8;
-    pivotConfigs.Voltage.PeakReverseVoltage = -10;
+    pivotConfigs.Voltage.PeakForwardVoltage = 16;
+    pivotConfigs.Voltage.PeakReverseVoltage = -16;
     pivotConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     pivotConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.armCancoder_CID;
     pivotConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
