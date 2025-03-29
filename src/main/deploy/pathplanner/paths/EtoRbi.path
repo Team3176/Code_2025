@@ -4,7 +4,7 @@
     {
       "anchor": {
         "x": 4.903,
-        "y": 2.9421874999999993
+        "y": 2.942
       },
       "prevControl": null,
       "nextControl": {
@@ -12,7 +12,7 @@
         "y": 1.5306338028169002
       },
       "isLocked": false,
-      "linkedName": "E"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RightFeed"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

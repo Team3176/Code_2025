@@ -186,21 +186,22 @@ public class ReefScapeConstants {
 
         
     //DE-ALGAE FACES 1-6
-    public static final Pose2d REEFFACE_1_POSE = 
-        new Pose2d(new Translation2d(REEFFACE_1_XPOS, REEFFACE_1_YPOS), new Rotation2d(Math.toRadians(REEFFACE_1_DEG))); 
-
-    public static final Pose2d REEFFACE_2_POSE = 
+    public static final Pose2d REEFFACE_17_POSE = 
         new Pose2d(new Translation2d(REEFFACE_2_XPOS, REEFFACE_2_YPOS), new Rotation2d(Math.toRadians(REEFFACE_2_DEG))); 
 
-    public static final Pose2d REEFFACE_3_POSE = 
+    public static final Pose2d REEFFACE_18_POSE = 
+        new Pose2d(new Translation2d(REEFFACE_1_XPOS, REEFFACE_1_YPOS), new Rotation2d(Math.toRadians(REEFFACE_1_DEG))); 
+    
+   public static final Pose2d REEFFACE_19_POSE = 
+        new Pose2d(new Translation2d(REEFFACE_6_XPOS, REEFFACE_6_YPOS), new Rotation2d(Math.toRadians(REEFFACE_6_DEG))); 
+
+    public static final Pose2d REEFFACE_22_POSE = 
         new Pose2d(new Translation2d(REEFFACE_3_XPOS, REEFFACE_3_YPOS), new Rotation2d(Math.toRadians(REEFFACE_3_DEG))); 
 
-    public static final Pose2d REEFFACE_4_POSE = 
+    public static final Pose2d REEFFACE_21_POSE = 
         new Pose2d(new Translation2d(REEFFACE_4_XPOS, REEFFACE_4_YPOS), new Rotation2d(Math.toRadians(REEFFACE_4_DEG))); 
 
-    public static final Pose2d REEFFACE_5_POSE = 
+    public static final Pose2d REEFFACE_20_POSE = 
         new Pose2d(new Translation2d(REEFFACE_5_XPOS, REEFFACE_5_YPOS), new Rotation2d(Math.toRadians(REEFFACE_5_DEG))); 
 
-    public static final Pose2d REEFFACE_6_POSE = 
-        new Pose2d(new Translation2d(REEFFACE_6_XPOS, REEFFACE_6_YPOS), new Rotation2d(Math.toRadians(REEFFACE_6_DEG))); 
 }    

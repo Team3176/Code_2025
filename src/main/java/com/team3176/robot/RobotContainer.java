@@ -123,16 +123,16 @@ public class RobotContainer {
     NamedCommands.registerCommand("L2", superstructure.goToL2()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(2.5)));
+        .andThen(superstructure.goToL0().withTimeout(1)));
     NamedCommands.registerCommand("L3", superstructure.goToL3()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(2.5)));
+        .andThen(superstructure.goToL0().withTimeout(1)));
     // this keeps the elevator up while we shoot and then brings it down
     NamedCommands.registerCommand("L4", superstructure.goToL4()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(2.5)));
+        .andThen(superstructure.goToL0().withTimeout(1)));
 
     //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
 
@@ -313,20 +313,32 @@ public class RobotContainer {
     controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
     controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
     controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());   
-    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    //controller.operator.y().onTrue(superstructure.deAlgaePositive());
+    //controller.operator.b().onTrue(superstructure.testDeAlgae());
+
+    
     controller.operator.rightTrigger(0.8).and(controller.operator.rightStick().onTrue(superstructure.resetElevatorHome()));
-    controller.operator.pov(270).onTrue(superstructure.goToA1());
-    controller.operator.pov(0).onTrue(superstructure.goToA2());
-    controller.operator.pov(90).onTrue(superstructure.goToA3());
+    controller.operator.pov(180).onTrue(superstructure.goToL0()); 
+    controller.operator.pov(270)
+        .whileTrue(superstructure.goToA1())
+        .onFalse(superstructure.algaeSqueeze());//.onTrue(superstructure.goToA1());
+
+   
+    controller.operator.pov(0)
+        .whileTrue(superstructure.goToA2())
+        .onFalse(superstructure.algaeSqueeze());
+    controller.operator.pov(90).whileTrue(superstructure.deAlgae());//.onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
     controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
     // Human Load Positions and Rollers
     //controller.operator.rightBumper().onTrue(superstructure.deAlgae()).onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
-    controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
+    //controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
     controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
     //controller.operator.start().onTrue(superstructure.algaeToHome());
     controller.operator.start().onTrue(superstructure.deAlgaeNegative());
+    controller.operator.back().onTrue(superstructure.endRollers());
+
 
     // Shoot
     controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());

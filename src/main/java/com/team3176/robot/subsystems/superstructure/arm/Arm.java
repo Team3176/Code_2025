@@ -205,6 +205,20 @@ public class Arm extends SubsystemBase {
     setPivotVoltagePos(deployPos);
   }
 
+  public Command incrementalDeAlgae() {
+    return this.runOnce(
+      () -> {
+        deAlgaeIncremental();
+      }
+    );
+  }
+
+  public void deAlgaeIncremental() {
+    double currentPos = inputs.pivotPositionRot;
+    currentPos = currentPos + 0.25;
+    setPivotVoltagePos(currentPos);
+  }
+
   @Override
   public void periodic() {
     io.updateLaserCanMeasurement();
