@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "EtoRFeed"
+            "pathName": "EtoRbi"
           }
         },
         {
@@ -31,7 +31,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RFeedToF"
+            "pathName": "RightFeedToD"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "DToRFeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RightFeedToC"
           }
         },
         {

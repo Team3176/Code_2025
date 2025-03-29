@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 5.611,
-        "y": 3.797
+        "x": 5.685387323943662,
+        "y": 3.854929577464788
       },
       "prevControl": {
-        "x": 6.338712264150943,
-        "y": 3.8647476415094335
+        "x": 6.413099588094605,
+        "y": 3.922677218974221
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StalkG"
     }
   ],
   "rotationTargets": [],

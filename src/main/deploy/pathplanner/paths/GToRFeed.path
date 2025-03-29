@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.81294014084507,
+        "x": 5.685387323943662,
         "y": 3.854929577464788
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.29644014084507,
+        "x": 6.168887323943662,
         "y": 3.0552420774647873
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StalkG"
     },
     {
       "anchor": {
@@ -36,7 +36,7 @@
         "y": 0.93
       },
       "prevControl": {
-        "x": 2.2962818396226417,
+        "x": 2.296281839622642,
         "y": 1.138107311320755
       },
       "nextControl": null,
