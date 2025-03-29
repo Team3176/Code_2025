@@ -311,8 +311,9 @@ public class RobotContainer {
     // Scoring Positions
     controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
     controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
-    controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
+    //controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
     //controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());   
+    controller.operator.y().onTrue(superstructure.deAlgaePositive());
     controller.operator.b().onTrue(superstructure.testDeAlgae());
 
     controller.operator.pov(180).onTrue(superstructure.goToL0()); 
