@@ -324,7 +324,7 @@ public class RobotContainer {
         .onFalse(superstructure.algaeSqueeze());//.onTrue(superstructure.goToA1());
 
    
-    controller.operator.pov(0).onTrue(superstructure.goToA2());
+    controller.operator.pov(0).whileTrue(superstructure.goToA2()).onFalse(superstructure.algaeSqueeze());
     controller.operator.pov(90).onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
     controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
