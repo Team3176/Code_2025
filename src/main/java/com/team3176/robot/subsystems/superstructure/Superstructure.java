@@ -149,7 +149,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command algaeSqueeze() {
-    return (arm.setPivot2Brake().andThen(arm.runPosition(() -> 0.33)));
+    return (arm.setPivot2Brake().andThen(armrollers.stopRollers()).andThen(arm.runPosition(() -> 0.33)));
   }
 
   public Command deAlgae() {
