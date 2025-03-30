@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 4.903,
-        "y": 2.9421874999999993
+        "x": 4.948415492957746,
+        "y": 2.8628521126760553
       },
       "prevControl": {
-        "x": 4.948415492957746,
-        "y": 2.154225352112675
+        "x": 4.993830985915493,
+        "y": 2.074889964788731
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StalkE"
     }
   ],
   "rotationTargets": [],

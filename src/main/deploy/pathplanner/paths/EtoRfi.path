@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.903,
-        "y": 2.942
+        "x": 4.948415492957746,
+        "y": 2.8628521126760553
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.0192781690140835,
-        "y": 1.459771126760562
+        "x": 5.06469366197183,
+        "y": 1.3806232394366171
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StalkE"
     },
     {
       "anchor": {
