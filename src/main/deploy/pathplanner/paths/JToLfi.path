@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.075968309859155,
+        "x": 4.976760563380281,
         "y": 5.045422535211267
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.614524647887324,
-        "y": 6.533538732394366
+        "x": 5.572007042253521,
+        "y": 6.604401408450704
       },
       "isLocked": false,
       "linkedName": "StalkJ"
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "lfi"
     }
   ],
   "rotationTargets": [],
