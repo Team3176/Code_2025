@@ -149,7 +149,7 @@ public class RobotContainer {
         .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
         .andThen(superstructure.deAlgaeNegative())); 
  */
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(3.0));
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(1.5));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
