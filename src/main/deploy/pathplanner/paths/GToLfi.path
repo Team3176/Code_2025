@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.903,
-        "y": 2.9421874999999993
+        "x": 5.685387323943662,
+        "y": 3.854929577464788
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.713732394366197,
-        "y": 1.5306338028169002
+        "x": 7.315228873239506,
+        "y": 3.897447183092291
+      },
+      "isLocked": false,
+      "linkedName": "StalkG"
+    },
+    {
+      "anchor": {
+        "x": 5.444454225352181,
+        "y": 5.38556338027539
+      },
+      "prevControl": {
+        "x": 6.321911173400955,
+        "y": 4.896489015789188
+      },
+      "nextControl": {
+        "x": 4.579929577464856,
+        "y": 5.8674295774584895
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.6603873239436606,
-        "y": 0.6661091549295759
+        "x": 0.668309859154928,
+        "y": 6.675264084507042
       },
       "prevControl": {
-        "x": 2.99163732394366,
-        "y": 1.2426716549295755
+        "x": 0.8926984407610203,
+        "y": 6.565038114587035
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rfo"
+      "linkedName": "lfi"
     }
   ],
   "rotationTargets": [],
@@ -34,7 +50,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.86989764584402
+    "rotation": -144.09027692082242
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 29.999999999999996
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

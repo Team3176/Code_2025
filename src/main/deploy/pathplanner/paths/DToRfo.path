@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.903,
-        "y": 2.9421874999999993
+        "x": 4.055545774647887,
+        "y": 2.9904049295774637
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.713732394366197,
-        "y": 1.5306338028169002
+        "x": 3.858650779973426,
+        "y": 2.795991421114678
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StalkD"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 0.6661091549295759
       },
       "prevControl": {
-        "x": 2.99163732394366,
-        "y": 1.2426716549295755
+        "x": 1.8520087621374495,
+        "y": 0.8511594328362083
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 29.999999999999996
+    "rotation": -30.068582821862464
   },
   "useDefaultConstraints": true
 }
