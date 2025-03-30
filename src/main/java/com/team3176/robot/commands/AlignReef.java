@@ -12,6 +12,12 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Twist2d;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.Waypoint;
+import java.util.*;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AlignReef extends Command {
@@ -20,7 +26,9 @@ public class AlignReef extends Command {
   boolean isdone = false;
   int fiducialID = 0;
   int targetFaceID;
-
+  PathPlannerPath path;
+  Pose2d facePose[] = new Pose2d[23]; // Array to hold the face poses for reefs 17-22
+  double distance[] = new double[23];
 
   public static enum TargetLoc{
     LEFT,
@@ -30,16 +38,16 @@ public class AlignReef extends Command {
   TargetLoc targetLoc; 
   
   public AlignReef(TargetLoc targetLoc) {
+    System.out.println("Creating AlignReef Command");
     // Use addRequirements() here to declare subsystem dependencies.
     this.targetLoc = targetLoc; 
     Drive drive = Drive.getInstance();
-
+    for (int i = 17 ; i < 23 ; i++) {facePose[i] = new Pose2d();}
   }
 
   private Pose2d getClosestReefFacePose() {
     Pose2d closestFacePose = new Pose2d();
-    Pose2d facePose[];
-    double distance[];
+    double distance[] = new double[23]; // Array to hold distances from bot to reef faces 17-22
     facePose[17] = ReefScapeConstants.REEFFACE_17_POSE;
     facePose[18] = ReefScapeConstants.REEFFACE_18_POSE;
     facePose[19] = ReefScapeConstants.REEFFACE_19_POSE;
@@ -51,18 +59,16 @@ public class AlignReef extends Command {
       distance[i] = Math.sqrt(Math.pow((this.currentPose.getTranslation().getX() - facePose[i].getTranslation().getX()),2) + 
                 Math.pow((this.currentPose.getTranslation().getY() - facePose[i].getTranslation().getY()),2 ));
     }
+    double min = 100;
+    double dist = 100;
     for(int i = 17; i < 23; i++) {
-      double min = 100;
-      double dist = 100;
-      if (distance[i] < min) {dist = distance[i]; min = i; closestFacePose = facePose[i]; }
+      if (distance[i] < dist) {dist = distance[i]; min = i; closestFacePose = facePose[i]; }
     }
     return closestFacePose;
   }
 
   private int getClosestReefFaceID() {
     Pose2d closestFacePose = new Pose2d();
-    Pose2d facePose[];
-    double distance[];
     int min;
     double dist;
     facePose[17] = ReefScapeConstants.REEFFACE_17_POSE;
@@ -76,16 +82,18 @@ public class AlignReef extends Command {
       distance[i] = Math.sqrt(Math.pow((this.currentPose.getTranslation().getX() - facePose[i].getTranslation().getX()),2) + 
                 Math.pow((this.currentPose.getTranslation().getY() - facePose[i].getTranslation().getY()),2 ));
     }
+    
+    min = 100;
+    dist = 100;
     for(int i = 17; i < 23; i++) {
-      min = 100;
-      dist = 100;
-      if (distance[i] < min) {dist = distance[i]; min = i; closestFacePose = facePose[i]; }
+      if (distance[i] < dist) {dist = distance[i]; min = i; closestFacePose = facePose[i]; }
     }
     return min;
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("Initializing AlignReef Command");
     this.currentPose = Drive.getInstance().getPose();
     this.targetFaceID = getClosestReefFaceID();
     if (this.targetLoc == TargetLoc.LEFT) {
@@ -118,26 +126,48 @@ public class AlignReef extends Command {
         case 22: this.targetPose = ReefScapeConstants.REEFFACE_22_POSE;
       }
     }
+
+    List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
+      this.currentPose,
+      this.targetPose
+    );
+
+    PathConstraints constraints = new PathConstraints(
+      3.0, // max velocity (m/s)
+      1.0, // max acceleration (m/s^2)
+      Math.toRadians(540),
+      Math.toRadians(720)
+    );
+
+    this.path = new PathPlannerPath(
+      waypoints,
+      constraints,
+      null,
+      new GoalEndState(0,this.targetPose.getRotation())
+    );
+
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Executing AlignReef Command");
     // Get the current pose of the robot
     currentPose = Drive.getInstance().getPose();
-
+    AutoBuilder.followPath(this.path);
     // Get the target pose from the vision system
-    targetPose = 
+    //targetPose = 
 
     // Calculate the difference between the current and target poses
-    Translation2d translation = targetPose.getTranslation().minus(currentPose.getTranslation());
-    Rotation2d rotation = targetPose.getRotation().minus(currentPose.getRotation());
+    //Translation2d translation = targetPose.getTranslation().minus(currentPose.getTranslation());
+    //Rotation2d rotation = targetPose.getRotation().minus(currentPose.getRotation());
 
     // Create a Twist2d object to represent the difference
-    Twist2d twist = new Twist2d(translation.getX(), translation.getY(), rotation.getRadians());
+    //Twist2d twist = new Twist2d(translation.getX(), translation.getY(), rotation.getRadians());
     
     // Use the twist to drive the robot
-    Drive.getInstance().drive(twist);
+    //Drive.getInstance().drive(twist);
     
 
   
@@ -145,11 +175,14 @@ public class AlignReef extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println("Ending AlignReef Command");
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println("Checking if AlignReef Command is finished");
     if (currentPose == targetPose) {
       isdone = true;
     } else { isdone = false;}

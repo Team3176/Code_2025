@@ -150,8 +150,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command deAlgae() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A3_POS))
-      .alongWith(arm.runPosition(() -> 0.1))
+    return (arm.runPosition(() -> 0.15))
       .alongWith(armrollers.shootAlgae());
   }
   

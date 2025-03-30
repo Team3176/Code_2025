@@ -28,10 +28,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import com.team3176.robot.commands.DriveCommands;
 import com.team3176.robot.generated.TunerConstants;
+import com.team3176.robot.commands.*;
+import com.team3176.robot.commands.AlignReef;
+import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 import com.team3176.robot.subsystems.controller.Controller;
 import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
@@ -134,6 +138,11 @@ public class RobotContainer {
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(1)));
 
+    //NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
+    //    .withDeadline(new WaitCommand(1.5).andThen(superstructure.deAlgae().withDeadline(new WaitCommand(1.5)))
+    //    .andThen(superstructure.goToA2())
+    //    .andThen(superstructure.deAlgaeNegative())));
+
     //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
 
 /*     NamedCommands.registerCommand("L1", superstructure.goToL1().alongWith(Arm.getInstance().setPivotCurrents())
@@ -199,6 +208,10 @@ public class RobotContainer {
                 () -> -controller.getLeftX(),
                 () -> new Rotation2d()));
     */
+
+    controller.transStick.pov(270).onTrue(new PrintCommand("Aligning Left").andThen(new AlignReef(TargetLoc.LEFT).andThen(new PrintCommand("Aligning Left"))));
+    controller.transStick.pov(0).onTrue(new AlignReef(TargetLoc.CENTER));
+    controller.transStick.pov(90).onTrue(new AlignReef(TargetLoc.RIGHT));
 
     //BOOST ME BABY *2
     controller.rotStick.button(1).
@@ -327,7 +340,7 @@ public class RobotContainer {
     controller.operator.pov(0)
         .whileTrue(superstructure.goToA2())
         .onFalse(superstructure.algaeSqueeze());
-    controller.operator.pov(90).whileTrue(superstructure.deAlgae());//.onTrue(superstructure.goToA3());
+    controller.operator.pov(90).whileTrue(superstructure.deAlgae()).onFalse(superstructure.deAlgaeNegative());//.onTrue(superstructure.goToA3());
     controller.transStick.button(11).onTrue(superstructure.goToL0());   
     controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
