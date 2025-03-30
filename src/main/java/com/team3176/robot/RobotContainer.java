@@ -138,10 +138,10 @@ public class RobotContainer {
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(1)));
 
-    //NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
-    //    .withDeadline(new WaitCommand(1.5).andThen(superstructure.deAlgae().withDeadline(new WaitCommand(1.5)))
-    //    .andThen(superstructure.goToA2())
-    //    .andThen(superstructure.deAlgaeNegative())));
+    NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
+        .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
+        .andThen(superstructure.goToA2())
+        .andThen(superstructure.deAlgaeNegative()));
 
     //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
 
