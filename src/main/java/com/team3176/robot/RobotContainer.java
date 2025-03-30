@@ -136,7 +136,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("L4", superstructure.goToL4()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
+        .andThen(superstructure.goToL0().withTimeout(1.2)));
 
     NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
