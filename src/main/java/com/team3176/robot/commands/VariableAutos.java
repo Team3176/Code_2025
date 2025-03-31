@@ -1,17 +1,17 @@
 package com.team3176.robot.commands;
 
-import static com.team3176.robot.Constants.Drive.AutoConstants.kPathConstraints;
-import static com.team3176.robot.Constants.Drive.AutoConstants.kStartingPathConstraints;
-import static com.team3176.robot.Constants.Drive.AutoConstants.kStationApproachSpeed;
-import static com.team3176.robot.Constants.Drive.AutoConstants.kStationApproachTimeout;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kPathConstraints;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kStartingPathConstraints;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kStationApproachSpeed;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kStationApproachTimeout;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 
 import com.team3176.robot.RobotContainer;
-import com.team3176.robot.commands.Autos.AutoPaths;
+//import com.team3176.robot.commands.Autos.AutoPaths;
 import com.team3176.robot.commands.DynamicsCommandFactory.DynaPreset;
-import com.team3176.robot.commands.autos.AlignToReef;
-import com.team3176.robot.subsystems.SwerveSubsystem;
+import com.team3176.robot.commands.AlignToReef;
+import com.team3176.robot.subsystems.drivetrain.Drive;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -132,11 +132,11 @@ public class VariableAutos {
 
     private AlignToReef alignmentGenerator;
     private DynamicsCommandFactory dynamics;
-    private SwerveSubsystem swerve;
+    private Drive swerve;
 
     private final ChassisSpeeds reverseIntoStation;
 
-    public VariableAutos(AlignToReef alignmentGenerator, DynamicsCommandFactory dynamics, SwerveSubsystem swerve) {
+    public VariableAutos(AlignToReef alignmentGenerator, DynamicsCommandFactory dynamics, Drive swerve) {
         super();
         this.alignmentGenerator = alignmentGenerator;
         this.dynamics = dynamics;
@@ -144,7 +144,7 @@ public class VariableAutos {
 
         reverseIntoStation = new ChassisSpeeds(kStationApproachSpeed.unaryMinus().in(MetersPerSecond), 0, 0);
     }
-
+    /* 
     public Command generateAutoCycle(FieldBranch branch, StationSide side, BranchHeight height) {
         return generateAutoCycle(branch, side, height, Seconds.of(0));
     }
@@ -152,11 +152,11 @@ public class VariableAutos {
     public Command generateStartingAutoCycle(FieldBranch branch, StationSide side, BranchHeight height) {
         return generateStartingAutoCycle(branch, side, height, Seconds.of(0));
     }
-
+    */
     /**
      * Outputs the entire auto cycle from station to branch with mechanism movement
      */
-    public Command generateAutoCycle(FieldBranch branch, StationSide side, BranchHeight height, Time delay) {
+   /*  public Command generateAutoCycle(FieldBranch branch, StationSide side, BranchHeight height, Time delay) {
         var pathPair = getPathPair(branch, side);
         
         return Commands.sequence(
@@ -273,6 +273,6 @@ public class VariableAutos {
             align, 
             Autos.getAutoPathCommand(approachForLeftCS.getReverse(), mirror)
         );
-    }
+    } */
 
 }

@@ -1,6 +1,6 @@
 package com.team3176.robot.commands;
 import com.team3176.robot.Robot;
-import com.team3176.robot.Constants.IntakeConstants.IntakeSpeed;
+import com.team3176.robot.constants.IntakeConstants.IntakeSpeed;
 import com.team3176.robot.commands.VariableAutos.BranchHeight;
 import com.team3176.robot.subsystems.coral.ArmSubsystem;
 import com.team3176.robot.subsystems.coral.ElevatorSubsystem;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-import static com.team3176.robot.Constants.DynamicsConstants.*;
+import static com.team3176.robot.constants.DynamicsConstants.*;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.Millimeter;
@@ -27,15 +27,15 @@ import java.util.Set;
 
 public class DynamicsCommandFactory {
 
-    public IntakeSubsystem intakeSubsystem;
-    private ElevatorSubsystem elevatorSubsystem;
-    private ArmSubsystem armSubsystem;
+    //public IntakeSubsystem intakeSubsystem;
+    //private ElevatorSubsystem elevatorSubsystem;
+    //private ArmSubsystem armSubsystem;
 
-    private LaserCan funnelLC;
-    public Trigger hasScoredTrigger = new Trigger(this::isCoralInArm).negate().debounce(kScoreLaserCanDebounce);
+//    private LaserCan funnelLC;
+//    public Trigger hasScoredTrigger = new Trigger(this::isCoralInArm).negate().debounce(kScoreLaserCanDebounce);
 
     private DynaPreset lastInputtedPreset = DynaPreset.L4;
-
+    /* 
     public DynamicsCommandFactory(ArmSubsystem armSubsystem, ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
         this.armSubsystem = armSubsystem;
         this.elevatorSubsystem = elevatorSubsystem;
@@ -68,11 +68,11 @@ public class DynamicsCommandFactory {
 
     private record DynamicsSetpoint(double heightMeters, Rotation2d armAngle) {
     }
-
+    */
     public enum DynaPreset{
         LOAD(0.0, Rotation2d.fromDegrees(234.4421)),
-        PRESCORE(0.2, Rotation2d.fromDegrees(kSafeArmAngle.in(Degrees))),//114.173111)),
-        AUTO_PRESCORE(kMinSafeElevHeight, Rotation2d.fromDegrees(kSafeArmAngle.in(Degrees))),//114.173111)),
+        //PRESCORE(0.2, Rotation2d.fromDegrees(kSafeArmAngle.in(Degrees))),//114.173111)),
+        //AUTO_PRESCORE(kMinSafeElevHeight, Rotation2d.fromDegrees(kSafeArmAngle.in(Degrees))),//114.173111)),
         L1(0.1, Rotation2d.fromDegrees(47.900)),
         L2(0.0, Rotation2d.fromDegrees(47.900)),
         L3(Meters.of(0.23939+0.1524-0.0254).in(Meters), Rotation2d.fromDegrees(58.10311200000001)),
@@ -83,81 +83,18 @@ public class DynamicsCommandFactory {
 
         private final DynamicsSetpoint setpoint;
 
-        public Rotation2d getArmAngle() {
-            return this.setpoint.armAngle;
-        }
-        public double getElevatorHeight() {
-            return this.setpoint.heightMeters;
-        }
 
         private DynaPreset(double meters, Rotation2d angle) {
             this.setpoint = new DynamicsSetpoint(meters, angle);
         }
     }
 
-    private double getElevHeight(){
-        return RobotBase.isSimulation() ? elevatorSubsystem.getDesiredPosition().in(Meters) : elevatorSubsystem.getPosition();
-    }
 
-    private Rotation2d getArmRotation(){
-        return RobotBase.isSimulation() ? armSubsystem.getSetpoint() : armSubsystem.getPosition();
-    }
 
     //#region Composite Commands
 
 
-    //TODO swap out target with actual position
-
-    /**
-     * 
-     * @return Whether the elevator is safe to move (based on the arm's position)
-     */
-    private boolean isElevSafeToMove(){
-        var currAngle =  armSubsystem.getPosition();
-        return currAngle.getDegrees() > kMoveableArmAngle.in(Degrees); //TODO measure this so it's only if it's above the horizon (for climb)
-    }
-
-    private boolean isElevAtSetpoint(double setpoint){
-        return Math.abs(setpoint - getElevHeight()) < 2*kElevatorHeightTolerance;
-    }
-
-    private boolean isArmAtSetpoint(Rotation2d angle){
-        return getArmRotation().minus(angle).getMeasure().isNear(Degrees.of(0), kArmAngleTolerance);
-    }
-
-    /**
-     * @return Whether the arm is below the horizon and the elevator is too low to allow movement
-     */
-    private boolean isArmBelowHorizon(){
-        return (getArmRotation().getDegrees() > 180);
-    }
-
-    /**
-     * @return Whether the arm is below the horizon and the elevator is too low to allow movement
-     */
-    private boolean isArmStowed(){
-        return isArmBelowHorizon() && isElevStowed();
-    }
-
-    private boolean isElevStowed(){
-        return  getElevHeight() + kElevatorHeightTolerance < kMinSafeElevHeight;
-    }
-
-    private boolean isCoralInArm(){
-        // return false;
-        return intakeSubsystem.detect();
-    }
-
-    public boolean funnelDetect(){
-
-        var measurement = funnelLC.getMeasurement();
-
-        if (measurement == null) {
-            return false;
-        }
-
-        return  measurement.distance_mm < funnelLCTriggerDist.in(Millimeter) || intakeSubsystem.detect(); // the || is here as a way to prevent us stalling at a CS when we are already holding a coral
-    }
+    
 
     public boolean isSwerveMovable(){
         return getElevHeight() < kSafeElevHeightForSwerve;

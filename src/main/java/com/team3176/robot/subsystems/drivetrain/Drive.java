@@ -433,4 +433,9 @@ public class Drive extends SubsystemBase {
   public Rotation2d getOdometryHeading() {
     return poseEstimator.getEstimatedPosition().getRotation();
   }
+
+  public Rotation2d getHeading() {
+    return getPose().getRotation();
+  }
+
 }

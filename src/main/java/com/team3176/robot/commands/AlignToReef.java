@@ -46,7 +46,7 @@ public class AlignToReef {
     public boolean isPIDLoopRunning = false;
 
 
-    public AlignToReef(SwerveSubsystem mSwerve, AprilTagFieldLayout field) {
+    public AlignToReef(Drive mSwerve, AprilTagFieldLayout field) {
         this.mSwerve = mSwerve;
 
         Arrays.stream(AprilTagRegion.kReef.blue()).forEach((i) -> {
@@ -202,11 +202,11 @@ public class AlignToReef {
      * 
      * @return target rotation for the robot when it reaches the final waypoint
      */
-    private Rotation2d getBranchRotation(SwerveSubsystem swerve){
+    private Rotation2d getBranchRotation(Drive swerve){
         return getClosestReefAprilTag(swerve.getPose()).getRotation().rotateBy(Rotation2d.k180deg);
     }
 
-    public static Pose2d getClosestBranch(FieldBranchSide fieldSide, SwerveSubsystem swerve){
+    public static Pose2d getClosestBranch(FieldBranchSide fieldSide, Drive swerve){
         Pose2d swervePose = swerve.predict(kAutoAlignPredict);
         
         Pose2d tag = getClosestReefAprilTag(swervePose);

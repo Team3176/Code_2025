@@ -111,7 +111,7 @@ public class PositionPIDCommand extends Command{
         System.out.println("Adjustments to alginment took: " + timer.get() + " seconds and interrupted = " + interrupted
             + "\nPosition offset: " + Centimeter.convertFrom(diff.getTranslation().getNorm(), Meters) + " cm"
             + "\nRotation offset: " + diff.getRotation().getMeasure().in(Degrees) + " deg"
-            + "\nVelocity value: " + mSwerve.getSpeed() + "m/s"
+            //+ "\nVelocity value: " + mSwerve.getSpeed() + "m/s"
         );
     }
 
