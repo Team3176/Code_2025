@@ -1,9 +1,9 @@
 package com.team3176.robot.commands;
 
-import static com.team3176.robot.constants.DriveConstants.kEndTriggerDebounce;
-import static com.team3176.robot.constants.DriveConstants.kPositionTolerance;
-import static com.team3176.robot.constants.DriveConstants.kRotationTolerance;
-import static com.team3176.robot.constants.DriveConstants.kSpeedTolerance;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kEndTriggerDebounce;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kPositionTolerance;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kRotationTolerance;
+import static com.team3176.robot.constants.DriveConstants.AutoConstants.kSpeedTolerance;
 import static edu.wpi.first.units.Units.Centimeter;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Inches;
@@ -31,7 +31,7 @@ public class PositionPIDCommand extends Command{
     
     public Drive mSwerve;
     public final Pose2d goalPose;
-    private PPHolonomicDriveController mDriveController = Drive.AutoConstants.kAutoAlignPIDController;
+    private PPHolonomicDriveController mDriveController = DriveConstants.AutoConstants.kAutoAlignPIDController;
 
     private final Trigger endTrigger;
     private final Trigger endTriggerDebounced;
