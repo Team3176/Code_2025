@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RmToE"
+            "pathName": "CcToH"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "EToRfo"
+            "pathName": "HToRfo"
           }
         },
         {
@@ -31,31 +31,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RfoToD"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "L4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "DToRfo"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RfoToC"
+            "pathName": "RfoToG"
           }
         },
         {
