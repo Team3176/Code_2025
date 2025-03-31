@@ -47,7 +47,8 @@ import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
 import static com.team3176.robot.subsystems.vision.VisionConstants.*;
 import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
-
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -418,4 +419,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoChooser.get();
   }
+
+   public static AprilTagFieldLayout getFieldLayout() {
+        return fieldLayout;
+    }
 }
