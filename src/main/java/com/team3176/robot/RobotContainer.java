@@ -134,7 +134,7 @@ public class RobotContainer {
         .andThen(superstructure.goToL0().withTimeout(1)));
     // this keeps the elevator up while we shoot and then brings it down
     NamedCommands.registerCommand("L4", superstructure.goToL4()
-        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
+        .withDeadline(new WaitCommand(1).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(1.2)));
 
@@ -156,7 +156,7 @@ public class RobotContainer {
         .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
         .andThen(superstructure.deAlgaeNegative())); 
  */
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(1.5));
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(1));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());

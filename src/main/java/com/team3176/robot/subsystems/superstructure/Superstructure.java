@@ -132,9 +132,9 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
 
   public Command goToA1(){
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A1_POS)
-      .alongWith(arm.runPosition(() -> 0.5))
-      .alongWith(armrollers.runRollersIn(() -> 2)));
+    return (/* elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_A1_POS)
+      .alongWith( */arm.runPosition(() -> 0.5))
+      .alongWith(armrollers.runRollersIn(() -> 2));
   }
 
   public Command goToA2(){
