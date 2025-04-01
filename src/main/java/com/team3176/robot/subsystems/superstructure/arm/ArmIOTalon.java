@@ -94,7 +94,7 @@ public class ArmIOTalon implements ArmIO {
 
     //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
-    pivotConfigs.Slot0.kP = 5; // An error of 1 rotation results in 2.4 V output
+    pivotConfigs.Slot0.kP = 10; // An error of 1 rotation results in 2.4 V output
     pivotConfigs.Slot0.kI = 0.1; // No output for integrated error
     pivotConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
