@@ -46,7 +46,7 @@ import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
 import static com.team3176.robot.subsystems.vision.VisionConstants.*;
-import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
+//import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -67,7 +67,7 @@ public class RobotContainer {
 
   // Superstructure
   private final Superstructure superstructure = Superstructure.getInstance();
-  private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
+  //private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
   private final Vision vision;
 
   private Alliance currentAlliance = Alliance.Blue;
@@ -142,6 +142,13 @@ public class RobotContainer {
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
         .andThen(superstructure.goToA2())
         .andThen(superstructure.deAlgaeNegative()));
+    NamedCommands.registerCommand("IntakeAlgaeHigh", superstructure.goToA2());
+    NamedCommands.registerCommand("IntakeAlgaeLow", superstructure.goToA1());
+    NamedCommands.registerCommand("AlgaeSqueeze", superstructure.algaeSqueeze());
+    NamedCommands.registerCommand("Net", superstructure.goToL4()
+        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shootAlgae().withTimeout(1)))
+        .andThen(superstructure.stopRollers())
+        .andThen(superstructure.goToL0().withTimeout(1.2)));
 
     //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
 
@@ -263,11 +270,11 @@ public class RobotContainer {
             () -> 0.0,
             () -> 0.0,
             () -> true)
-            .until(() -> tofSystem.isAlignedCenter()
+            //.until(() -> tofSystem.isAlignedCenter()
             //.andThen(() -> drive.stop())
             
          )
-    );
+    ;
         
 
     controller.rotStick.pov(90).whileTrue(
@@ -277,10 +284,10 @@ public class RobotContainer {
             () -> 0.0,
             () -> 0.0,
             () -> true)
-            .until(() -> tofSystem.isAlignedLeft()
+            //.until(() -> tofSystem.isAlignedLeft()
             //.andThen(() -> drive.stop())
          )
-    );
+    ;
        
     
 
