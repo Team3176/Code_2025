@@ -149,12 +149,10 @@ public class RobotContainer {
         .andThen(superstructure.goToA2())
         .andThen(superstructure.deAlgaeNegative()));
 
-    //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
+    NamedCommands.registerCommand("AutoAlignLeft", alignmentCommandFactory.generateCommand(FieldBranchSide.LEFT));
+    NamedCommands.registerCommand("AutoAlignRight", alignmentCommandFactory.generateCommand(FieldBranchSide.RIGHT));
+    NamedCommands.registerCommand("AutoAlignCenter", getAutonomousCommand());
 
-/*     NamedCommands.registerCommand("L1", superstructure.goToL1().alongWith(Arm.getInstance().setPivotCurrents())
-        .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
-        .andThen(superstructure.deAlgaeNegative())); 
- */
     NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(1.5));
 
     // Set up auto routines
@@ -230,6 +228,13 @@ public class RobotContainer {
             //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
             // })
             .withName("Align Right Branch")
+            );
+
+    controller.transStick.pov(0).whileTrue(
+           alignmentCommandFactory.generateCommand(FieldBranchSide.CENTER)//.finallyDo((boolean interrupted) -> {
+            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
+            // })
+            .withName("Align Center Branch")
             );
 
 

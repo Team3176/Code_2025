@@ -85,7 +85,8 @@ public class AlignToReef {
      */
     public enum FieldBranchSide{
         LEFT(BranchSide.LEFT),
-        RIGHT(BranchSide.RIGHT);
+        RIGHT(BranchSide.RIGHT),
+        CENTER(BranchSide.CENTER);
 
         public BranchSide branchSide;
 
@@ -93,6 +94,7 @@ public class AlignToReef {
             switch (this){
                 case LEFT: return FieldBranchSide.RIGHT;
                 case RIGHT: return FieldBranchSide.LEFT;
+                case CENTER : return FieldBranchSide.CENTER;
             }
             System.out.println("Error, switch case failed to catch the field branch side");
             return this;
