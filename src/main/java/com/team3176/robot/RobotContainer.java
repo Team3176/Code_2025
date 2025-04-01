@@ -142,9 +142,9 @@ public class RobotContainer {
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
         .andThen(superstructure.goToA2())
         .andThen(superstructure.deAlgaeNegative()));
-    NamedCommands.registerCommand("IntakeAlgaeHigh", superstructure.goToA2());
-    NamedCommands.registerCommand("IntakeAlgaeLow", superstructure.goToA1());
-    NamedCommands.registerCommand("AlgaeSqueeze", superstructure.algaeSqueeze());
+    NamedCommands.registerCommand("IntakeAlgaeHigh", superstructure.goToA2().withDeadline(new WaitCommand(3)));
+    NamedCommands.registerCommand("IntakeAlgaeLow", superstructure.goToA1().withDeadline(new WaitCommand(3)));
+    NamedCommands.registerCommand("AlgaeSqueeze", superstructure.algaeSqueeze().withDeadline(new WaitCommand(1.5)));
     NamedCommands.registerCommand("Net", superstructure.goToL4()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shootAlgae().withTimeout(1)))
         .andThen(superstructure.stopRollers())
