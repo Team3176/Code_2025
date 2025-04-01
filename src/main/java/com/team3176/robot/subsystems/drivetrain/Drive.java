@@ -438,4 +438,9 @@ public class Drive extends SubsystemBase {
     return getPose().getRotation();
   }
 
+  public double getSpeed() {
+    ChassisSpeeds fieldVelocity = getFieldVelocity();
+    return Math.sqrt(fieldVelocity.vxMetersPerSecond * fieldVelocity.vxMetersPerSecond + fieldVelocity.vyMetersPerSecond * fieldVelocity.vyMetersPerSecond);
+}  
+
 }

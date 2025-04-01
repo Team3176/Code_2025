@@ -164,7 +164,7 @@ public class AlignToReef {
             Commands.print("end position PID loop")
         )).finallyDo((interupt) -> {
             if (interupt) { //if this is false then the position pid would've X braked & called the same method
-                mSwerve.drive(new ChassisSpeeds(0,0,0));
+                mSwerve.runVelocity(new ChassisSpeeds(0,0,0));
             }
         });
     }

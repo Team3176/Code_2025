@@ -73,8 +73,8 @@ public class PositionPIDCommand extends Command{
 
     public static Command generateCommand(Drive swerve, Pose2d goalPose, Time timeout){
         return new PositionPIDCommand(swerve, goalPose).withTimeout(timeout).finallyDo(() -> {
-            swerve.drive(new ChassisSpeeds(0,0,0));
-            swerve.lockModules();
+            swerve.runVelocity(new ChassisSpeeds(0,0,0));
+            swerve.stopWithX();
         });
     }
 
@@ -91,7 +91,7 @@ public class PositionPIDCommand extends Command{
 
         endTriggerLogger.accept(endTrigger.getAsBoolean());
 
-        mSwerve.drive(
+        mSwerve.runVelocity(
             mDriveController.calculateRobotRelativeSpeeds(
                 mSwerve.getPose(), goalState
             )

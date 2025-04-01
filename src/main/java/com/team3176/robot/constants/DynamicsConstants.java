@@ -61,7 +61,8 @@ import com.ctre.phoenix6.configs.SlotConfigs;
  */
 public final class DynamicsConstants {  
 
-
+    private record DynamicsSetpoint(double heightMeters, Rotation2d armAngle) {
+    }
 
 
  

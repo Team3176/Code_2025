@@ -154,5 +154,5 @@ public static final class AutoConstants {
             }
 
 
-  DriveConstants() {}
-}
+  void DriveConstants() {}
+}}

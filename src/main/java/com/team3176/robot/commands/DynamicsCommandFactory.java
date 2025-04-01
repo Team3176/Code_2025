@@ -1,10 +1,10 @@
 package com.team3176.robot.commands;
 import com.team3176.robot.Robot;
-import com.team3176.robot.constants.IntakeConstants.IntakeSpeed;
+//import com.team3176.robot.constants.IntakeConstants.IntakeSpeed;
 import com.team3176.robot.commands.VariableAutos.BranchHeight;
-import com.team3176.robot.subsystems.coral.ArmSubsystem;
-import com.team3176.robot.subsystems.coral.ElevatorSubsystem;
-import com.team3176.robot.subsystems.coral.IntakeSubsystem;
+//import com.team3176.robot.subsystems.coral.ArmSubsystem;
+//import com.team3176.robot.subsystems.coral.ElevatorSubsystem;
+//import com.team3176.robot.subsystems.coral.IntakeSubsystem;
 
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
@@ -65,10 +65,10 @@ public class DynamicsCommandFactory {
 
 
     }
-
+*/
     private record DynamicsSetpoint(double heightMeters, Rotation2d armAngle) {
     }
-    */
+    
     public enum DynaPreset{
         LOAD(0.0, Rotation2d.fromDegrees(234.4421)),
         //PRESCORE(0.2, Rotation2d.fromDegrees(kSafeArmAngle.in(Degrees))),//114.173111)),
@@ -96,10 +96,10 @@ public class DynamicsCommandFactory {
 
     
 
-    public boolean isSwerveMovable(){
-        return getElevHeight() < kSafeElevHeightForSwerve;
-    }
-
+    //public boolean isSwerveMovable(){
+    //    return getElevHeight() < kSafeElevHeightForSwerve;
+    //}
+    /* 
     private Command makeElevatorSafeToMove(){
         return Commands.sequence(
                 Commands.waitUntil(this::isElevSafeToMove),
@@ -107,11 +107,13 @@ public class DynamicsCommandFactory {
                 Commands.waitUntil(() -> !this.isElevStowed())
             ); 
     }
+    */
 
     /**
      * If the elevator is not in the load position, go to the safe elevator height.
      * Then, move the arm such that it is safe to move (meaning it won't hit the reef).
      */
+    /* 
     private Command makeSystemSafeToMove(boolean forceElevatorMovement, boolean forceArmMovement, boolean isSetpointBelowHorizon){ 
 
         //note to self, careful about when data gets read here
@@ -152,11 +154,11 @@ public class DynamicsCommandFactory {
         }, Set.of())
         .withName("Make System Safe");
     }
-
+    */
     /**
      * Moves the elevator first before moving the arm
      */
-    private Command elevatorPriorityMove(DynamicsSetpoint setpoint){
+    /*private Command elevatorPriorityMove(DynamicsSetpoint setpoint){
         return Commands.parallel(
             elevatorSubsystem.setSetPointCommand(setpoint.heightMeters),
             Commands.waitUntil(() -> isElevAtSetpoint(setpoint.heightMeters)).withTimeout(2).andThen(
@@ -174,7 +176,7 @@ public class DynamicsCommandFactory {
     /**
      * Moves the arm first before moving the elevator
      */
-    private Command armPriorityMove(DynamicsSetpoint setpoint){
+    /*private Command armPriorityMove(DynamicsSetpoint setpoint){
         return Commands.parallel(
             armSubsystem.setSetpointCommand(setpoint.armAngle),
             Commands.waitUntil(() -> isArmAtSetpoint(setpoint.armAngle)).withTimeout(2).andThen(
@@ -240,7 +242,7 @@ public class DynamicsCommandFactory {
     /**
      * Runs gotoScore() and saves the input so we can automatically go there next time
      */
-    public Command operatorScore(DynaPreset preset) {
+    /*public Command operatorScore(DynaPreset preset) {
         return Commands.runOnce(() -> lastInputtedPreset = preset)
                        .andThen(gotoScore(preset))
                        .withName("Operator Goto " + preset);
@@ -277,7 +279,7 @@ public class DynamicsCommandFactory {
     /**
      * Starts the intake immediately and ends the command once the funnel or manipulator LaserCAN detects coral. This will not stop the intake
      */
-    public Command blockingIntake(){
+    /*public Command blockingIntake(){
         return Commands.sequence(
             intake(),
             Commands.waitUntil(
@@ -291,7 +293,7 @@ public class DynamicsCommandFactory {
      * Intakes if there is no coral in the manipulator
      * @return a Command that will do the above actions 
      */
-    public Command intake(){
+    /*public Command intake(){
         return Commands.either(
             Commands.none(),
             intakeSubsystem.setPresetSpeedCommand(IntakeSpeed.IN),
@@ -304,4 +306,5 @@ public class DynamicsCommandFactory {
         return armSubsystem.setSetpointCommand(new Rotation2d(kRemoveAlgaeArmAngle))
                .onlyIf(() -> !isArmStowed());
     }
+    */
 }
