@@ -157,9 +157,6 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
       .alongWith(armrollers.shootAlgae());
   }
   
-  public Command endRollers() {
-    return (armrollers.stopRollers());
-  } 
 
   public Command algaeSqueeze() {
     return (arm.setPivot2Brake().andThen(arm.runPosition(() -> 0.23)));
@@ -193,8 +190,6 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   public Command runRollersIn () {
     return (armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS));
             //.until(() -> armrollers.haveCoral()));
-    //return armrollers.runVelocity(() -> this.HumanLoadTuneVolts.get());
-    //return (arm.runRollersIn(() -> this.HumanLoadTuneVolts.get()));//.until(() -> armrollers.haveCoral());
   }
 
 

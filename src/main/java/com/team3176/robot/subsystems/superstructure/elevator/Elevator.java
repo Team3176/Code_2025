@@ -167,7 +167,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public boolean isAtPos(DoubleSupplier position) {
-    return getCurrentPos() == position.getAsDouble();
+    return getCurrentPos() == (position.getAsDouble()-1);
   }
 
   public Command goToL0() {
