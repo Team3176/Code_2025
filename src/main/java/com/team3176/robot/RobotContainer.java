@@ -26,7 +26,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -135,22 +134,22 @@ public class RobotContainer {
         .andThen(superstructure.goToL0().withTimeout(1)));
     // this keeps the elevator up while we shoot and then brings it down
     NamedCommands.registerCommand("L4", superstructure.goToL4()
-        .andThen(superstructure.shoot())
+        //.withDeadline(new WaitCommand(1)
+        .andThen(superstructure.shoot())//.withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0()));
+        .andThen(superstructure.goToL0()));//.withTimeout(1.2)));
 
     NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
         .andThen(superstructure.goToA2())
         .andThen(superstructure.deAlgaeNegative()));
-
     NamedCommands.registerCommand("IntakeAlgaeHigh", superstructure.goToA2().withDeadline(new WaitCommand(3)));
     NamedCommands.registerCommand("IntakeAlgaeLow", superstructure.goToA1().withDeadline(new WaitCommand(3)));
     NamedCommands.registerCommand("AlgaeSqueeze", superstructure.algaeSqueeze().withDeadline(new WaitCommand(1.5)));
     NamedCommands.registerCommand("Net", superstructure.goToL4()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shootAlgae().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0()));
+        .andThen(superstructure.goToL0().withTimeout(1.2)));
 
     //NamedCommands.registerCommand("L4Auto", superstructure.goToL4().andThen());
 
@@ -158,7 +157,7 @@ public class RobotContainer {
         .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
         .andThen(superstructure.deAlgaeNegative())); 
  */
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn());
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(1));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -335,10 +334,6 @@ public class RobotContainer {
     controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
     controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
     controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());   
-    
-    //controller.operator.b().onTrue(Commands.runOnce(() -> CommandScheduler.getInstance().cancelAll()));
-        
-    
     //controller.operator.y().onTrue(superstructure.deAlgaePositive());
     //controller.operator.b().onTrue(superstructure.testDeAlgae());
 
