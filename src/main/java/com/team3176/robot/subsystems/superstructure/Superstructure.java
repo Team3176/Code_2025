@@ -104,8 +104,8 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command goToL0() {
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)
-            .until(() -> elevator.isAtPos(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS));
+            //.until(() -> elevator.isAtPos(() -> SuperStructureConstants.ELEVATORLEADER_L0_POS)));
   }
 
   public Command goToL1() {
@@ -125,8 +125,8 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
 
   public Command goToL4() {
     //return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS).alongWith(arm.runPosition(() -> SuperStructureConstants.ARM_L4_POS).andThen(armrollers.setPosTrack(POS.L4))));
-    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS)
-            .until(() -> elevator.isAtPos(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS)));
+    return (elevator.goToPosition(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS));
+            //.until(() -> elevator.isAtPos(() -> SuperStructureConstants.ELEVATORLEADER_L4_POS)));
   }
 
   public Command holdL1Coral() {
@@ -157,9 +157,6 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
       .alongWith(armrollers.shootAlgae());
   }
   
-  public Command endRollers() {
-    return (armrollers.stopRollers());
-  } 
 
   public Command algaeSqueeze() {
     return (arm.setPivot2Brake().andThen(arm.runPosition(() -> 0.23)));
@@ -191,15 +188,13 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (arm.runPosition(() -> SuperStructureConstants.ARM_ALGAEZERO_POS));}
 
   public Command runRollersIn () {
-    return (armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS)
-            .until(() -> armrollers.haveCoral()));
-    //return armrollers.runVelocity(() -> this.HumanLoadTuneVolts.get());
-    //return (arm.runRollersIn(() -> this.HumanLoadTuneVolts.get()));//.until(() -> armrollers.haveCoral());
+    return (armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS));
+            //.until(() -> armrollers.haveCoral()));
   }
 
 
   public Command shoot() {
-    return (armrollers.shoot().until(() -> !armrollers.haveCoral()));
+    return (armrollers.shoot());//.until(() -> !armrollers.haveCoral()));
   }
 
   public Command shootAlgae() {
