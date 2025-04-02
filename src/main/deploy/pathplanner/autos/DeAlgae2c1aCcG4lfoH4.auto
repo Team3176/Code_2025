@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GToGaH"
+            "pathName": "GtoHDeAlgae"
           }
         },
         {
@@ -31,19 +31,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GAHToLrB"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LrBToLfo"
+            "pathName": "DeAlgaeGToLfo"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LfoToH"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L4"
           }
         }
       ]

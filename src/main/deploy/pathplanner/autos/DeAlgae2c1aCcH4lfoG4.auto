@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CcToG"
+            "pathName": "CcToH"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GToGaH"
+            "pathName": "HtoGDeAlgae"
           }
         },
         {
@@ -31,19 +31,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GAHToLrB"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LrBToLfo"
+            "pathName": " DeAlgaeHToRfo"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RfoToG"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L4"
           }
         }
       ]

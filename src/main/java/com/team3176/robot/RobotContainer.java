@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -142,6 +143,7 @@ public class RobotContainer {
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
         .andThen(superstructure.goToA2())
         .andThen(superstructure.deAlgaeNegative()));
+
     NamedCommands.registerCommand("IntakeAlgaeHigh", superstructure.goToA2().withDeadline(new WaitCommand(3)));
     NamedCommands.registerCommand("IntakeAlgaeLow", superstructure.goToA1().withDeadline(new WaitCommand(3)));
     NamedCommands.registerCommand("AlgaeSqueeze", superstructure.algaeSqueeze().withDeadline(new WaitCommand(1.5)));
@@ -333,6 +335,10 @@ public class RobotContainer {
     controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
     controller.operator.y().onTrue(superstructure.goToL3()); //.onFalse(superstructure.goToL0());    
     controller.operator.b().onTrue(superstructure.goToL4()); //.onFalse(superstructure.goToL0());   
+    
+    //controller.operator.b().onTrue(Commands.runOnce(() -> CommandScheduler.getInstance().cancelAll()));
+        
+    
     //controller.operator.y().onTrue(superstructure.deAlgaePositive());
     //controller.operator.b().onTrue(superstructure.testDeAlgae());
 
