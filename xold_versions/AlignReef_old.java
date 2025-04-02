@@ -27,6 +27,7 @@ public class AlignReef extends Command {
   int fiducialID = 0;
   int targetFaceID;
   PathPlannerPath path;
+  PathConstraints constraints;
   Pose2d facePose[] = new Pose2d[23]; // Array to hold the face poses for reefs 17-22
   double distance[] = new double[23];
 
@@ -132,7 +133,7 @@ public class AlignReef extends Command {
       this.targetPose
     );
 
-    PathConstraints constraints = new PathConstraints(
+    this.constraints = new PathConstraints(
       3.0, // max velocity (m/s)
       1.0, // max acceleration (m/s^2)
       Math.toRadians(540),
@@ -141,7 +142,7 @@ public class AlignReef extends Command {
 
     this.path = new PathPlannerPath(
       waypoints,
-      constraints,
+      this.constraints,
       null,
       new GoalEndState(0,this.targetPose.getRotation())
     );
@@ -155,7 +156,7 @@ public class AlignReef extends Command {
     System.out.println("Executing AlignReef Command");
     // Get the current pose of the robot
     currentPose = Drive.getInstance().getPose();
-    AutoBuilder.followPath(this.path);
+    AutoBuilder.pathfindThenFollowPath(this.path, this.constraints);
     // Get the target pose from the vision system
     //targetPose = 
 

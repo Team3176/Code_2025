@@ -48,6 +48,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.units.measure.Time;
 import com.team3176.robot.Constants;
 import com.team3176.robot.Constants.Mode;
 import com.team3176.robot.constants.BaseConstants;
@@ -406,4 +407,40 @@ public class Drive extends SubsystemBase {
       new Translation2d(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)
     };
   }
+
+  public ChassisSpeeds getFieldVelocity() {
+    ChassisSpeeds robotRelativeSpeeds = kinematics.toChassisSpeeds(getModuleStates());
+    return ChassisSpeeds.fromRobotRelativeSpeeds(robotRelativeSpeeds, getOdometryHeading());
+}
+
+ public Pose2d predict(Time inTheFuture){
+        
+        Pose2d currPose = getPose();
+
+        var cs = getFieldVelocity();
+
+        return new Pose2d(
+            currPose.getX() + cs.vxMetersPerSecond * inTheFuture.in(Seconds), 
+            currPose.getY() + cs.vyMetersPerSecond * inTheFuture.in(Seconds), 
+            currPose.getRotation().plus(Rotation2d.fromRadians(cs.omegaRadiansPerSecond * inTheFuture.in(Seconds)))
+        );
+    }
+   /**
+   * Fetch the latest odometry heading, should be trusted over {@link SwerveDrive#getYaw()}.
+   *
+   * @return {@link Rotation2d} of the robot heading.
+   */
+  public Rotation2d getOdometryHeading() {
+    return poseEstimator.getEstimatedPosition().getRotation();
+  }
+
+  public Rotation2d getHeading() {
+    return getPose().getRotation();
+  }
+
+  public double getSpeed() {
+    ChassisSpeeds fieldVelocity = getFieldVelocity();
+    return Math.sqrt(fieldVelocity.vxMetersPerSecond * fieldVelocity.vxMetersPerSecond + fieldVelocity.vyMetersPerSecond * fieldVelocity.vyMetersPerSecond);
+}  
+
 }

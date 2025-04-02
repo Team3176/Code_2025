@@ -31,11 +31,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import com.team3176.robot.commands.DriveCommands;
+
 import com.team3176.robot.generated.TunerConstants;
 import com.team3176.robot.commands.*;
-import com.team3176.robot.commands.AlignReef;
-import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
+import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
+//import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 import com.team3176.robot.subsystems.controller.Controller;
 import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
@@ -47,7 +47,8 @@ import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
 import static com.team3176.robot.subsystems.vision.VisionConstants.*;
 //import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
-
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -73,7 +74,11 @@ public class RobotContainer {
   private Alliance currentAlliance = Alliance.Blue;
 //  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
   private Trigger visionOverride; 
- 
+  private static final AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
+
+  private AlignToReef alignmentCommandFactory = null;
+  private VariableAutos variableAutoFactory = null;
+  public final DynamicsCommandFactory dynamics = null;
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -121,7 +126,8 @@ public class RobotContainer {
       break;
       */
     // }
-
+    alignmentCommandFactory = new AlignToReef(drive, fieldLayout);
+    variableAutoFactory = new VariableAutos(alignmentCommandFactory, dynamics, drive);
 
 
     NamedCommands.registerCommand("L2", superstructure.goToL2()
@@ -217,9 +223,23 @@ public class RobotContainer {
                 () -> new Rotation2d()));
     */
 
-    controller.transStick.pov(270).onTrue(new PrintCommand("Aligning Left").andThen(new AlignReef(TargetLoc.LEFT).andThen(new PrintCommand("Aligning Left"))));
-    controller.transStick.pov(0).onTrue(new AlignReef(TargetLoc.CENTER));
-    controller.transStick.pov(90).onTrue(new AlignReef(TargetLoc.RIGHT));
+    //controller.transStick.pov(270).onTrue(new PrintCommand("Aligning Left").andThen(new AlignReef(TargetLoc.LEFT).andThen(new PrintCommand("Aligning Left"))));
+    //controller.transStick.pov(0).onTrue(new AlignReef(TargetLoc.CENTER));
+    //controller.transStick.pov(90).onTrue(new AlignReef(TargetLoc.RIGHT));
+    controller.transStick.pov(270).whileTrue(
+            alignmentCommandFactory.generateCommand(FieldBranchSide.LEFT)//.finallyDo((boolean interrupted) -> {
+            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
+            // })
+                .withName("Align Left Branch")
+            );
+    
+    controller.transStick.pov(90).whileTrue(
+            alignmentCommandFactory.generateCommand(FieldBranchSide.RIGHT)//.finallyDo((boolean interrupted) -> {
+            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
+            // })
+            .withName("Align Right Branch")
+            );
+
 
     //BOOST ME BABY *2
     controller.rotStick.button(1).
@@ -426,4 +446,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoChooser.get();
   }
+
+   public static AprilTagFieldLayout getFieldLayout() {
+        return fieldLayout;
+    }
 }

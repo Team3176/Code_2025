@@ -4,8 +4,43 @@
 package com.team3176.robot.constants;
 
 import com.pathplanner.lib.config.ModuleConfig;
+import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
+import com.team3176.robot.subsystems.drivetrain.Drive;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.wpilibj.LEDPattern;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.units.measure.Velocity;
+
+import static edu.wpi.first.units.Units.Amps;
+import static edu.wpi.first.units.Units.Centimeter;
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.InchesPerSecond;
+import static edu.wpi.first.units.Units.Kilogram;
+import static edu.wpi.first.units.Units.KilogramSquareMeters;
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Seconds;
 public class DriveConstants {
   public int SERIAL;
   public int THRUST_CID;
@@ -73,7 +108,51 @@ public class DriveConstants {
           moduleTranslations);
 }
 */
+public static final class AutoConstants {
+            public static final PIDConstants kTranslationPID = new PIDConstants(5.0,0,0);
+            public static final PIDConstants kRotationPID = new PIDConstants(5.0,0,0);
+
+            public static final PPHolonomicDriveController kDriveController = new PPHolonomicDriveController(
+                DriveConstants.AutoConstants.kTranslationPID, 
+                DriveConstants.AutoConstants.kRotationPID
+            );
 
 
-  DriveConstants() {}
-}
+            public static final PPHolonomicDriveController kAutoAlignPIDController = new PPHolonomicDriveController(
+                DriveConstants.AutoConstants.kTranslationPID, 
+                DriveConstants.AutoConstants.kRotationPID
+            );
+
+            public static final Time kAutoAlignPredict = Seconds.of(0.0);
+
+            public static final Rotation2d kRotationTolerance = Rotation2d.fromDegrees(2.0);
+            public static final Distance kPositionTolerance = Centimeter.of(1.0);
+            public static final LinearVelocity kSpeedTolerance = InchesPerSecond.of(1);
+
+            public static final Time kEndTriggerDebounce = Seconds.of(0.1);
+
+            public static final Time kTeleopAlignAdjustTimeout = Seconds.of(2);
+            public static final Time kAutoAlignAdjustTimeout = Seconds.of(0.6);
+
+
+            public static final LinearVelocity kStationApproachSpeed = InchesPerSecond.of(5);
+            public static final Time kStationApproachTimeout = Seconds.of(5);
+
+            public static final PathConstraints kStartingPathConstraints = new PathConstraints(3, 1.75, 1/2 * Math.PI, 1 * Math.PI); // The constraints for this path.
+
+
+            public static final PathConstraints kPathConstraints = new PathConstraints(2, 1.75, 1/2 * Math.PI, 1 * Math.PI); // The constraints for this path.
+        
+            // X = side to side, Y = away from tag
+            // public static final Translation2d kTagOffset = new Translation2d(0.10, 0.55); //TODO fix based off field cad
+
+            public static final class StationVisualizationConstants {
+                    public static final Pose2d kBlueLeft = new Pose2d(0.947, 7.447, Rotation2d.fromDegrees(-50));
+                    public static final Pose2d kBlueRight = new Pose2d(0.947, 0.614, Rotation2d.fromDegrees(50));
+                    public static final Pose2d kRedLeft = new Pose2d(16.603, 0.614, Rotation2d.fromDegrees(130));
+                    public static final Pose2d kRedRight = new Pose2d(16.603, 7.447, Rotation2d.fromDegrees(-120));
+            }
+
+
+  void DriveConstants() {}
+}}
