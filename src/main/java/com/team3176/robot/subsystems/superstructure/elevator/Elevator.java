@@ -162,6 +162,14 @@ public class Elevator extends SubsystemBase {
       });
   }
 
+  public double getCurrentPos() {
+    return inputs.LeftElevatorHeight;
+  }
+
+  public boolean isAtPos(DoubleSupplier position) {
+    return getCurrentPos() == position.getAsDouble();
+  }
+
   public Command goToL0() {
     return runOnce(() -> setDesiredSetpoint(L0ElvSetpoint));
   }
