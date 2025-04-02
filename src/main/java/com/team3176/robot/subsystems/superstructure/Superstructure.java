@@ -188,8 +188,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
     return (arm.runPosition(() -> SuperStructureConstants.ARM_ALGAEZERO_POS));}
 
   public Command runRollersIn () {
-    return (armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS));
-            //.until(() -> armrollers.haveCoral()));
+    return (armrollers.runVelocity(() -> SuperStructureConstants.ARM_HF_VOLTS));//.until(() -> armrollers.haveCoral()));
   }
 
 
