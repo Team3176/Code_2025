@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6036971830985902,
-        "y": 7.468926056338027
+        "x": 5.657,
+        "y": 4.074
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7718653815976686,
-        "y": 7.283941037989042
+        "x": 6.961500000000001,
+        "y": 4.112749999999999
       },
       "isLocked": false,
-      "linkedName": "lfo"
+      "linkedName": "StalkG"
     },
     {
       "anchor": {
-        "x": 5.486971830985915,
-        "y": 7.142957746478873
+        "x": 5.685387323943662,
+        "y": 7.185475352112676
       },
       "prevControl": {
-        "x": 2.989367637893399,
-        "y": 6.300016331310149
+        "x": 7.329645026250285,
+        "y": 7.87833866063182
       },
       "nextControl": {
-        "x": 6.620774647887324,
-        "y": 7.525616197183099
+        "x": 3.4319542253521123,
+        "y": 6.235915492957746
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.657,
-        "y": 4.074
+        "x": 1.6036971830985902,
+        "y": 7.468926056338027
       },
       "prevControl": {
-        "x": 7.612809859154931,
-        "y": 4.045654929577465
+        "x": 1.7945437544408689,
+        "y": 7.307440495971484
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "StalkG"
+      "linkedName": "lfo"
     }
   ],
   "rotationTargets": [],
@@ -58,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -142.8152935467669
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -142.8152935467669
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }
