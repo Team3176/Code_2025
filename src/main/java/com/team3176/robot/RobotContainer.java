@@ -225,20 +225,9 @@ public class RobotContainer {
     //controller.transStick.pov(270).onTrue(new PrintCommand("Aligning Left").andThen(new AlignReef(TargetLoc.LEFT).andThen(new PrintCommand("Aligning Left"))));
     //controller.transStick.pov(0).onTrue(new AlignReef(TargetLoc.CENTER));
     //controller.transStick.pov(90).onTrue(new AlignReef(TargetLoc.RIGHT));
-    controller.transStick.pov(270).whileTrue(
-            alignmentCommandFactory.generateCommand(FieldBranchSide.LEFT)//.finallyDo((boolean interrupted) -> {
-            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
-            // })
-                .withName("Align Left Branch")
-            );
-    
-    controller.transStick.pov(90).whileTrue(
-            alignmentCommandFactory.generateCommand(FieldBranchSide.RIGHT)//.finallyDo((boolean interrupted) -> {
-            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
-            // })
-            .withName("Align Right Branch")
-            );
 
+    // Switch to X pattern when X button is pressed
+    controller.transStick.button(4).whileTrue(Commands.runOnce(drive::stopWithX, drive));
 
     //BOOST ME BABY *2
     controller.rotStick.button(1).
@@ -251,8 +240,21 @@ public class RobotContainer {
             )
         );
     
-   //RobotCentric ME BABY 
-    controller.rotStick.button(3).
+    // Shoot
+    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
+    controller.transStick.button(2).onTrue(superstructure.shootAlgae()).onFalse(superstructure.stopRollers());
+   
+    //transStick Stow Elevator
+    controller.transStick.button(11).onTrue(superstructure.goToL0());   
+
+    //transStick Climb 
+    controller.transStick.button(16).and(controller.transStick.button(15)).whileTrue(superstructure.transStickClimbExtend());
+    controller.transStick.button(16).and(controller.transStick.button(14)).whileTrue(superstructure.transStickClimbRetract());
+   
+   
+   
+    //RobotCentric ME BABY 
+    controller.rotStick.button(2).
         whileTrue(
             DriveCommands.joystickDrive(
                 drive,
@@ -263,6 +265,19 @@ public class RobotContainer {
             )
         );
 
+    controller.rotStick.button(3).whileTrue(
+            alignmentCommandFactory.generateCommand(FieldBranchSide.LEFT)//.finallyDo((boolean interrupted) -> {
+            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
+            // })
+                .withName("Align Left Branch")
+            );
+    
+    controller.rotStick.button(4).whileTrue(
+            alignmentCommandFactory.generateCommand(FieldBranchSide.RIGHT)//.finallyDo((boolean interrupted) -> {
+            //     dynamics.gotoLastInputtedScore().onlyIf(() -> !interrupted);
+            // })
+            .withName("Align Right Branch")
+            );
      controller.rotStick.pov(0).whileTrue(
         DriveCommands.joystickDrive(
             drive,
@@ -320,8 +335,6 @@ public class RobotContainer {
 
 
 
-    // Switch to X pattern when X button is pressed
-    controller.transStick.button(4).whileTrue(Commands.runOnce(drive::stopWithX, drive));
     
     // Reset gyro to 0° when B button is pressed
     controller
@@ -345,8 +358,6 @@ public class RobotContainer {
     // Staring configuration = 0 to -5
     // Max extension = 
     controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
-    controller.transStick.button(16).and(controller.transStick.button(15)).whileTrue(superstructure.transStickClimbExtend());
-    controller.transStick.button(16).and(controller.transStick.button(14)).whileTrue(superstructure.transStickClimbRetract());
      
     // Scoring Positions
     controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
@@ -368,7 +379,6 @@ public class RobotContainer {
         .whileTrue(superstructure.goToA2())
         .onFalse(superstructure.algaeSqueeze());
     controller.operator.pov(90).whileTrue(superstructure.deAlgae()).onFalse(superstructure.deAlgaeNegative());//.onTrue(superstructure.goToA3());
-    controller.transStick.button(11).onTrue(superstructure.goToL0());   
     controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
     // Human Load Positions and Rollers
@@ -380,9 +390,6 @@ public class RobotContainer {
     controller.operator.back().onTrue(superstructure.stopRollers());
 
 
-    // Shoot
-    controller.transStick.button(1).onTrue(superstructure.shoot()).onFalse(superstructure.stopRollers());
-    controller.transStick.button(2).onTrue(superstructure.shootAlgae()).onFalse(superstructure.stopRollers());
     
     
       
