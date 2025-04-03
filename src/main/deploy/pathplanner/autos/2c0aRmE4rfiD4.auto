@@ -23,15 +23,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "intake"
+            "waitTime": 0.5
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "RfiToD"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RfiToD"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
           }
         },
         {

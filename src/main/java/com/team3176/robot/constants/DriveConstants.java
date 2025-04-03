@@ -109,8 +109,8 @@ public class DriveConstants {
 }
 */
 public static final class AutoConstants {
-            public static final PIDConstants kTranslationPID = new PIDConstants(5.0,0,0);
-            public static final PIDConstants kRotationPID = new PIDConstants(5.0,0,0);
+            public static final PIDConstants kTranslationPID = new PIDConstants(1.0,0,0);
+            public static final PIDConstants kRotationPID = new PIDConstants(1.0,0,0);
 
             public static final PPHolonomicDriveController kDriveController = new PPHolonomicDriveController(
                 DriveConstants.AutoConstants.kTranslationPID, 

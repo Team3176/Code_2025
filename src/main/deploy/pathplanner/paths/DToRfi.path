@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 3.6445422535211263,
-        "y": 2.0691901408450692
+        "y": 2.0691901408450697
       },
       "isLocked": false,
       "linkedName": "StalkD"
@@ -49,7 +49,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

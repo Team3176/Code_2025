@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.15475352112676,
-        "y": 5.172975352112676
+        "x": 3.9068866571018646,
+        "y": 5.058680057388809
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9985797592381527,
-        "y": 5.368192554473433
+        "x": 3.7507128952132573,
+        "y": 5.253897259749566
       },
       "isLocked": false,
       "linkedName": "StalkK"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.005105633802817,
-        "y": 5.059595070422534
+        "x": 4.888593974175035,
+        "y": 5.139526542324247
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.998855633802817,
-        "y": 6.1792253521126765
+        "x": 5.626745155293308,
+        "y": 6.21271482914705
       },
       "isLocked": false,
       "linkedName": "StalkJ"
     },
     {
       "anchor": {
-        "x": 2.5107394366197173,
-        "y": 5.456426056338028
+        "x": 3.3294117647058816,
+        "y": 6.352223816355811
       },
       "prevControl": {
-        "x": 3.2511870729908527,
-        "y": 5.414231571702926
+        "x": 4.392274050308926,
+        "y": 6.734595004469102
       },
       "nextControl": {
-        "x": 1.770291800248582,
-        "y": 5.49862054097313
+        "x": 1.435294117647058,
+        "y": 5.67080344332855
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 6.774471830985915
       },
       "prevControl": {
-        "x": 0.7631525121238966,
-        "y": 6.616850631668903
+        "x": 0.8347202295552357,
+        "y": 6.4446197991391685
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

@@ -15,6 +15,8 @@ package com.team3176.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -82,6 +84,7 @@ public class RobotContainer {
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
+  public PathPlannerAuto autocommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -142,7 +145,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("L4", superstructure.goToL4()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1.2)));
+        .andThen(superstructure.goToL0().withTimeout(1.5)));
 
     NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
@@ -162,7 +165,10 @@ public class RobotContainer {
         .withDeadline(new WaitCommand(2.5).andThen(superstructure.deAlgaePositive().withTimeout(2)))
         .andThen(superstructure.deAlgaeNegative())); 
  */
-    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(1));
+    NamedCommands.registerCommand("intake", superstructure.runRollersIn().withTimeout(2));
+    //autocommand = new PathPlannerAuto("2c0aCcG4IfoH4");
+    //autocommand.event("intake").onTrue(superstructure.runRollersIn());
+    //new EventTrigger("intake").onTrue(superstructure.runRollersIn().withTimeout(1));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
