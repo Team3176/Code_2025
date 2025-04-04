@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GToLfo"
+            "pathName": "OGToLfo"
           }
         },
         {
@@ -35,7 +35,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LfoToH"
+                  "pathName": "OLfoToH"
                 }
               },
               {

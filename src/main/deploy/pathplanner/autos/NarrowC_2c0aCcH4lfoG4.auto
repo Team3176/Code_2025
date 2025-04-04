@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CcToG"
+            "pathName": "CcToH"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "OGToLfo"
+            "pathName": "HToRfo"
           }
         },
         {
@@ -35,7 +35,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LfoToA"
+                  "pathName": "RfoToG"
                 }
               },
               {

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.8146126760563375,
-        "y": 3.1037852112676045
+        "x": 3.2216391509433966,
+        "y": 3.9284198113207545
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.628789139494546,
-        "y": 2.936544028361992
+        "x": 3.035815614381605,
+        "y": 3.761178628415142
       },
       "isLocked": false,
       "linkedName": "StalkC"
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -30.068582821862464
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

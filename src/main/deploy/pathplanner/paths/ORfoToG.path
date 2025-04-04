@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.670725806451613,
-        "y": 4.010827464788732
+        "x": 1.6603873239436606,
+        "y": 0.6661091549295759
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.236910377358491,
-        "y": 3.417924528301887
+        "x": 2.2437589670014337,
+        "y": 1.836370157819224
       },
       "isLocked": false,
-      "linkedName": "StalkG"
+      "linkedName": "rfo"
     },
     {
       "anchor": {
-        "x": 5.063561320754717,
-        "y": 1.9623231132075467
+        "x": 5.661290322580645,
+        "y": 1.2935437589670005
       },
       "prevControl": {
-        "x": 6.808903301886793,
-        "y": 1.8243514150943394
+        "x": 2.9830884614508286,
+        "y": 1.6584314234974276
       },
       "nextControl": {
-        "x": 2.5161901713109227,
-        "y": 2.163696326602313
+        "x": 6.932855093256815,
+        "y": 1.1203012912482064
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.6257922535211253,
-        "y": 1.3038732394366184
+        "x": 5.670725806451613,
+        "y": 4.010827464788732
       },
       "prevControl": {
-        "x": 1.5107900943458592,
-        "y": 2.3417452830131085
+        "x": 8.207609609268514,
+        "y": 4.124207746478872
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rfi"
+      "linkedName": "StalkG"
     }
   ],
   "rotationTargets": [],
@@ -58,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -36.86989764584402
   },
   "useDefaultConstraints": true
 }

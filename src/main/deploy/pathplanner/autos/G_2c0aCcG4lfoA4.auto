@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "OGToLfo"
+            "pathName": "OGToRfi"
           }
         },
         {
@@ -35,7 +35,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LfoToA"
+                  "pathName": "RfiToB"
                 }
               },
               {
