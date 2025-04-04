@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 0.6257922535211253,
-        "y": 1.29
+        "y": 1.25
       },
       "prevControl": null,
       "nextControl": {
         "x": 1.3769366197183084,
-        "y": 1.0348943661971828
+        "y": 0.9948943661971827
       },
       "isLocked": false,
       "linkedName": "rfi"

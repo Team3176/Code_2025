@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.42,
-        "y": 3.88
+        "x": 3.5,
+        "y": 3.8
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2341764634382084,
-        "y": 3.7127588170943873
+        "x": 3.3141764634382085,
+        "y": 3.632758817094387
       },
       "isLocked": false,
       "linkedName": "StalkC"
