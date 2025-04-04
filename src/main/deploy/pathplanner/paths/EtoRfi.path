@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 5.798421934043283,
-        "y": 1.3327469840564183
+        "y": 1.3327469840564181
       },
       "isLocked": false,
       "linkedName": "StalkE"
@@ -33,11 +33,11 @@
     {
       "anchor": {
         "x": 0.6257922535211253,
-        "y": 1.3038732394366184
+        "y": 1.29
       },
       "prevControl": {
         "x": 0.8462697274031554,
-        "y": 1.8479196556671444
+        "y": 1.834046416230526
       },
       "nextControl": null,
       "isLocked": false,
