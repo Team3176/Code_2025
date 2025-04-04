@@ -153,7 +153,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   }
 
   public Command deAlgae() {
-    return (arm.runPosition(() -> 0.15))
+    return (arm.runPosition(() -> 0.17))
       .alongWith(armrollers.shootAlgae());
   }
   
@@ -168,7 +168,7 @@ public Command armVoltVelManual(DoubleSupplier voltage) { return armrollers.runV
   public Command deAlgaePositive() {
     return (arm.deployDeAlgea());
   } */
-  public Command deAlgaeNegative() {
+  public Command deAlgaeHome() {
     return (arm.runPosition(() -> 0).alongWith(armrollers.stopRollers()));
     //return (arm.retractDeAlgea());
   }

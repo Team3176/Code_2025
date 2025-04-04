@@ -150,7 +150,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("DeAlgae", superstructure.goToA3()
         .withTimeout(1.5).andThen(superstructure.deAlgae().withTimeout(1.5))
         .andThen(superstructure.goToA2())
-        .andThen(superstructure.deAlgaeNegative()));
+        .andThen(superstructure.deAlgaeHome()));
     NamedCommands.registerCommand("IntakeAlgaeHigh", superstructure.goToA2().withDeadline(new WaitCommand(3)));
     NamedCommands.registerCommand("IntakeAlgaeLow", superstructure.goToA1().withDeadline(new WaitCommand(3)));
     NamedCommands.registerCommand("AlgaeSqueeze", superstructure.algaeSqueeze().withDeadline(new WaitCommand(1.5)));
@@ -384,7 +384,7 @@ public class RobotContainer {
     controller.operator.pov(0)
         .whileTrue(superstructure.goToA2())
         .onFalse(superstructure.algaeSqueeze());
-    controller.operator.pov(90).whileTrue(superstructure.deAlgae()).onFalse(superstructure.deAlgaeNegative());//.onTrue(superstructure.goToA3());
+    controller.operator.pov(90).whileTrue(superstructure.deAlgae()).onFalse(superstructure.deAlgaeHome());//.onTrue(superstructure.goToA3());
     controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
     // Human Load Positions and Rollers
@@ -392,7 +392,7 @@ public class RobotContainer {
     //controller.operator.rightBumper().onTrue(superstructure.deAlgaePositive());// .onFalse(superstructure.algaeToHome()); //.onFalse(superstructure.goToL0());
     controller.operator.leftTrigger(0.8).whileTrue(superstructure.runRollersIn()).onFalse(superstructure.stopRollers());
     //controller.operator.start().onTrue(superstructure.algaeToHome());
-    controller.operator.start().onTrue(superstructure.deAlgaeNegative());
+    controller.operator.start().whileTrue(superstructure.deAlgae()).onFalse(superstructure.deAlgaeHome());
     controller.operator.back().onTrue(superstructure.stopRollers());
 
 
