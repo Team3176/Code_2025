@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 5.691332547169811,
-        "y": 4.225058962264151
+        "y": 4.375
       },
       "prevControl": null,
       "nextControl": {
         "x": 8.511667054212065,
-        "y": 4.210886427052883
+        "y": 4.360827464788732
       },
       "isLocked": false,
       "linkedName": "StalkH"

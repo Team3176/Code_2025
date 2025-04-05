@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 3.5,
-        "y": 3.93
+        "y": 3.78
       },
       "prevControl": null,
       "nextControl": {
         "x": 3.3141764634382085,
-        "y": 3.7627588170943875
+        "y": 3.612758817094387
       },
       "isLocked": false,
       "linkedName": "StalkC"
